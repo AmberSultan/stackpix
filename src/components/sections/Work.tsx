@@ -1,0 +1,152 @@
+import { useState } from 'react'
+import { SectionHeading } from '@/components/ui/SectionHeading'
+import { Reveal } from '@/components/ui/Reveal'
+import { Modal } from '@/components/ui/Modal'
+import { ProjectVisual } from '@/components/ui/ProjectVisual'
+import { Button } from '@/components/ui/Button'
+import { ArrowUpRight } from '@/components/ui/Icons'
+import { CaseStudy } from './CaseStudy'
+import { projects, publishedResults, type Project } from '@/config/site'
+import { cn } from '@/lib/cn'
+
+export function Work() {
+  const [selected, setSelected] = useState<Project | null>(null)
+
+  return (
+    <section id="work" className="section-y relative bg-surface/40">
+      {/* Soft edges so the band reads as a change in light, not a hard block */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-linear-to-b from-ink to-transparent"
+      />
+
+      <div className="container-page relative">
+        <SectionHeading
+          eyebrow="Selected work"
+          title={
+            <>
+              Case studies, not
+              <br className="hidden sm:block" /> a wall of thumbnails.
+            </>
+          }
+          description="Every project here shipped with a measurable target attached. Open one to see the problem we were handed, what we built, and what changed afterwards."
+        />
+
+        <div className="mt-16 grid gap-x-6 gap-y-14 md:grid-cols-2 md:gap-y-20">
+          {projects.map((project, index) => (
+            <Reveal
+              key={project.slug}
+              delay={(index % 2) * 110}
+              // Offsets the second column so the grid reads as an editorial
+              // spread rather than a spreadsheet.
+              className={cn(index % 2 === 1 && 'md:mt-24')}
+            >
+              <ProjectCard project={project} onOpen={() => setSelected(project)} />
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-24 flex justify-center" variant="fade">
+          <Button
+            href="#contact"
+            variant="secondary"
+            size="lg"
+            magnetic
+            icon={<ArrowUpRight className="size-4" />}
+          >
+            Start your project
+          </Button>
+        </Reveal>
+      </div>
+
+      <Modal
+        open={selected !== null}
+        onClose={() => setSelected(null)}
+        label={selected ? `${selected.client} case study` : 'Case study'}
+      >
+        {selected ? <CaseStudy project={selected} /> : null}
+      </Modal>
+    </section>
+  )
+}
+
+function ProjectCard({
+  project,
+  onOpen,
+}: {
+  project: Project
+  onOpen: () => void
+}) {
+  const metrics = publishedResults(project).slice(0, 2)
+
+  return (
+    // The whole card is clickable via a "stretched link" overlay rather than
+    // by wrapping everything in a <button> — a button may only contain
+    // phrasing content, and this card has headings, a paragraph and a list.
+    <article className="group relative">
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label={`Open the ${project.client} case study`}
+        className="absolute inset-0 z-10 cursor-pointer rounded-[var(--radius-panel)]"
+      />
+
+      <div className="text-left">
+        <div
+          className={cn(
+            'relative aspect-4/3 overflow-hidden rounded-[var(--radius-panel)] border border-line',
+            'transition-[border-color,box-shadow,transform] duration-700 ease-[var(--ease-out-quint)]',
+            'group-hover:-translate-y-1.5 group-hover:border-line-strong',
+            'group-hover:shadow-[0_40px_80px_-32px_rgba(0,0,0,0.9)]',
+          )}
+        >
+          <ProjectVisual project={project} />
+
+          {/* Hover affordance */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span className="glass flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium opacity-0 transition-[opacity,transform] duration-500 ease-[var(--ease-out-quint)] group-hover:opacity-100 sm:translate-y-2 sm:group-hover:translate-y-0">
+              View case study
+              <ArrowUpRight className="size-4" />
+            </span>
+          </div>
+
+          <span className="absolute top-5 left-5 rounded-full bg-black/50 px-3 py-1 font-mono text-[0.625rem] tracking-[0.16em] text-white/80 uppercase backdrop-blur-md">
+            {project.year}
+          </span>
+        </div>
+
+        <div className="mt-6 flex items-start justify-between gap-6">
+          <div>
+            <h3 className="text-h3 font-semibold transition-colors duration-500">
+              {project.client}
+            </h3>
+            <p className="mt-1.5 text-sm text-muted">{project.category}</p>
+          </div>
+
+          <span className="mt-1 flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-muted transition-all duration-500 ease-[var(--ease-out-quint)] group-hover:border-transparent group-hover:bg-accent group-hover:text-ink">
+            <ArrowUpRight className="size-4" />
+          </span>
+        </div>
+
+        <p className="mt-4 max-w-md leading-relaxed text-muted">
+          {project.summary}
+        </p>
+
+        {/* Headline metrics — the reason to click through. Omitted while a
+            project's figures are still placeholders. */}
+        {metrics.length > 0 ? (
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-5">
+            {metrics.map((result) => (
+              <li key={result.label} className="flex items-baseline gap-2">
+                <span className="text-lg font-semibold tracking-[-0.02em]">
+                  {result.value}
+                </span>
+                <span className="text-[0.8125rem] text-muted">{result.label}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
+    </article>
+  )
+}
