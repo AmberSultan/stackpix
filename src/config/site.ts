@@ -46,7 +46,7 @@ export const navLinks = [
 
 export const hero = {
   badge: 'Shopify Partner — booking Q3 projects',
-  headline: ['We build Shopify stores', 'that customers love.'],
+  headline: ['We made Shopify stores', 'that customers love.'],
   subline:
     'A premium design & development studio for fashion, jewellery, beauty and lifestyle brands. We turn browsers into buyers with stores that feel as considered as the products they sell.',
   primaryCta: { label: 'View Work', href: '#work' },
