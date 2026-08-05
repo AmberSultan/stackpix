@@ -40,15 +40,20 @@
   --p-fill-1: rgb(16 22 20 / 0.035);
   --p-fill-2: rgb(16 22 20 / 0.07);
 
-  /* Brand — peacock. Deep enough that small labels clear AA on off-white
-     (5.4:1), and white sits on it at the same ratio. */
-  --p-brand: #0a6d75;
-  --p-brand-bright: #12909a;
-  --p-brand-deep: #064e56;
-  --p-on-brand: #ffffff;
+  /* Brand — peacock.
+     The chosen brand value is #0d8a98. On this off-white it measures 3.83:1,
+     which is fine for icons and fills but fails AA for small text — and the
+     section eyebrows are 11px. So light mode runs the same hue one step
+     deeper (4.7:1) for anything that can carry text, and #0d8a98 itself is
+     the hover/highlight tone plus the centre of the gradient. Dark mode uses
+     #0d8a98 directly, where it measures 4.96:1. */
+  --p-brand: #0b7a87;
+  --p-brand-bright: #0d8a98;
+  --p-brand-deep: #075c66;
+  --p-on-brand: #ffffff; /* 5.06:1 on --p-brand */
 
   /* Peacock proper: green through teal to blue, the way the feather runs. */
-  --p-brand-grad: linear-gradient(100deg, #0d8a6d 0%, #0a7d8c 48%, #0a5f9e 100%);
+  --p-brand-grad: linear-gradient(100deg, #0f9a76 0%, #0d8a98 48%, #0b62a8 100%);
   --p-fg-grad: linear-gradient(180deg, #111614 15%, #4d5654 135%);
 
   --p-scrim: rgb(12 18 17 / 0.45);
@@ -71,10 +76,11 @@
     rgb(255 255 255 / 0.62) 100%
   );
 
-  /* Ambient blooms behind the hero and CTA */
-  --p-aurora-1: rgb(13 138 109 / 0.20);
-  --p-aurora-2: rgb(10 125 140 / 0.20);
-  --p-aurora-3: rgb(10 95 158 / 0.14);
+  /* Ambient blooms behind the hero and CTA — the gradient's three stops, so
+     the light above the fold is the brand spread out rather than a grey haze. */
+  --p-aurora-1: rgb(13 138 152 / 0.22);
+  --p-aurora-2: rgb(15 154 118 / 0.18);
+  --p-aurora-3: rgb(11 98 168 / 0.14);
 
   --p-noise-opacity: 0.04;
   --p-noise-blend: multiply;
@@ -100,14 +106,15 @@
   --p-fill-1: rgb(255 255 255 / 0.03);
   --p-fill-2: rgb(255 255 255 / 0.06);
 
-  /* Brighter peacock — a deep teal disappears against near-black. Labels sit
-     on dark, so the fill takes a near-black label instead of white. */
-  --p-brand: #14a3b0;
-  --p-brand-bright: #35c6d2;
-  --p-brand-deep: #0b6c76;
+  /* #0d8a98 exactly, as chosen — it measures 4.96:1 against this background,
+     so it needs no adjustment here. Labels sit on dark, so a brand fill takes
+     a near-black label (5.11:1) rather than white. */
+  --p-brand: #0d8a98;
+  --p-brand-bright: #2ab5c4;
+  --p-brand-deep: #085e69;
   --p-on-brand: #04191b;
 
-  --p-brand-grad: linear-gradient(100deg, #1fbb92 0%, #21b4c6 48%, #2f8fd8 100%);
+  --p-brand-grad: linear-gradient(100deg, #1fbb92 0%, #2ab5c4 48%, #3193de 100%);
   --p-fg-grad: linear-gradient(180deg, #ffffff 20%, #8b8b8b 130%);
 
   --p-scrim: rgb(0 0 0 / 0.8);
@@ -132,8 +139,8 @@
   );
 
   --p-aurora-1: rgb(255 255 255 / 0.13);
-  --p-aurora-2: rgb(20 163 176 / 0.22);
-  --p-aurora-3: rgb(53 198 210 / 0.10);
+  --p-aurora-2: rgb(13 138 152 / 0.26);
+  --p-aurora-3: rgb(42 181 196 / 0.12);
 
   --p-noise-opacity: 0.028;
   --p-noise-blend: soft-light;

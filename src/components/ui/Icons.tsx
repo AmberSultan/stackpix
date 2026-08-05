@@ -1,11 +1,6 @@
 import type { SVGProps } from 'react'
 import type { IconName } from '@/config/site'
 
-/**
- * Hand-drawn icon set on a 24px grid with a 1.5 stroke — consistent weight is
- * what makes an icon row look designed rather than assembled. No icon library
- * dependency, no unused glyphs in the bundle.
- */
 
 type IconProps = SVGProps<SVGSVGElement>
 
@@ -19,7 +14,6 @@ const defaults: IconProps = {
   'aria-hidden': true,
 }
 
-/* ------------------------------------------------------------ service icons */
 
 const Store = (props: IconProps) => (
   <svg {...defaults} {...props}>

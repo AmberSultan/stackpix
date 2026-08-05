@@ -14,17 +14,17 @@
  * ==========================================================================*/
 
 export const site = {
-  name: 'Stackpix',
+  name: 'StackPix',
   /** Short form used inside the logo mark (1–2 characters look best). */
   mark: 'S',
   /** Legal entity shown in the footer copyright line. */
-  legalName: 'Stackpix',
+  legalName: 'StackPix',
 
   tagline: 'Shopify stores for brands that outgrew the DMs.',
   description:
-    'Stackpix builds fast, premium Shopify stores for Instagram-first brands — and rescues the ones already live but not selling.',
+    'StackPix builds fast, premium Shopify stores for Instagram-first brands — and rescues the ones already live but not selling.',
 
-  email: 'hello@stackpix.co', // ← CHANGE ME: your real inbox
+  email: 'stackpixx@gmail.com',
   phone: '+92 300 0000000', // ← CHANGE ME (or delete — it is only used here)
   location: 'Remote — working with brands worldwide',
   bookingUrl: 'https://cal.com/', // ← CHANGE ME: your Cal.com / Calendly link
@@ -63,6 +63,19 @@ export const hero = {
     { value: '2–4 wks', label: 'Kickoff to live' },
     { value: '90+', label: 'Lighthouse, guaranteed' },
     { value: 'Free', label: 'Store audit to start' },
+  ],
+  /**
+   * The two floating chips either side of the hero. Deliberately NOT a repeat
+   * of `metrics` above — these carry the two commitments that strip does not,
+   * so the fold says four things rather than three twice.
+   *
+   * Keep them consistent with `stats`. They used to be hardcoded in Hero.tsx
+   * and drifted into claiming a 98/100 Lighthouse and a 6-week build, both of
+   * which contradicted the rest of the page.
+   */
+  chips: [
+    { label: 'Aftercare', value: '30 days' },
+    { label: 'Ownership', value: '100% yours' },
   ],
 } as const
 

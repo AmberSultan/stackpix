@@ -79,8 +79,15 @@ export function Preloader({ onComplete }: Props) {
       )}
     >
       <div className="flex items-center gap-2.5">
-        <span className="flex size-8 items-center justify-center rounded-[0.6rem] bg-brand text-sm font-bold text-on-brand">
+        <span className="relative flex size-8 items-center justify-center overflow-hidden rounded-[0.6rem] bg-brand text-sm font-bold text-on-brand">
           {site.mark}
+          <img
+            src="/brand/logo.svg"
+            alt=""
+            width={32}
+            height={32}
+            className="absolute inset-0 size-full"
+          />
         </span>
         <span className="text-[0.9375rem] font-semibold tracking-[-0.02em]">
           {site.name}

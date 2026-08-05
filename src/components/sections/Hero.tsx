@@ -31,7 +31,7 @@ export function Hero({ ready }: Props) {
     <section
       ref={parallaxRef}
       id="top"
-      className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-32 pb-20 md:pt-36"
+      className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-24 pb-20 md:pt-36"
     >
       {/* Background stack. Each layer takes a different multiple of --mx/--my
           so the field gains depth as the cursor moves. */}
@@ -48,7 +48,10 @@ export function Hero({ ready }: Props) {
         <div className="flex flex-col items-center text-center">
           {/* Availability badge */}
           <div className={enterClass} style={stagger(0)}>
-            <span className="glass inline-flex items-center gap-2.5 rounded-full py-1.5 pr-4 pl-2 text-[0.8125rem] text-subtle">
+            {/* 9px on phones so the line does not wrap — a two-line pill reads
+                as a paragraph rather than a badge. Padding and gap step down
+                with it, or a 9px label sits in a pill sized for 13px text. */}
+            <span className="glass inline-flex items-center gap-1.5 rounded-full py-1 pr-3 pl-1.5 text-[9px] text-subtle sm:gap-2.5 sm:py-1.5 sm:pr-4 sm:pl-2 sm:text-[0.8125rem]">
               <span className="relative flex size-1.5">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-70" />
                 <span className="relative inline-flex size-1.5 rounded-full bg-brand" />
@@ -81,42 +84,64 @@ export function Hero({ ready }: Props) {
             })}
           </h1>
 
-          <p
-            className={cn(
-              'text-lead mt-7 max-w-2xl leading-relaxed text-balance text-subtle',
-              enterClass,
-            )}
-            style={stagger(3)}
-          >
-            {hero.subline}
-          </p>
+          {/* Subline, CTAs and the floating chips share one relative band.
+              Anchoring the chips here — rather than to the section, against
+              viewport percentages — puts them in the gutter beside content
+              that is only max-w-2xl wide. The headline above is far wider,
+              which is exactly what they used to collide with. */}
+          <div className="relative flex w-full flex-col items-center">
+            <FloatingChip
+              className="absolute top-[42%] left-0 hidden -translate-y-1/2 xl:block"
+              depth={-30}
+              delay="-2.5s"
+              label={hero.chips[0].label}
+              value={hero.chips[0].value}
+            />
+            <FloatingChip
+              className="absolute top-[64%] right-0 hidden -translate-y-1/2 xl:block"
+              depth={26}
+              delay="-5s"
+              label={hero.chips[1].label}
+              value={hero.chips[1].value}
+            />
 
-          <div
-            className={cn(
-              'mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row',
-              enterClass,
-            )}
-            style={stagger(4)}
-          >
-            <Button
-              href={hero.primaryCta.href}
-              size="lg"
-              magnetic
-              className="w-full sm:w-auto"
-              icon={<ArrowRight className="size-4" />}
+            <p
+              className={cn(
+                'text-lead mt-7 max-w-2xl leading-relaxed text-balance text-subtle',
+                enterClass,
+              )}
+              style={stagger(3)}
             >
-              {hero.primaryCta.label}
-            </Button>
-            <Button
-              href={hero.secondaryCta.href}
-              size="lg"
-              variant="secondary"
-              magnetic
-              className="w-full sm:w-auto"
-              icon={<ArrowUpRight className="size-4" />}
+              {hero.subline}
+            </p>
+
+            <div
+              className={cn(
+                'mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row',
+                enterClass,
+              )}
+              style={stagger(4)}
             >
-              {hero.secondaryCta.label}
-            </Button>
+              <Button
+                href={hero.primaryCta.href}
+                size="lg"
+                magnetic
+                className="w-full sm:w-auto"
+                icon={<ArrowRight className="size-4" />}
+              >
+                {hero.primaryCta.label}
+              </Button>
+              <Button
+                href={hero.secondaryCta.href}
+                size="lg"
+                variant="secondary"
+                magnetic
+                className="w-full sm:w-auto"
+                icon={<ArrowUpRight className="size-4" />}
+              >
+                {hero.secondaryCta.label}
+              </Button>
+            </div>
           </div>
 
           {/* Proof strip */}
@@ -139,21 +164,6 @@ export function Hero({ ready }: Props) {
         </div>
       </div>
 
-      {/* Floating glass chips — desktop only, purely atmospheric */}
-      <FloatingChip
-        className="left-[6%] top-[30%] hidden xl:flex"
-        depth={-30}
-        delay="-2.5s"
-        label="Lighthouse"
-        value="98 / 100"
-      />
-      <FloatingChip
-        className="right-[6%] top-[42%] hidden xl:flex"
-        depth={26}
-        delay="-5s"
-        label="Avg. build time"
-        value="6 weeks"
-      />
     </section>
   )
 }
@@ -172,21 +182,27 @@ function FloatingChip({
   value: string
 }) {
   return (
-    <div
-      aria-hidden
-      className={cn('pointer-events-none absolute', className)}
-      style={{
-        transform: `translate3d(calc(var(--mx, 0) * ${depth}px), calc(var(--my, 0) * ${depth * 0.7}px), 0)`,
-      }}
-    >
+    // Three layers, one transform each: placement (the -translate-y-1/2 in
+    // className), then parallax, then the float keyframe. Stacking them on a
+    // single element means whichever lands last silently wins — which is how
+    // the vertical centring got dropped the first time.
+    <div aria-hidden className={cn('pointer-events-none absolute', className)}>
       <div
-        className="animate-float glass flex flex-col gap-1 rounded-2xl px-5 py-4 shadow-[var(--p-chip-shadow)]"
-        style={{ animationDelay: delay }}
+        style={{
+          transform: `translate3d(calc(var(--mx, 0) * ${depth}px), calc(var(--my, 0) * ${depth * 0.7}px), 0)`,
+        }}
       >
-        <span className="font-mono text-[0.625rem] tracking-[0.16em] text-muted uppercase">
-          {label}
-        </span>
-        <span className="text-lg font-semibold tracking-[-0.02em]">{value}</span>
+        <div
+          className="animate-float glass flex flex-col gap-1 rounded-2xl px-5 py-4 whitespace-nowrap shadow-[var(--p-chip-shadow)]"
+          style={{ animationDelay: delay }}
+        >
+          <span className="font-mono text-[0.625rem] tracking-[0.16em] text-muted uppercase">
+            {label}
+          </span>
+          <span className="text-lg font-semibold tracking-[-0.02em]">
+            {value}
+          </span>
+        </div>
       </div>
     </div>
   )

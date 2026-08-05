@@ -24,7 +24,7 @@ The three things that live outside that file:
 | What | Where |
 | --- | --- |
 | Page `<title>`, meta description, Open Graph tags | [`index.html`](index.html) |
-| Favicon (currently a typographic tile) | [`public/favicon.svg`](public/favicon.svg) |
+| Logo mark and favicon | [`public/brand/`](public/brand/) |
 | Colours, type scale, motion curves | the `@theme` block in [`src/styles/globals.css`](src/styles/globals.css) |
 
 Search the project for `CHANGE ME` to find every placeholder.
@@ -106,8 +106,19 @@ to `background-color: var(--p-ink)` and re-resolves when the attribute changes
 | `accent` | `#111614` | `#ffffff` | primary text |
 | `subtle` | `#414b4a` | `#9ca3af` | body copy |
 | `muted` | `#5b6370` | `#6b7280` | captions |
-| `brand` | `#0a6d75` | `#14a3b0` | CTAs, emphasis, interaction |
+| `brand` | `#0b7a87` | `#0d8a98` | CTAs, emphasis, interaction |
+| `brand-bright` | `#0d8a98` | `#2ab5c4` | hover, gradient centre |
 | `on-brand` | `#ffffff` | `#04191b` | label colour on a brand fill |
+
+> **Why the brand differs between themes.** The chosen value is `#0d8a98`. On
+> near-black it measures 4.96:1 and is used directly. On the off-white it
+> measures **3.83:1** — fine for icons and fills, but below the 4.5:1 AA floor
+> for small text, and the section eyebrows are 11px. Light mode therefore runs
+> the same hue one step deeper (`#0b7a87`, 4.7:1) wherever colour meets text,
+> and `#0d8a98` remains the hover tone and the centre of the gradient.
+>
+> To use `#0d8a98` everywhere regardless, set `--p-brand` in the light block —
+> just know the eyebrows will fail contrast.
 | `line` / `line-strong` | ink at 11% / 20% | white at 8% / 14% | hairlines |
 | `fill-1` / `fill-2` | ink at 3.5% / 7% | white at 3% / 6% | subtle surfaces |
 

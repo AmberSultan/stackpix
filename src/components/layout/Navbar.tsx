@@ -3,7 +3,7 @@ import { Logo } from './Logo'
 import { ThemeToggle } from './ThemeToggle'
 import { Button } from '@/components/ui/Button'
 import { Menu, Close, ArrowUpRight } from '@/components/ui/Icons'
-import { navLinks, site } from '@/config/site'
+import { hero, navLinks, site } from '@/config/site'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { scrollToSection, setScrollLocked } from '@/lib/smoothScroll'
 import { cn } from '@/lib/cn'
@@ -96,10 +96,19 @@ export function Navbar() {
               })}
             </nav>
 
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
+            {/* Below lg the header is just the wordmark and the menu button.
+                The CTA and the theme toggle both live inside the overlay —
+                four controls in a mobile header leaves none of them enough
+                room, and the CTA is the first thing to get squeezed.
 
-              <Button href="#contact" size="sm" className="hidden sm:inline-flex">
+                `max-lg:hidden` rather than `hidden lg:flex`: both components
+                set their own display in their base classes, and a media-query
+                variant reliably beats a plain utility regardless of the order
+                Tailwind emits them in. */}
+            <div className="flex items-center gap-2">
+              <ThemeToggle className="max-lg:hidden" />
+
+              <Button href="#contact" size="sm" className="max-lg:hidden">
                 Start a project
               </Button>
 
@@ -172,16 +181,19 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="container-page space-y-5 pb-12">
+          {/* The header's CTA moves here on mobile, where it gets full width
+              and a reason to tap rather than four words squeezed into a pill. */}
+          <div className="container-page space-y-4 pb-12">
             <Button
-              href="#contact"
+              href={hero.primaryCta.href}
               size="lg"
               className="w-full"
               icon={<ArrowUpRight className="size-4" />}
               onClick={() => setMenuOpen(false)}
             >
-              Book Discovery Call
+              {hero.primaryCta.label}
             </Button>
+
             <a
               href={`mailto:${site.email}`}
               className="block text-center text-sm text-muted transition-colors hover:text-accent"
