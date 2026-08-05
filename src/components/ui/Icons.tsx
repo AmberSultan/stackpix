@@ -82,6 +82,14 @@ const Shield = (props: IconProps) => (
   </svg>
 )
 
+const Support = (props: IconProps) => (
+  <svg {...defaults} {...props}>
+    <circle cx="12" cy="12" r="8.75" />
+    <circle cx="12" cy="12" r="3.5" />
+    <path d="m5.85 5.85 3.67 3.67M14.48 14.48l3.67 3.67M18.15 5.85l-3.67 3.67M9.52 14.48l-3.67 3.67" />
+  </svg>
+)
+
 const serviceIcons: Record<IconName, (props: IconProps) => React.ReactElement> = {
   store: Store,
   theme: Theme,
@@ -90,6 +98,7 @@ const serviceIcons: Record<IconName, (props: IconProps) => React.ReactElement> =
   code: Code,
   speed: Speed,
   shield: Shield,
+  support: Support,
 }
 
 /** Resolves a service's `icon` key from the site config to a component. */

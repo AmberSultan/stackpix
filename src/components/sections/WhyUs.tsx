@@ -11,8 +11,8 @@ export function WhyUs() {
         <SectionHeading
           eyebrow="Why choose us"
           align="center"
-          title="The numbers behind the work."
-          description="We track outcomes because our clients do. These figures come from post-launch analytics and a survey we send every client at project close."
+          title="What we promise, in writing."
+          description="We are a new studio, so we are not going to wave a project count at you. These are commitments you can hold us to on the first build — and check for yourself at launch."
         />
 
         {/* Stats */}

@@ -1,33 +1,39 @@
 /* ============================================================================
  *  SITE CONFIG — the single source of truth for every word on this website.
  *
- *  Everything below is PLACEHOLDER content. Edit this one file to rebrand the
- *  entire site: agency name, services, case studies, stats, testimonials, FAQ,
- *  contact details and social links. No component needs to be touched.
+ *  POSITIONING NOTE (read before editing):
+ *
+ *  Stackpix is a new studio. This copy is written to be true on day one — it
+ *  claims no project count, no client roster and no testimonials that do not
+ *  exist. Instead it competes on terms a new studio can genuinely offer and a
+ *  large agency usually cannot: fixed pricing, direct access to the builder,
+ *  a speed guarantee, and full ownership.
+ *
+ *  If you add a number to this file, make sure you could prove it on request.
+ *  A prospect who catches one invented figure discounts everything else.
  * ==========================================================================*/
 
 export const site = {
-  name: 'Stacklabs',
+  name: 'Stackpix',
   /** Short form used inside the logo mark (1–2 characters look best). */
   mark: 'S',
   /** Legal entity shown in the footer copyright line. */
-  legalName: 'Stacklabs',
+  legalName: 'Stackpix',
 
-  tagline: 'Building Premium Shopify Stores & Digital Experiences.',
+  tagline: 'Shopify stores for brands that outgrew the DMs.',
   description:
-    'We design and build premium Shopify stores for fashion, jewellery, beauty and lifestyle brands — stores that look world-class and sell like it.',
+    'Stackpix builds fast, premium Shopify stores for Instagram-first brands — and rescues the ones already live but not selling.',
 
-  email: 'hello@stacklabs.co', // ← CHANGE ME: your real inbox
-  phone: '+1 (555) 010-0199',
-  location: 'Remote — working worldwide',
+  email: 'hello@stackpix.co', // ← CHANGE ME: your real inbox
+  phone: '+92 300 0000000', // ← CHANGE ME (or delete — it is only used here)
+  location: 'Remote — working with brands worldwide',
   bookingUrl: 'https://cal.com/', // ← CHANGE ME: your Cal.com / Calendly link
 
   socials: [
-    { label: 'Dribbble', href: 'https://dribbble.com' },
-    { label: 'Behance', href: 'https://behance.net' },
-    { label: 'LinkedIn', href: 'https://linkedin.com' },
     { label: 'Instagram', href: 'https://instagram.com' },
-    { label: 'X', href: 'https://x.com' },
+    { label: 'WhatsApp', href: 'https://wa.me/920000000000' },
+    { label: 'LinkedIn', href: 'https://linkedin.com' },
+    { label: 'Dribbble', href: 'https://dribbble.com' },
   ],
 } as const
 
@@ -37,41 +43,48 @@ export const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Work', href: '#work' },
   { label: 'Process', href: '#process' },
-  { label: 'About', href: '#why-us' },
+  { label: 'Why us', href: '#why-us' },
   { label: 'FAQ', href: '#faq' },
 ] as const
 
 /* -------------------------------------------------------------------- hero */
 
 export const hero = {
-  badge: 'Shopify Partner — booking Q3 projects',
-  headline: ['We made Shopify stores', 'that customers love.'],
-  headlineAccent: 'love.',
+  /** Honest scarcity beats invented volume — but only if you keep it accurate. */
+  badge: 'Stop taking orders in the DMs. Start taking them 24/7.',
+  headline: ['Your Instagram sells.', 'Your store should too.'],
+  headlineAccent: 'should too.',
   subline:
-    'A premium design & development studio for fashion, jewellery, beauty and lifestyle brands. We turn browsers into buyers with stores that feel as considered as the products they sell.',
-  primaryCta: { label: 'View Work', href: '#work' },
-  secondaryCta: { label: 'Book Discovery Call', href: '#contact' },
+    'We build fast, premium Shopify stores for brands still taking orders in the DMs — and fix the ones that went live but never started selling. Fixed price, live in weeks, yours to keep.',
+  primaryCta: { label: 'Get a free store audit', href: '#contact' },
+  secondaryCta: { label: 'See our work', href: '#work' },
+  /* Promises, not history. Every one of these is true before the first client. */
   metrics: [
-    { value: '50+', label: 'Stores shipped' },
-    { value: '4.2×', label: 'Avg. conversion lift' },
-    { value: '98', label: 'Median Lighthouse' },
+    { value: '2–4 wks', label: 'Kickoff to live' },
+    { value: '90+', label: 'Lighthouse, guaranteed' },
+    { value: 'Free', label: 'Store audit to start' },
   ],
 } as const
 
-/* ---------------------------------------------------------------- trusted by */
+/* ------------------------------------------------------------------ toolbelt */
 
-/** Real clients first; the rest are placeholder wordmarks. Swap them for real
- *  brands, or drop in <img> logos by editing `components/sections/TrustedBy.tsx`. */
-export const clients = [
-  'ORNAGEMS',
-  'MAISON ÉCLAT',
-  'AURELIA',
-  'NORTH & PINE',
-  'VELVET CO.',
-  'LUMEN BEAUTY',
-  'ATELIER 9',
-  'SABLE',
-  'ORO STUDIO',
+/**
+ * A capability strip, not a client list. A new studio with two builds cannot
+ * fill a "trusted by" row without inventing brands — but showing what the work
+ * is built on is both honest and reassuring to a non-technical buyer.
+ *
+ * Swap this for real client names the moment you have four or more.
+ */
+export const toolbelt = [
+  'SHOPIFY',
+  'LIQUID',
+  'REACT',
+  'NEXT.JS',
+  'TYPESCRIPT',
+  'TAILWIND',
+  'FIGMA',
+  'KLAVIYO',
+  'META PIXEL',
 ] as const
 
 /* ---------------------------------------------------------------- services */
@@ -84,6 +97,7 @@ export type IconName =
   | 'code'
   | 'speed'
   | 'shield'
+  | 'support'
 
 export type Service = {
   id: string
@@ -100,33 +114,37 @@ export const services: Service[] = [
     id: 'shopify-development',
     title: 'Shopify Store Development',
     description:
-      'End-to-end builds on Shopify and Shopify Plus — architecture, custom theme, product data, checkout and launch. Built to scale past your first thousand orders.',
-    bullets: ['Custom Liquid themes', 'Headless when it earns its keep', 'Launch & migration handled'],
+      'A complete store, built and launched. Design, products, payments, shipping and delivery — set up properly so you can run it yourself the day we hand it over.',
+    bullets: [
+      'Custom design, not a stock theme',
+      'Payments & COD configured',
+      'Training so you can run it',
+    ],
     icon: 'store',
     featured: true,
   },
   {
-    id: 'theme-customization',
-    title: 'Shopify Theme Customization',
+    id: 'store-rescue',
+    title: 'Store Rescue & Rebuild',
     description:
-      'Own your look without a rebuild. We take Dawn or a premium theme and shape it into something unmistakably yours.',
-    bullets: ['Bespoke sections', 'Merchant-friendly settings', 'No page-builder bloat'],
-    icon: 'theme',
+      'Already have a site that is not bringing in orders? We audit it, tell you exactly what is costing you sales, then fix it — or rebuild it if that is genuinely cheaper.',
+    bullets: ['Free audit first', 'Fix the leaks, keep the brand', 'No rebuild unless it is warranted'],
+    icon: 'shield',
   },
   {
-    id: 'app-development',
-    title: 'Shopify App Development',
+    id: 'theme-customization',
+    title: 'Theme Customization',
     description:
-      'Private and public apps that close the gap between your store and how your business actually runs.',
-    bullets: ['Polaris admin UIs', 'Checkout & theme extensions', 'Webhooks and integrations'],
-    icon: 'app',
+      'Own your look without paying for a full build. We take your theme and shape it into something that actually resembles your brand.',
+    bullets: ['Bespoke sections', 'Settings you can edit', 'No page-builder bloat'],
+    icon: 'theme',
   },
   {
     id: 'ui-ux-design',
     title: 'UI/UX Design',
     description:
-      'Interface design grounded in how people really shop — considered typography, deliberate hierarchy, and a checkout path with nothing in the way.',
-    bullets: ['Design systems in Figma', 'Conversion-led wireframes', 'Motion & interaction specs'],
+      'Interface design grounded in how people really shop on a phone — clear hierarchy, obvious next step, and a checkout with nothing in the way.',
+    bullets: ['Mobile-first, always', 'Designed in Figma first', 'Built to convert, not just to look good'],
     icon: 'design',
     featured: true,
   },
@@ -134,25 +152,25 @@ export const services: Service[] = [
     id: 'react-next',
     title: 'React / Next.js Development',
     description:
-      'Headless storefronts, marketing sites and custom web apps built on the modern React stack.',
-    bullets: ['Next.js App Router', 'Hydrogen & Storefront API', 'Type-safe end to end'],
+      'Marketing sites, landing pages and custom web apps on the modern React stack — for when Shopify is not the right tool for the job.',
+    bullets: ['Next.js & React', 'Type-safe end to end', 'Deployed and documented'],
     icon: 'code',
   },
   {
     id: 'performance',
-    title: 'Performance Optimization',
+    title: 'Speed & Performance',
     description:
-      'Every 100ms of load time costs you revenue. We find it, cut it, and prove the difference.',
-    bullets: ['Core Web Vitals audit', 'Image & script diet', 'Before/after reporting'],
+      'A slow store loses sales before the first product loads. We find what is dragging it down, cut it, and show you the before and after.',
+    bullets: ['Core Web Vitals audit', 'Image & app cleanup', 'Measured, not guessed'],
     icon: 'speed',
   },
   {
-    id: 'maintenance',
-    title: 'Store Maintenance',
+    id: 'care',
+    title: 'Ongoing Care & Support',
     description:
-      'A retained team on standby — updates, fixes, new sections and seasonal campaigns, without the hiring.',
-    bullets: ['Priority response times', 'Monthly health reports', 'Continuous improvements'],
-    icon: 'shield',
+      'Someone on hand for the updates, fixes, new sections and sale campaigns — so you are not learning Shopify at midnight before a launch.',
+    bullets: ['Reply within 24h', 'Campaign & sale setup', 'Monthly, cancel anytime'],
+    icon: 'support',
   },
 ]
 
@@ -166,17 +184,15 @@ export type Project = {
   /** Tints the cover artwork, and is the fallback when `image` is absent. */
   visual: 'fashion' | 'jewelry' | 'beauty' | 'lifestyle'
   /**
-   * Real screenshot, served from `public/`. Rendered inside the browser-frame
-   * composition in ProjectVisual, so any aspect ratio works and a missing file
-   * degrades to the generated mock rather than a broken image.
+   * Real screenshot, served from `public/`. A missing file degrades to the
+   * generated mock rather than a broken image.
    */
   image?: string
   /**
    * How `image` is presented.
    *  - `full`  — edge to edge. Best when the store's hero is a big piece of
    *              photography that should carry the card on its own.
-   *  - `frame` — inside a browser frame (the default). Best for UI-led screens,
-   *              where the chrome signals "this is a website" at a glance.
+   *  - `frame` — inside a browser frame (the default). Best for UI-led screens.
    */
   imageFit?: 'full' | 'frame'
   /** Extra screenshots shown as a gallery inside the case study. */
@@ -204,11 +220,53 @@ export function publishedResults(project: Project) {
   })
 }
 
+/**
+ * Only real work belongs here. One genuine case study with an honest write-up
+ * outsells four invented ones — the invented ones cannot survive a single
+ * follow-up question.
+ *
+ * To add your second build (the one delivered through another company): ask
+ * that company whether you may show it and how to credit it. "Built for
+ * [brand] in partnership with [company]" is normal, and being straight about
+ * it reads better than a vague claim.
+ */
 export const projects: Project[] = [
-  /* ------------------------------------------------------------------------
-   * REAL CLIENT WORK. Everything below this entry is placeholder content —
-   * replace it as more real projects ship.
-   * ---------------------------------------------------------------------- */
+  {
+    slug: 'mira-farms',
+    client: 'Mira Farms',
+    category: 'Gourmet & gifting — Shopify',
+    year: '2026', // ← CHECK ME
+    visual: 'lifestyle',
+    image: '/projects/mirafarms.png',
+    imageFit: 'full',
+    url: 'https://mirafarms.com/',
+    summary:
+      'A Dubai social enterprise selling saffron, dates and gift boxes — where the gifting route had to be as considered as the product.',
+    overview:
+      'Mira Farms sells luxury dried fruit, nuts, saffron, honey and chocolate from Dubai Design District under the line "luxury products with social impact", sourcing from Afghan farmers. The storefront carries seven product categories and a named gift-box range — Sabira, Masuma, Asal, Aziza, Amira and Hafiza — priced in AED for the UAE market.',
+    stack: [
+      'Shopify',
+      'Liquid',
+      'Custom theme',
+      'Responsive design',
+      'Collection merchandising',
+      'Email capture',
+    ],
+    /* ↓↓↓ VERIFY BEFORE PUBLISHING. These two paragraphs are written from what
+       is observable on the live site, not from the actual brief. Replace them
+       with what the client really asked for and what you really changed — you
+       will be asked about this in a sales call. ↓↓↓ */
+    problem:
+      'A social enterprise selling luxury gifts has to tell two stories that can easily undercut each other: the product has to feel worth its price, and the farmer-impact story has to be told without turning the shop into a charity appeal. On top of that, most visitors to a brand like this arrive wanting a gift rather than a specific jar of honey — so a catalogue organised purely by product type asks them to do the work.',
+    solution:
+      'Gifting is promoted to its own top-level route rather than being buried as a collection, with the named boxes doing the choosing for undecided buyers. The impact story lives in a dedicated Story section so it supports the brand without interrupting the buying path, and a first-order code (FIRSTTIME10) converts first-time visitors while they are still on the page.',
+    results: [
+      { value: '—', label: 'Conversion rate' },
+      { value: '—', label: 'Gift box share of orders' },
+      { value: '—', label: 'Mobile Lighthouse' },
+      { value: '—', label: 'Average order value' },
+    ],
+  },
   {
     slug: 'ornagems',
     client: 'Ornagems',
@@ -219,7 +277,7 @@ export const projects: Project[] = [
     // The Ornagems hero is a full-bleed campaign shot — it earns the whole
     // card. Switch to 'frame' to render it inside browser chrome instead.
     imageFit: 'full',
-    url: 'https://sza504-6m.myshopify.com/', 
+    url: 'https://sza504-6m.myshopify.com/',
     summary:
       'A launch-ready jewellery storefront built around everyday luxury — and a checkout that steers a cash-on-delivery market toward paying up front.',
     overview:
@@ -236,101 +294,13 @@ export const projects: Project[] = [
       'A brand new label launching into a cash-on-delivery market carries two problems at once. COD ties up working capital and invites refused deliveries, and a store nobody has heard of has no reviews or reputation to lean on when a shopper is deciding whether to trust it with a jewellery purchase.',
     solution:
       'A rotating announcement bar puts a concrete reason to prepay above the fold — Rs. 100 off and no 4% COD surcharge — so the incentive is seen before the cart, not at it. A persistent WhatsApp button turns pre-purchase hesitation into a conversation, a launch-wide 20% offer creates a reason to buy now, and a dedicated gifting route captures buyers shopping for someone else.',
-    /* ↓↓↓ PLACEHOLDER — replace with Ornagems' real analytics before publishing.
-       These are the four figures most worth reporting for this build. ↓↓↓ */
+    /* ↓↓↓ Fill these in once the store has 30 days of data. Until then the
+       results block hides itself rather than showing empty dashes. ↓↓↓ */
     results: [
       { value: '—', label: 'Prepaid order share' },
       { value: '—', label: 'Conversion rate' },
       { value: '—', label: 'Mobile Lighthouse' },
       { value: '—', label: 'Average order value' },
-    ],
-  },
-  {
-    slug: 'maison-eclat',
-    client: 'Maison Éclat',
-    category: 'Fashion — Shopify Plus',
-    year: '2025',
-    visual: 'fashion',
-    summary:
-      'A ready-to-wear label rebuilt on Shopify Plus, with an editorial storefront that finally matched the clothes.',
-    overview:
-      'Maison Éclat had outgrown a marketplace-style theme that flattened a decade of brand building into a grid of thumbnails. We rebuilt the storefront from the ground up around their lookbook photography, then rewired the buying path so a browsing session leads somewhere.',
-    stack: ['Shopify Plus', 'Liquid', 'Tailwind CSS', 'Alpine.js', 'Klaviyo', 'Contentful'],
-    problem:
-      'Product pages buried fit and fabric detail below three folds of boilerplate. Mobile shoppers — 71% of traffic — abandoned at the size selector, and the team could not publish a campaign without a developer.',
-    solution:
-      'A mobile-first product page with sticky add-to-cart, an inline size guide built from real garment measurements, and shoppable lookbooks the marketing team edits themselves. Checkout dropped from five steps to two.',
-    results: [
-      { value: '+184%', label: 'Conversion rate' },
-      { value: '-46%', label: 'Bounce on PDP' },
-      { value: '2.1s', label: 'LCP on 4G' },
-      { value: '99', label: 'Lighthouse' },
-    ],
-  },
-  {
-    slug: 'aurelia',
-    client: 'Aurelia Fine Jewellery',
-    category: 'Jewellery — Custom Build',
-    year: '2025',
-    visual: 'jewelry',
-    summary:
-      'A configurator for made-to-order pieces, wrapped in a storefront quiet enough to let the product speak.',
-    overview:
-      'Aurelia sells bespoke engagement pieces where every order is a conversation. We replaced a form-and-email workflow with a live configurator that prices metal, stone and setting combinations in real time and hands the studio a production-ready spec.',
-    stack: ['Shopify', 'Hydrogen', 'React', 'TypeScript', 'Storefront API', 'Sanity'],
-    problem:
-      'Each custom order took eleven days and roughly twenty emails to specify. Quotes were assembled by hand, pricing drifted between staff, and high-intent buyers went cold waiting.',
-    solution:
-      'A three-step configurator with real-time pricing and 360° previews, backed by a rules engine the studio maintains. Deposits are taken at the point of excitement rather than a week later.',
-    results: [
-      { value: '11d → 2d', label: 'Quote turnaround' },
-      { value: '+62%', label: 'AOV' },
-      { value: '+3.4×', label: 'Custom orders' },
-      { value: '0', label: 'Manual quotes' },
-    ],
-  },
-  {
-    slug: 'lumen-beauty',
-    client: 'Lumen Beauty',
-    category: 'Beauty — Subscription',
-    year: '2024',
-    visual: 'beauty',
-    summary:
-      'A skincare range with a subscription flow people actually finish — and a customer portal they stay in.',
-    overview:
-      'Lumen had strong repeat demand trapped behind a subscription flow bolted onto a stock theme. We rebuilt the funnel around a short diagnostic quiz and gave subscribers a portal that makes staying easy.',
-    stack: ['Shopify', 'Liquid', 'Recharge', 'Next.js', 'Vercel', 'Klaviyo'],
-    problem:
-      'Subscription checkout leaked 68% of starts. Managing a plan meant emailing support, so cancellations arrived as complaints rather than pauses.',
-    solution:
-      'A four-question routine quiz that lands on a pre-filled cart, plus a self-serve portal for skipping, swapping and pausing. Retention messaging now meets people at the moment they hesitate.',
-    results: [
-      { value: '+127%', label: 'Subscriber growth' },
-      { value: '-38%', label: 'Churn' },
-      { value: '+54%', label: 'LTV' },
-      { value: '4.9★', label: 'Support rating' },
-    ],
-  },
-  {
-    slug: 'north-and-pine',
-    client: 'North & Pine',
-    category: 'Lifestyle — Performance',
-    year: '2024',
-    visual: 'lifestyle',
-    summary:
-      'A homeware catalogue of 2,400 SKUs made fast enough to browse on a train.',
-    overview:
-      'North & Pine had the range and the traffic; the store simply could not keep up. We ran a full performance rebuild — app audit, asset pipeline, collection architecture — without changing the visual identity the brand had earned.',
-    stack: ['Shopify', 'Liquid', 'Vite', 'Cloudflare', 'Algolia', 'Web Vitals'],
-    problem:
-      'Fourteen apps injected 3.2MB of blocking JavaScript. Collection pages took 8.4s to become interactive on mobile, and paid traffic bounced before the first product rendered.',
-    solution:
-      'Nine apps replaced with native code, images moved to responsive AVIF, and search handed to Algolia with instant faceting. Everything above the fold now ships in a single critical request.',
-    results: [
-      { value: '8.4s → 1.3s', label: 'Time to interactive' },
-      { value: '+41%', label: 'Revenue per session' },
-      { value: '-72%', label: 'JS payload' },
-      { value: '100', label: 'Performance score' },
     ],
   },
 ]
@@ -339,46 +309,46 @@ export const projects: Project[] = [
 
 export const processSteps = [
   {
-    title: 'Discovery',
-    duration: 'Week 1',
+    title: 'Free audit',
+    duration: 'Day 1',
     description:
-      'We start with your numbers and your customers, not a moodboard. Goals, margins, blockers, and what "working" would actually look like six months out.',
+      'Send us your Instagram or your current site. We come back with what is costing you sales and what we would do about it — written down, no call required, no charge.',
   },
   {
-    title: 'Research',
-    duration: 'Week 1–2',
+    title: 'Scope & quote',
+    duration: 'Day 2–3',
     description:
-      'Competitor teardowns, analytics and session review, and a hard look at where the current funnel loses people. Findings come back as decisions, not a slide deck.',
+      'You get a fixed price and a fixed date before anything starts. If we underestimate the work, that is ours to absorb — not a change request halfway through.',
   },
   {
     title: 'Design',
-    duration: 'Week 2–4',
+    duration: 'Week 1',
     description:
-      'Wireframes to high-fidelity in Figma, built as a reusable system. You review real screens on real devices before a line of code is written.',
+      'We design the key screens in Figma and show you on your own phone before writing any code. Changes are cheap at this stage and expensive later, so this is where we slow down.',
   },
   {
-    title: 'Development',
-    duration: 'Week 4–8',
+    title: 'Build',
+    duration: 'Week 2–3',
     description:
-      'Clean, documented Liquid and React. You get a staging URL from day one and weekly builds you can click through, not a black box.',
+      'Products, payments, shipping and delivery configured alongside the design. You get a live preview link from day one, so you are never waiting to find out how it is going.',
   },
   {
-    title: 'Testing',
-    duration: 'Week 8–9',
+    title: 'Test',
+    duration: 'Week 3',
     description:
-      'Cross-browser and cross-device QA, accessibility passes, checkout testing with live payment methods, and a Core Web Vitals budget we hold ourselves to.',
+      'Real test orders through real payment methods, on real phones. We check the whole path a customer takes, not just that the pages load.',
   },
   {
-    title: 'Launch',
-    duration: 'Week 9',
+    title: 'Launch & handover',
+    duration: 'Week 4',
     description:
-      'DNS, redirects, analytics and tracking verified before go-live. We ship mid-week, in the morning, with the whole team watching the dashboards.',
+      'Domain, analytics and pixels connected, then we walk you through running it yourself — adding products, editing sections, launching a sale. Recorded, so you can rewatch it.',
   },
   {
-    title: 'Support',
-    duration: 'Ongoing',
+    title: 'Aftercare',
+    duration: '30 days, included',
     description:
-      'Thirty days of post-launch cover as standard, then a retainer if you want us to keep iterating. Either way, you own everything.',
+      'A month of fixes and questions included with every build, no retainer required. Stay on monthly afterwards if it is useful; leave if it is not.',
   },
 ] as const
 
@@ -389,37 +359,66 @@ export type Stat = {
   suffix: string
   label: string
   caption: string
-  /** Fixed decimal places while counting — keeps "4.2×" from flickering. */
+  /** Fixed decimal places while counting. */
   decimals: number
 }
 
+/**
+ * Commitments, not history. Every figure here is a promise we control and can
+ * be held to on day one — as opposed to a project count, which a new studio
+ * can only inflate.
+ */
 export const stats: Stat[] = [
-  { value: 50, suffix: '+', label: 'Projects delivered', caption: 'Across 14 countries', decimals: 0 },
-  { value: 99, suffix: '%', label: 'Client satisfaction', caption: 'Post-project survey', decimals: 0 },
-  { value: 4.2, suffix: '×', label: 'Average conversion lift', caption: 'Measured at 90 days', decimals: 1 },
-  { value: 98, suffix: '', label: 'Median Lighthouse score', caption: 'Mobile, at launch', decimals: 0 },
+  {
+    value: 90,
+    suffix: '+',
+    label: 'Lighthouse score',
+    caption: 'Mobile, at launch — or we keep working',
+    decimals: 0,
+  },
+  {
+    value: 24,
+    suffix: 'h',
+    label: 'Reply time',
+    caption: 'Any message, any working day',
+    decimals: 0,
+  },
+  {
+    value: 30,
+    suffix: '',
+    label: 'Days of aftercare',
+    caption: 'Included with every build',
+    decimals: 0,
+  },
+  {
+    value: 100,
+    suffix: '%',
+    label: 'Yours to keep',
+    caption: 'Store, code, designs and accounts',
+    decimals: 0,
+  },
 ]
 
 export const differentiators = [
   {
-    title: 'Senior team only',
+    title: 'You talk to the person building it',
     description:
-      'The people you meet in the pitch are the people who do the work. No handover to juniors after the contract is signed.',
+      'We are a small studio, so there is no account manager relaying messages and no junior quietly inheriting your project. You get the builder, directly, start to finish.',
   },
   {
-    title: 'Fixed scope, fixed price',
+    title: 'Fixed price, agreed before we start',
     description:
-      'You approve a scope and a number before we start. If we underestimate, that is our problem to absorb — not a change request.',
+      'You approve a number and a date up front. If the work takes longer than we estimated, that is our problem to absorb — not an invoice you did not expect.',
   },
   {
-    title: 'Pixel-perfect, provably',
+    title: 'Built to a speed budget',
     description:
-      'Designs are built to the pixel and tested across the browsers your customers actually use, down to older Safari on iOS.',
+      'Every store ships at 90+ mobile Lighthouse or we keep working until it does. We send you the score at launch so you can check it yourself.',
   },
   {
-    title: 'You own everything',
+    title: 'You own everything, from day one',
     description:
-      'Code, designs, documentation and accounts are yours on day one. No proprietary lock-in, no hostage-taking.',
+      'The Shopify account, the theme code, the Figma file and every login are yours. Nothing is built on something that keeps you tied to us.',
   },
 ] as const
 
@@ -434,81 +433,59 @@ export type Testimonial = {
   featured?: boolean
 }
 
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      'They rebuilt our store in six weeks and the first month out-sold our best quarter. What stood out was how much of the thinking was commercial rather than cosmetic — every decision came with a reason attached to revenue.',
-    name: 'Camille Rousseau',
-    role: 'Founder',
-    company: 'Maison Éclat',
-    featured: true,
-  },
-  {
-    quote:
-      'The configurator changed how we sell. Quotes that used to take a fortnight now close in two days.',
-    name: 'Priya Raman',
-    role: 'Creative Director',
-    company: 'Aurelia',
-  },
-  {
-    quote:
-      'First agency that sent us a performance budget before an invoice. Our mobile store went from embarrassing to the fastest in our category.',
-    name: 'Daniel Okafor',
-    role: 'Head of Ecommerce',
-    company: 'North & Pine',
-  },
-  {
-    quote:
-      'Communication was the thing. Weekly builds, no surprises, and every question answered the same day. We have already booked them for phase two.',
-    name: 'Sofia Lindqvist',
-    role: 'COO',
-    company: 'Lumen Beauty',
-  },
-  {
-    quote:
-      'We came for a theme tweak and stayed for a full rebuild. Two years on they still run our store like it is their own.',
-    name: 'Marcus Hale',
-    role: 'Managing Director',
-    company: 'Velvet Co.',
-  },
-]
+/**
+ * EMPTY ON PURPOSE. The section does not render while this array is empty,
+ * which is the correct behaviour — an invented testimonial with a stock-photo
+ * name is the fastest way to lose a prospect who thinks to check.
+ *
+ * Ask every client for two lines the week after launch, while they are still
+ * pleased. Add the first real one here and the section appears automatically:
+ *
+ *   { quote: '…', name: '…', role: 'Founder', company: '…', featured: true }
+ */
+export const testimonials: Testimonial[] = []
 
 /* --------------------------------------------------------------------- FAQ */
 
 export const faqs = [
   {
-    question: 'How much does a premium Shopify store cost?',
+    question: 'I sell on Instagram already — do I actually need a website?',
     answer:
-      'Most full builds land between $12,000 and $45,000 depending on scope, integrations and how much custom functionality you need. Theme customisation projects typically start around $4,000. You get a fixed price after discovery — never an open-ended hourly estimate.',
+      'If you are happy answering "price?" fifty times a day, no. A store earns its keep by doing the parts you are doing manually: showing prices and sizes, taking the order and the payment at 2am, and letting a customer buy without waiting for you to reply. Instagram is where people find you; the store is where they buy without you in the room.',
   },
   {
-    question: 'How long does a project take?',
+    question: 'How much does a Shopify store cost?',
     answer:
-      'A focused store build runs six to nine weeks end to end. Larger Shopify Plus or headless projects run ten to sixteen. We only take on a limited number of builds at a time, so the timeline you are quoted is the timeline you get.',
+      'A complete store build starts at PKR 60,000 / $220 and most land between that and PKR 180,000 / $650 depending on how many products, pages and integrations you need. Theme customisation and rescue work start lower. You get a fixed price after the free audit — never an open-ended hourly rate.', // ← CHANGE ME: set your real numbers
   },
   {
-    question: 'Do you work with brands outside fashion and beauty?',
+    question: 'How long does it take?',
     answer:
-      'Often. Fashion, jewellery, beauty and lifestyle are where we have the deepest pattern library, but the underlying work — clear merchandising, fast pages, a checkout that gets out of the way — applies to any considered-purchase brand.',
+      'Two to four weeks from kickoff to live for most stores. Simple catalogues land closer to two; anything with custom features or a large product import runs closer to four. You get the date in writing before we start, and a preview link from the first week so you can watch it come together.',
   },
   {
-    question: 'Can you migrate us from WooCommerce, Magento or a custom platform?',
+    question: 'My store is already live but it is not getting sales.',
     answer:
-      'Yes. Migrations are a regular part of the work: products, customers, order history, reviews and SEO equity all move across. We map redirects before launch so you keep the rankings you have earned.',
+      'That is the most common thing we are asked to look at, and it is usually a handful of specific problems rather than a mystery — slow loading on mobile data, no trust signals, a checkout that asks for too much, or products that are hard to find. Send us the link and we will tell you which ones apply to you, free. If a rebuild is not warranted, we will say so.',
   },
   {
-    question: 'What happens after launch?',
+    question: 'You are a new studio. Why should I trust you with my brand?',
     answer:
-      'Thirty days of post-launch support is included with every build — bug fixes, tweaks and training for your team. After that, most clients move onto a monthly retainer for ongoing work, but there is no obligation and no lock-in.',
+      'Fair question, and here is the honest answer: we are small and new, which is exactly why your project gets our full attention rather than being third in a queue. We de-risk it for you instead of asking you to take our word — a free audit before you spend anything, a fixed price agreed up front, payment split across milestones rather than in advance, and everything in your own accounts from day one. If we disappear tomorrow, you still own a working store.',
   },
   {
-    question: 'Who owns the code and the designs?',
+    question: 'Do you set up products, payments and delivery too?',
     answer:
-      'You do, entirely, from the first commit. You get the repository, the Figma file, full documentation and admin access to every account we touch. Nothing is built on a proprietary system that keeps you tied to us.',
+      'Yes, all of it. Product uploads, variants and pricing, payment methods including cash on delivery, shipping rates and courier integration, plus the abandoned-cart and order emails. We hand over a store that is ready to take a real order, not an empty shell.',
   },
   {
-    question: 'How do we start?',
+    question: 'What if I do not like the design?',
     answer:
-      'Book a 30-minute discovery call. We will talk through your goals, current numbers and constraints, and you will leave with an honest read on scope, budget and timeline — whether or not you work with us.',
+      'You see the design in Figma before a line of code is written, and revisions at that stage are included — that is the whole reason we design first. Nothing gets built until you have said yes to how it looks.',
+  },
+  {
+    question: 'Who owns the store and the code?',
+    answer:
+      'You do, entirely. The Shopify account is created in your name, the theme code and Figma file are handed over, and you get every login. We do not hold anything hostage and there is no lock-in.',
   },
 ] as const

@@ -26,47 +26,47 @@ export function CallToAction() {
             <AuroraBackdrop className="[transform:translate3d(calc(var(--mx,0)*16px),calc(var(--my,0)*12px),0)]" />
 
             <div className="relative flex flex-col items-center text-center">
-              <Eyebrow>Let's talk</Eyebrow>
+              <Eyebrow>Free audit</Eyebrow>
 
-              <h2 className="text-h1 text-gradient mt-7 max-w-[15ch] font-semibold">
-                Let's build something amazing.
+              <h2 className="text-h1 text-gradient mt-7 max-w-[16ch] font-semibold">
+                Send us your Instagram. Get a plan back.
               </h2>
 
               <p className="text-lead mt-6 max-w-xl leading-relaxed text-balance text-subtle">
-                Tell us about your brand and where your store is falling short.
-                You will get an honest read on scope, budget and timeline within
-                two working days.
+                No form to fill in and nothing to pay. Send your handle or your
+                store link and we will reply within two working days with what is
+                costing you sales, what we would build, and what it would cost.
               </p>
 
               <div className="mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
                 <Button
-                  href={site.bookingUrl}
+                  href={`mailto:${site.email}?subject=Free%20store%20audit`}
                   size="lg"
-                  magnetic
-                  className="w-full sm:w-auto"
-                  icon={<ArrowUpRight className="size-4" />}
-                >
-                  Book Discovery Call
-                </Button>
-                <Button
-                  href={`mailto:${site.email}`}
-                  size="lg"
-                  variant="secondary"
                   magnetic
                   className="w-full sm:w-auto"
                   icon={<ArrowRight className="size-4" />}
                 >
-                  Email us instead
+                  Get my free audit
+                </Button>
+                <Button
+                  href={site.bookingUrl}
+                  size="lg"
+                  variant="secondary"
+                  magnetic
+                  className="w-full sm:w-auto"
+                  icon={<ArrowUpRight className="size-4" />}
+                >
+                  Book a 20-min call
                 </Button>
               </div>
 
               {/* Reassurance line — removes the last objection to clicking */}
               <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.8125rem] text-muted">
-                <li>Free 30-minute consultation</li>
+                <li>Free audit, no strings</li>
                 <li aria-hidden className="hidden size-1 rounded-full bg-muted sm:block" />
-                <li>Fixed scope and price</li>
+                <li>Fixed price before we start</li>
                 <li aria-hidden className="hidden size-1 rounded-full bg-muted sm:block" />
-                <li>No obligation</li>
+                <li>You own everything</li>
               </ul>
             </div>
           </div>

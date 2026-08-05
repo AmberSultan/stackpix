@@ -8,6 +8,11 @@ import { testimonials, type Testimonial } from '@/config/site'
  * strongest quote room to breathe is worth more than four equal cards.
  */
 export function Testimonials() {
+  // Renders nothing until there is at least one real quote. A testimonials
+  // section with invented names is worse than no testimonials section — see
+  // the note above `testimonials` in config/site.ts.
+  if (testimonials.length === 0) return null
+
   const featured = testimonials.find((item) => item.featured) ?? testimonials[0]
   const rest = testimonials.filter((item) => item !== featured)
 

@@ -7,14 +7,25 @@ is referenced in `src/config/site.ts` as `/projects/ornagems-cover.jpg`.
 
 | File | Used for | Spec |
 | --- | --- | --- |
-| `ornagems.png` | Work card + case-study cover | Full homepage capture, **1920px wide minimum**, under ~400 kB |
+| `mirafarms.png` | Work card + case-study cover | Full homepage capture, **1920px wide minimum**, under ~400 kB |
+| `ornagems.png` | Work card + case-study cover | as above |
 
-> **`ornagems.png` is currently 1.32 MB** — around fifteen times the size of the
-> entire JS bundle. It is lazy-loaded and below the fold, so it does not affect
-> the page's LCP, but it is still the heaviest thing a visitor downloads.
-> Re-export it as WebP at quality 80 (`squoosh.app`, drag and drop) and it will
-> land near 150 kB with no visible difference. Then update `image` in
-> `src/config/site.ts` to the new filename.
+> ### ⚠ These two files are 4.15 MB together
+>
+> | File | Now | As WebP q80 |
+> | --- | --- | --- |
+> | `mirafarms.png` | 2.84 MB | ~180 kB |
+> | `ornagems.png` | 1.32 MB | ~150 kB |
+>
+> That is **fifty times the entire JS bundle** (85 kB gzipped). Both are
+> lazy-loaded and below the fold so they do not affect the page's LCP score,
+> but they are by far the heaviest thing a visitor downloads — and a slow
+> portfolio is an awkward look on a site whose Services section sells
+> performance optimisation.
+>
+> Drag each through [squoosh.app](https://squoosh.app), export as WebP at
+> quality 80, then update `image` in `src/config/site.ts` to the new filename.
+> Two minutes of work for a ~25× saving.
 
 Capture at desktop width (1920×1080 or taller) and **do not crop it yourself** —
 the image is always top-aligned, so the header and hero survive whatever crop

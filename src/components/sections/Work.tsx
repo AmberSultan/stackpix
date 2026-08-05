@@ -11,6 +11,7 @@ import { cn } from '@/lib/cn'
 
 export function Work() {
   const [selected, setSelected] = useState<Project | null>(null)
+  const isSolo = projects.length === 1
 
   return (
     <section id="work" className="section-y relative bg-surface/40">
@@ -22,31 +23,44 @@ export function Work() {
 
       <div className="container-page relative">
         <SectionHeading
-          eyebrow="Selected work"
+          eyebrow="Our work"
           title={
             <>
-              Case studies, not
-              <br className="hidden sm:block" /> a wall of thumbnails.
+              Real stores, written
+              <br className="hidden sm:block" /> up in full.
             </>
           }
-          description="Every project here shipped with a measurable target attached. Open one to see the problem we were handed, what we built, and what changed afterwards."
+          description="We would rather show you a couple of builds properly than pad this page out with thumbnails. Open one to see the brand, the problem, and what we built."
         />
 
-        <div className="mt-16 grid gap-x-6 gap-y-14 md:grid-cols-2 md:gap-y-20">
+        {/* A single project centred reads as deliberate; the same card in a
+            two-column grid reads as a gap where the others should be. */}
+        <div
+          className={cn(
+            'mt-16',
+            isSolo
+              ? 'mx-auto max-w-3xl'
+              : 'grid gap-x-6 gap-y-14 md:grid-cols-2 md:gap-y-20',
+          )}
+        >
           {projects.map((project, index) => (
             <Reveal
               key={project.slug}
               delay={(index % 2) * 110}
               // Offsets the second column so the grid reads as an editorial
               // spread rather than a spreadsheet.
-              className={cn(index % 2 === 1 && 'md:mt-24')}
+              className={cn(!isSolo && index % 2 === 1 && 'md:mt-24')}
             >
               <ProjectCard project={project} onOpen={() => setSelected(project)} />
             </Reveal>
           ))}
         </div>
 
-        <Reveal className="mt-24 flex justify-center" variant="fade">
+        <Reveal className="mt-20 flex flex-col items-center gap-4" variant="fade">
+          <p className="max-w-md text-center text-sm text-muted">
+            Want to see how we would approach yours? We will audit your store or
+            your Instagram and send back a plan, free.
+          </p>
           <Button
             href="#contact"
             variant="secondary"
@@ -54,7 +68,7 @@ export function Work() {
             magnetic
             icon={<ArrowUpRight className="size-4" />}
           >
-            Start your project
+            Get a free store audit
           </Button>
         </Reveal>
       </div>

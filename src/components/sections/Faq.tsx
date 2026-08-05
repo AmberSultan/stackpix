@@ -15,19 +15,20 @@ export function Faq() {
               eyebrow="FAQ"
               title={
                 <>
-                  Questions we get
-                  <br className="hidden sm:block" /> before every project.
+                  The questions
+                  <br className="hidden sm:block" /> everyone asks first.
                 </>
               }
-              description="Straight answers on cost, timelines and ownership. If yours is not here, ask us directly — we would rather over-explain than have you guess."
+              description="Straight answers on cost, timelines and ownership — including why you should trust a studio this new. If yours is not here, just ask."
             />
 
             <Reveal delay={200} className="mt-9">
               <div className="card-surface flex flex-col gap-4 p-6">
                 <p className="text-sm text-muted">Still deciding?</p>
                 <p className="leading-relaxed">
-                  Email us with your store URL and we will send back three things
-                  we would change — free, no call required.
+                  Send us your store link or your Instagram handle. We will reply
+                  with three specific things costing you sales — free, no call
+                  required, no pitch attached.
                 </p>
                 <Button
                   href={`mailto:${site.email}`}

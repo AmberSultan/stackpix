@@ -15,10 +15,10 @@ export function Services() {
           title={
             <>
               Everything your store needs,
-              <br className="hidden sm:block" /> under one roof.
+              <br className="hidden sm:block" /> without the agency overhead.
             </>
           }
-          description="Seven disciplines, one senior team. Take the whole build or the single piece that is holding you back — the standard is the same either way."
+          description="Take the whole build, or the one piece that is holding you back. Shopify is where we spend most of our time — React and design work sit alongside it when a project needs them."
           action={
             <Button
               href="#contact"
@@ -26,7 +26,7 @@ export function Services() {
               size="lg"
               icon={<ArrowUpRight className="size-4" />}
             >
-              Discuss your project
+              Tell us what you need
             </Button>
           }
         />

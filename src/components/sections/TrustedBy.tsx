@@ -1,36 +1,40 @@
 import { Marquee } from '@/components/ui/Marquee'
 import { Reveal } from '@/components/ui/Reveal'
-import { clients } from '@/config/site'
+import { toolbelt } from '@/config/site'
 
 /**
- * Social proof strip.
+ * Capability strip.
  *
- * Client names are set as tracked-out wordmarks rather than dropped in as
- * image logos — a consistent typographic treatment reads more deliberate than
- * eight mismatched PNGs. Swap the <span> for an <img> when real assets land.
+ * This slot usually holds client logos, but a studio without a client roster
+ * cannot fill it without inventing one — and an invented logo wall is the
+ * easiest claim on a site to disprove. Showing the stack instead is honest,
+ * and it reassures a non-technical buyer that the store is built on things
+ * they have heard of.
+ *
+ * Swap this for real client names once there are four or more.
  */
 export function TrustedBy() {
   return (
     <section
-      aria-label="Clients"
+      aria-label="Technology we build with"
       className="relative border-y border-line bg-surface/50 py-14"
     >
       <div className="container-page">
         <Reveal variant="fade">
           <p className="mb-10 text-center font-mono text-[0.6875rem] tracking-[0.18em] text-muted uppercase">
-            Trusted by brands that care about craft
+            Built on tools your store can grow with
           </p>
         </Reveal>
       </div>
 
       <Reveal variant="fade" delay={120}>
         <Marquee duration={46}>
-          {clients.map((client) => (
+          {toolbelt.map((tool) => (
             <span
-              key={client}
+              key={tool}
               className="px-8 text-lg font-medium tracking-[0.14em] whitespace-nowrap text-muted opacity-70 transition-all duration-500 hover:text-brand hover:opacity-100 sm:px-12 sm:text-xl"
             >
-              {client}
+              {tool}
             </span>
           ))}
         </Marquee>
