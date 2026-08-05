@@ -112,7 +112,7 @@ export function Modal({ open, onClose, children, label }: Props) {
         aria-hidden="true"
         onClick={requestClose}
         className={cn(
-          'absolute inset-0 cursor-default bg-black/80 backdrop-blur-xl',
+          'absolute inset-0 cursor-default bg-scrim backdrop-blur-xl',
           'transition-opacity duration-500 ease-[var(--ease-out-quint)]',
           entered ? 'opacity-100' : 'opacity-0',
         )}
@@ -136,7 +136,7 @@ export function Modal({ open, onClose, children, label }: Props) {
             className={cn(
               'flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2',
               'text-sm text-subtle transition-colors duration-300',
-              'hover:border-line-strong hover:bg-white/[0.05] hover:text-accent',
+              'hover:border-line-strong hover:bg-fill-2 hover:text-accent',
             )}
           >
             Close

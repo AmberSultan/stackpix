@@ -29,15 +29,16 @@ const base =
   'duration-300 ease-[var(--ease-out-quint)] active:scale-[0.97] will-change-transform'
 
 const variants: Record<Variant, string> = {
-  // The house CTA: white pill, black label, and a soft white bloom on hover.
+  // The house CTA: orange pill, black label, warm bloom on hover. Black on
+  // brand clears AA at 6.6:1 — white on brand would not.
   primary:
-    'bg-accent text-ink hover:shadow-[0_8px_40px_-8px_rgba(255,255,255,0.45)] hover:bg-white',
+    'bg-brand text-on-brand hover:bg-brand-bright shadow-[0_8px_32px_-12px_var(--p-brand)] hover:shadow-[0_10px_40px_-8px_var(--p-brand)]',
   // Reads as glass over the hero gradient, as a hairline button elsewhere.
+  // Shifts toward the brand on hover rather than jumping to a fill.
   secondary:
-    'border border-line-strong bg-white/[0.03] text-accent backdrop-blur-md ' +
-    'hover:bg-white/[0.08] hover:border-white/25',
-  ghost:
-    'text-subtle hover:text-accent',
+    'border border-line-strong bg-fill-1 text-accent backdrop-blur-md ' +
+    'hover:bg-brand/10 hover:border-brand/50 hover:text-brand',
+  ghost: 'text-subtle hover:text-brand',
 }
 
 const sizes: Record<Size, string> = {

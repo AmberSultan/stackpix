@@ -46,10 +46,10 @@ export function Process() {
             {/* Rail */}
             <div
               aria-hidden
-              className="absolute top-2 bottom-2 left-[1.4375rem] w-px bg-white/8"
+              className="absolute top-2 bottom-2 left-[1.4375rem] w-px bg-line-strong"
             >
               <div
-                className="w-full bg-linear-to-b from-white/70 to-white/25"
+                className="w-full bg-linear-to-b from-brand to-brand-deep"
                 style={{ height: `${progress * 100}%` }}
               />
             </div>
@@ -71,7 +71,7 @@ export function Process() {
                     <h3 className="text-xl font-semibold tracking-[-0.02em]">
                       {step.title}
                     </h3>
-                    <span className="rounded-full border border-line bg-white/[0.03] px-2.5 py-0.5 font-mono text-[0.625rem] tracking-[0.12em] text-muted uppercase">
+                    <span className="rounded-full border border-line bg-fill-1 px-2.5 py-0.5 font-mono text-[0.625rem] tracking-[0.12em] text-muted uppercase">
                       {step.duration}
                     </span>
                   </div>

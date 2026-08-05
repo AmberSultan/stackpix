@@ -71,16 +71,16 @@ function ServiceCard({ service }: { service: Service }) {
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            'radial-gradient(340px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255,255,255,0.07), transparent 70%)',
+            'radial-gradient(340px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in oklab, var(--p-brand) 14%, transparent), transparent 70%)',
         }}
       />
 
       <div className="relative flex items-start justify-between gap-4">
-        <span className="flex size-12 items-center justify-center rounded-xl border border-line bg-white/[0.04] text-accent transition-colors duration-500 group-hover:border-line-strong group-hover:bg-white/[0.08]">
+        <span className="flex size-12 items-center justify-center rounded-xl border border-line bg-fill-2 text-accent transition-colors duration-500 group-hover:border-brand/45 group-hover:bg-brand/10 group-hover:text-brand">
           <ServiceIcon name={service.icon} className="size-5.5" />
         </span>
 
-        <ArrowUpRight className="size-5 text-muted opacity-0 transition-all duration-500 ease-[var(--ease-out-quint)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-hover:opacity-100" />
+        <ArrowUpRight className="size-5 text-muted opacity-0 transition-all duration-500 ease-[var(--ease-out-quint)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand group-hover:opacity-100" />
       </div>
 
       <h3 className="text-h3 relative mt-7 font-semibold">{service.title}</h3>
@@ -99,7 +99,7 @@ function ServiceCard({ service }: { service: Service }) {
       >
         {service.bullets.map((bullet) => (
           <li key={bullet} className="flex items-start gap-2.5 text-sm text-subtle">
-            <Check className="mt-0.5 size-4 shrink-0 text-accent/70" />
+            <Check className="mt-0.5 size-4 shrink-0 text-brand" />
             {bullet}
           </li>
         ))}
@@ -113,7 +113,7 @@ function ServiceCard({ service }: { service: Service }) {
         >
           <span className="relative">
             Learn more
-            <span className="absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-accent transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:origin-left group-hover:scale-x-100" />
+            <span className="absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-brand transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:origin-left group-hover:scale-x-100" />
           </span>
           <ArrowUpRight className="size-3.5 transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </a>

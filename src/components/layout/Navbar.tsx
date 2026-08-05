@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Logo } from './Logo'
+import { ThemeToggle } from './ThemeToggle'
 import { Button } from '@/components/ui/Button'
 import { Menu, Close, ArrowUpRight } from '@/components/ui/Icons'
 import { navLinks, site } from '@/config/site'
@@ -61,7 +62,7 @@ export function Navbar() {
             className={cn(
               'flex items-center justify-between rounded-full transition-all duration-500 ease-[var(--ease-out-quint)]',
               scrolled
-                ? 'glass px-4 py-2.5 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.8)] md:px-5'
+                ? 'glass px-4 py-2.5 shadow-[var(--p-nav-shadow)] md:px-5'
                 : 'border border-transparent px-1 py-2.5',
             )}
           >
@@ -86,7 +87,7 @@ export function Navbar() {
                     {isActive ? (
                       <span
                         aria-hidden
-                        className="absolute inset-0 rounded-full bg-white/[0.07]"
+                        className="absolute inset-0 rounded-full border border-brand/25 bg-brand/12"
                       />
                     ) : null}
                     <span className="relative">{link.label}</span>
@@ -96,6 +97,8 @@ export function Navbar() {
             </nav>
 
             <div className="flex items-center gap-2">
+              <ThemeToggle />
+
               <Button href="#contact" size="sm" className="hidden sm:inline-flex">
                 Start a project
               </Button>
@@ -106,7 +109,7 @@ export function Navbar() {
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"
                 aria-label="Open menu"
-                className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-accent transition-colors duration-300 hover:bg-white/[0.06] lg:hidden"
+                className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-accent transition-colors duration-300 hover:bg-fill-2 lg:hidden"
               >
                 <Menu className="size-5" />
               </button>
@@ -129,14 +132,18 @@ export function Navbar() {
         <div className="relative flex h-full flex-col">
           <div className="container-page flex items-center justify-between py-8">
             <Logo />
-            <button
-              type="button"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
-              className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-accent transition-colors duration-300 hover:bg-white/[0.06]"
-            >
-              <Close className="size-5" />
-            </button>
+
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+                className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-accent transition-colors duration-300 hover:bg-fill-2"
+              >
+                <Close className="size-5" />
+              </button>
+            </div>
           </div>
 
           <nav

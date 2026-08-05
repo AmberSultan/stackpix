@@ -1,18 +1,50 @@
 <!doctype html>
+<!--
+  THEME — the site ships light and dark, both defined in src/styles/globals.css.
+  The visitor picks with the toggle in the header; the boot script below applies
+  their choice (or their OS preference) before the first paint. `data-theme` is
+  set by that script, so there is no value to hardcode here.
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Paints the browser UI black before React mounts, so there is no white
-         flash on load. Worth more than it looks on a site this dark. -->
-    <meta name="theme-color" content="#050505" />
-    <meta name="color-scheme" content="dark" />
+    <!-- Tints the browser chrome. Kept in step by src/lib/theme.ts. -->
+    <meta name="theme-color" content="#f7f7f4" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!--
+      Runs before the browser paints anything, which is the whole point: if the
+      theme were applied from React instead, a dark-mode visitor would get a
+      full white flash on every page load. Deliberately inline and dependency
+      free so nothing has to be fetched first.
+
+      The storage key is duplicated from src/lib/theme.ts — change both together.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('stacklabs-theme')
+          var theme =
+            stored ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light')
+          document.documentElement.dataset.theme = theme
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute('content', theme === 'dark' ? '#050505' : '#f7f7f4')
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- ↓↓↓ CHANGE ME — SEO. Keep the title under ~60 characters. ↓↓↓ -->
-    <title>Northlane — Premium Shopify Stores &amp; Digital Experiences</title>
+    <title>Stacklabs — Premium Shopify Stores &amp; Digital Experiences</title>
     <meta
       name="description"
       content="We design and build premium Shopify stores for fashion, jewellery, beauty and lifestyle brands — stores that look world-class and sell like it."
@@ -24,7 +56,7 @@
     <meta property="og:url" content="https://example.com/" />
     <meta
       property="og:title"
-      content="Northlane — Premium Shopify Stores &amp; Digital Experiences"
+      content="Stacklabs — Premium Shopify Stores &amp; Digital Experiences"
     />
     <meta
       property="og:description"
@@ -35,8 +67,12 @@
 
     <style>
       /* Matches the app background so the first paint is already correct,
-         before the stylesheet or fonts have loaded. */
-      html {
+         before the stylesheet or fonts have loaded. The boot script above has
+         already stamped data-theme by the time this is evaluated. */
+      html[data-theme='light'] {
+        background-color: #f7f7f4;
+      }
+      html[data-theme='dark'] {
         background-color: #050505;
       }
     </style>
@@ -44,11 +80,9 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <div style="padding: 2rem; color: #fff; font-family: system-ui, sans-serif">
+      <div style="padding: 2rem; font-family: system-ui, sans-serif">
         This site needs JavaScript enabled. Email
-        <a href="mailto:hello@northlane.studio" style="color: #fff"
-          >hello@northlane.studio</a
-        >
+        <a href="mailto:hello@stacklabs.co">hello@stacklabs.co</a>
         and we will get straight back to you.
       </div>
     </noscript>

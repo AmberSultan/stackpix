@@ -39,7 +39,7 @@ export function CaseStudy({ project }: { project: Project }) {
               href={project.url}
               target="_blank"
               rel="noreferrer noopener"
-              className="group mt-7 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-5 py-2.5 text-sm transition-colors duration-300 hover:border-line-strong hover:bg-white/[0.07]"
+              className="group mt-7 inline-flex items-center gap-2 rounded-full border border-line bg-fill-1 px-5 py-2.5 text-sm transition-colors duration-300 hover:border-line-strong hover:bg-fill-2"
             >
               Visit the live store
               <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -66,7 +66,7 @@ export function CaseStudy({ project }: { project: Project }) {
               {project.stack.map((tech) => (
                 <li
                   key={tech}
-                  className="rounded-full border border-line bg-white/[0.03] px-3.5 py-1.5 text-sm text-subtle"
+                  className="rounded-full border border-line bg-fill-1 px-3.5 py-1.5 text-sm text-subtle"
                 >
                   {tech}
                 </li>
@@ -86,7 +86,11 @@ export function CaseStudy({ project }: { project: Project }) {
             {/* Faint wash marks this as the resolution half of the pair */}
             <div
               aria-hidden
-              className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08),transparent_65%)] blur-2xl"
+              className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full blur-2xl"
+              style={{
+                background:
+                  'radial-gradient(circle, color-mix(in oklab, var(--p-brand) 20%, transparent), transparent 65%)',
+              }}
             />
             <SectionLabel>The solution</SectionLabel>
             <p className="relative mt-5 leading-relaxed text-subtle">
@@ -128,7 +132,7 @@ export function CaseStudy({ project }: { project: Project }) {
                 key={result.label}
                 className="card-surface flex flex-col gap-2 p-6"
               >
-                <p className="text-gradient text-3xl font-semibold tracking-[-0.03em]">
+                <p className="text-gradient-brand text-3xl font-semibold tracking-[-0.03em]">
                   {result.value}
                 </p>
                 <p className="text-sm text-muted">{result.label}</p>

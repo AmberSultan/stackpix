@@ -21,8 +21,11 @@ export function GridBackdrop({ className }: { className?: string }) {
 }
 
 /**
- * Slow-drifting light source. Two offset blooms read as a single soft light
- * above the fold rather than an obvious "gradient blob".
+ * Slow-drifting light source. Offset blooms read as a single soft light above
+ * the fold rather than an obvious "gradient blob".
+ *
+ * The white bloom carries the brightness and a warm brand bloom sits behind it
+ * — enough to tint the top of the page without turning the background orange.
  */
 export function AuroraBackdrop({ className }: { className?: string }) {
   return (
@@ -30,14 +33,36 @@ export function AuroraBackdrop({ className }: { className?: string }) {
       aria-hidden
       className={cn('pointer-events-none absolute inset-0 overflow-hidden', className)}
     >
-      <div className="animate-aurora absolute -top-[30%] left-1/2 h-[52rem] w-[64rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.13),transparent_62%)] blur-[70px]" />
       <div
-        className="animate-aurora absolute top-[8%] right-[6%] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.07),transparent_65%)] blur-[80px]"
-        style={{ animationDelay: '-7s' }}
+        className="animate-aurora absolute -top-[30%] left-1/2 h-[52rem] w-[64rem] -translate-x-1/2 rounded-full blur-[70px]"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, var(--p-aurora-1), transparent 62%)',
+        }}
       />
       <div
-        className="animate-aurora absolute bottom-[-14%] left-[4%] h-[26rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.05),transparent_68%)] blur-[90px]"
-        style={{ animationDelay: '-13s' }}
+        className="animate-aurora absolute -top-[16%] left-[38%] h-[34rem] w-[44rem] -translate-x-1/2 rounded-full blur-[90px]"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, var(--p-aurora-2), transparent 66%)',
+          animationDelay: '-4s',
+        }}
+      />
+      <div
+        className="animate-aurora absolute top-[8%] right-[6%] h-[30rem] w-[30rem] rounded-full blur-[80px]"
+        style={{
+          background:
+            'radial-gradient(circle, var(--p-aurora-3), transparent 65%)',
+          animationDelay: '-7s',
+        }}
+      />
+      <div
+        className="animate-aurora absolute bottom-[-14%] left-[4%] h-[26rem] w-[34rem] rounded-full blur-[90px]"
+        style={{
+          background:
+            'radial-gradient(circle, var(--p-aurora-2), transparent 68%)',
+          animationDelay: '-13s',
+        }}
       />
     </div>
   )
@@ -59,7 +84,7 @@ export function HairlineDivider({ className }: { className?: string }) {
     <div
       aria-hidden
       className={cn(
-        'h-px w-full bg-linear-to-r from-transparent via-white/12 to-transparent',
+        'h-px w-full bg-linear-to-r from-transparent via-line-strong to-transparent',
         className,
       )}
     />

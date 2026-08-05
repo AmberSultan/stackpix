@@ -28,7 +28,7 @@ export function TrustedBy() {
           {clients.map((client) => (
             <span
               key={client}
-              className="px-8 text-lg font-medium tracking-[0.14em] whitespace-nowrap text-white/35 transition-colors duration-500 hover:text-white/80 sm:px-12 sm:text-xl"
+              className="px-8 text-lg font-medium tracking-[0.14em] whitespace-nowrap text-muted opacity-70 transition-all duration-500 hover:text-brand hover:opacity-100 sm:px-12 sm:text-xl"
             >
               {client}
             </span>

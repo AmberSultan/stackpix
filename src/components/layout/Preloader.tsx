@@ -79,7 +79,7 @@ export function Preloader({ onComplete }: Props) {
       )}
     >
       <div className="flex items-center gap-2.5">
-        <span className="flex size-8 items-center justify-center rounded-[0.6rem] bg-accent text-sm font-bold text-ink">
+        <span className="flex size-8 items-center justify-center rounded-[0.6rem] bg-brand text-sm font-bold text-on-brand">
           {site.mark}
         </span>
         <span className="text-[0.9375rem] font-semibold tracking-[-0.02em]">
@@ -97,9 +97,9 @@ export function Preloader({ onComplete }: Props) {
       </div>
 
       {/* Progress rule */}
-      <div className="absolute inset-x-0 bottom-0 h-px bg-white/10">
+      <div className="absolute inset-x-0 bottom-0 h-px bg-line">
         <div
-          className="h-full bg-accent transition-[width] duration-150 ease-linear"
+          className="h-full bg-brand transition-[width] duration-150 ease-linear"
           style={{ width: `${progress}%` }}
         />
       </div>

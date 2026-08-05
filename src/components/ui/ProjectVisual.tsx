@@ -136,7 +136,10 @@ export function ProjectVisual({ project, className }: Props) {
 
           {/* Storefront, floating slightly off the bottom edge */}
           <div className="absolute inset-x-[10%] top-[14%] bottom-[-14%]">
-            <div className="glass flex size-full flex-col overflow-hidden rounded-t-2xl p-2.5 shadow-[0_-20px_60px_-20px_rgba(0,0,0,0.9)] sm:p-3.5">
+            {/* Explicitly dark rather than the themed `glass` utility: this is
+                artwork, not chrome. It sits on its own tinted gradient and must
+                look identical whichever theme the page is in. */}
+            <div className="flex size-full flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-white/[0.06] p-2.5 shadow-[0_-20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md sm:p-3.5">
               {/* Browser chrome */}
               <div className="mb-2.5 flex shrink-0 items-center gap-1.5">
                 <span className="size-1.5 rounded-full bg-white/25" />

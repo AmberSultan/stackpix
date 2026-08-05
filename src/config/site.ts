@@ -7,18 +7,17 @@
  * ==========================================================================*/
 
 export const site = {
-  /** ↓↓↓ CHANGE ME — your agency name ↓↓↓ */
-  name: 'Northlane',
+  name: 'Stacklabs',
   /** Short form used inside the logo mark (1–2 characters look best). */
-  mark: 'N',
+  mark: 'S',
   /** Legal entity shown in the footer copyright line. */
-  legalName: 'Northlane Studio',
+  legalName: 'Stacklabs',
 
   tagline: 'Building Premium Shopify Stores & Digital Experiences.',
   description:
     'We design and build premium Shopify stores for fashion, jewellery, beauty and lifestyle brands — stores that look world-class and sell like it.',
 
-  email: 'hello@northlane.studio',
+  email: 'hello@stacklabs.co', // ← CHANGE ME: your real inbox
   phone: '+1 (555) 010-0199',
   location: 'Remote — working worldwide',
   bookingUrl: 'https://cal.com/', // ← CHANGE ME: your Cal.com / Calendly link
@@ -47,6 +46,7 @@ export const navLinks = [
 export const hero = {
   badge: 'Shopify Partner — booking Q3 projects',
   headline: ['We made Shopify stores', 'that customers love.'],
+  headlineAccent: 'love.',
   subline:
     'A premium design & development studio for fashion, jewellery, beauty and lifestyle brands. We turn browsers into buyers with stores that feel as considered as the products they sell.',
   primaryCta: { label: 'View Work', href: '#work' },

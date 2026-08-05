@@ -26,11 +26,11 @@ export function WhyUs() {
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
                   style={{
                     background:
-                      'radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,0.10), transparent 60%)',
+                      'radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, var(--p-brand) 20%, transparent), transparent 60%)',
                   }}
                 />
 
-                <p className="text-gradient relative text-[clamp(2.75rem,5vw,3.75rem)] leading-none font-semibold tracking-[-0.04em]">
+                <p className="text-gradient-brand relative text-[clamp(2.75rem,5vw,3.75rem)] leading-none font-semibold tracking-[-0.04em]">
                   <Counter
                     value={stat.value}
                     suffix={stat.suffix}
@@ -55,7 +55,7 @@ export function WhyUs() {
           {differentiators.map((item, index) => (
             <Reveal key={item.title} delay={(index % 2) * 90}>
               <div className="card-surface flex h-full gap-5 p-7 md:p-8">
-                <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-accent text-ink">
+                <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-brand text-on-brand">
                   <Check className="size-4" strokeWidth={2} />
                 </span>
 

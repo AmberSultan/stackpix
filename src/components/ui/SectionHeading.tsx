@@ -17,10 +17,10 @@ type Props = {
  *  throughout the site. */
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.18em] text-muted uppercase">
+    <span className="inline-flex items-center gap-2.5 font-mono text-[0.6875rem] tracking-[0.18em] text-brand uppercase">
       <span
         aria-hidden
-        className="size-1.5 rounded-full bg-accent/70 shadow-[0_0_12px_2px_rgba(255,255,255,0.35)]"
+        className="size-1.5 rounded-full bg-brand shadow-[0_0_12px_2px_rgba(255,90,31,0.55)]"
       />
       {children}
     </span>

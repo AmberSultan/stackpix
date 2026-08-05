@@ -50,25 +50,35 @@ export function Hero({ ready }: Props) {
           <div className={enterClass} style={stagger(0)}>
             <span className="glass inline-flex items-center gap-2.5 rounded-full py-1.5 pr-4 pl-2 text-[0.8125rem] text-subtle">
               <span className="relative flex size-1.5">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-                <span className="relative inline-flex size-1.5 rounded-full bg-emerald-400" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-70" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-brand" />
               </span>
               {hero.badge}
             </span>
           </div>
 
-          {/* Headline — one animated line at a time */}
+          {/* Headline — one animated line at a time, with the closing words
+              carried in the brand colour. */}
           <h1 className="text-display mt-8 max-w-[16ch] font-semibold">
-            {hero.headline.map((line, index) => (
-              <span key={line} className="block overflow-hidden pb-[0.08em]">
-                <span
-                  className={cn('text-gradient block', enterClass)}
-                  style={stagger(index + 1)}
-                >
-                  {line}
+            {hero.headline.map((line, index) => {
+              const accent = hero.headlineAccent
+              const hasAccent = Boolean(accent) && line.endsWith(accent)
+              const head = hasAccent ? line.slice(0, -accent.length) : line
+
+              return (
+                <span key={line} className="block overflow-hidden pb-[0.08em]">
+                  <span
+                    className={cn('block', enterClass)}
+                    style={stagger(index + 1)}
+                  >
+                    <span className="text-gradient">{head}</span>
+                    {hasAccent ? (
+                      <span className="text-gradient-brand">{accent}</span>
+                    ) : null}
+                  </span>
                 </span>
-              </span>
-            ))}
+              )
+            })}
           </h1>
 
           <p
@@ -112,7 +122,7 @@ export function Hero({ ready }: Props) {
           {/* Proof strip */}
           <ul
             className={cn(
-              'mt-20 grid w-full max-w-2xl grid-cols-3 divide-x divide-white/8',
+              'mt-20 grid w-full max-w-2xl grid-cols-3 divide-x divide-line',
               enterClass,
             )}
             style={stagger(5)}
@@ -170,7 +180,7 @@ function FloatingChip({
       }}
     >
       <div
-        className="animate-float glass flex flex-col gap-1 rounded-2xl px-5 py-4 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.9)]"
+        className="animate-float glass flex flex-col gap-1 rounded-2xl px-5 py-4 shadow-[var(--p-chip-shadow)]"
         style={{ animationDelay: delay }}
       >
         <span className="font-mono text-[0.625rem] tracking-[0.16em] text-muted uppercase">

@@ -97,7 +97,7 @@ function ProjectCard({
             'relative aspect-4/3 overflow-hidden rounded-[var(--radius-panel)] border border-line',
             'transition-[border-color,box-shadow,transform] duration-700 ease-[var(--ease-out-quint)]',
             'group-hover:-translate-y-1.5 group-hover:border-line-strong',
-            'group-hover:shadow-[0_40px_80px_-32px_rgba(0,0,0,0.9)]',
+            'group-hover:shadow-[var(--p-lift-shadow)]',
           )}
         >
           <ProjectVisual project={project} />
@@ -123,7 +123,7 @@ function ProjectCard({
             <p className="mt-1.5 text-sm text-muted">{project.category}</p>
           </div>
 
-          <span className="mt-1 flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-muted transition-all duration-500 ease-[var(--ease-out-quint)] group-hover:border-transparent group-hover:bg-accent group-hover:text-ink">
+          <span className="mt-1 flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-muted transition-all duration-500 ease-[var(--ease-out-quint)] group-hover:border-transparent group-hover:bg-brand group-hover:text-on-brand">
             <ArrowUpRight className="size-4" />
           </span>
         </div>

@@ -25,7 +25,7 @@ export function Accordion({ items, defaultOpen = 0 }: Props) {
   const baseId = useId()
 
   return (
-    <div className="divide-y divide-white/8 border-y border-white/8">
+    <div className="divide-y divide-line border-y border-line">
       {items.map((item, index) => {
         const isOpen = openIndex === index
         const panelId = `${baseId}-panel-${index}`
@@ -55,8 +55,8 @@ export function Accordion({ items, defaultOpen = 0 }: Props) {
                     'flex size-9 shrink-0 items-center justify-center rounded-full border border-line',
                     'transition-all duration-500 ease-[var(--ease-out-quint)]',
                     isOpen
-                      ? 'rotate-45 border-transparent bg-accent text-ink'
-                      : 'bg-white/[0.03] group-hover:border-line-strong',
+                      ? 'rotate-45 border-transparent bg-brand text-on-brand'
+                      : 'bg-fill-1 group-hover:border-brand/50 group-hover:text-brand',
                   )}
                 >
                   <Plus className="size-4" />

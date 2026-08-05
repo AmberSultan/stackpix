@@ -15,7 +15,7 @@ export function Footer() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -bottom-[3vw] flex justify-center overflow-hidden select-none"
       >
-        <span className="bg-linear-to-b from-white/[0.055] to-transparent bg-clip-text text-[19vw] leading-[0.75] font-bold tracking-[-0.05em] text-transparent">
+        <span className="bg-linear-to-b from-wordmark to-transparent bg-clip-text text-[19vw] leading-[0.75] font-bold tracking-[-0.05em] text-transparent">
           {site.name}
         </span>
       </div>

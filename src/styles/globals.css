@@ -2,28 +2,180 @@
 @import '@fontsource-variable/inter';
 
 /* ==========================================================================
-   DESIGN TOKENS
-   Tailwind v4 reads this block and generates utilities from it:
-   `--color-card` → `bg-card`, `--font-sans` → `font-sans`, and so on.
+   THEMES
+
+   Two complete palettes. Every colour a component can use is defined here
+   twice — once light, once dark — so switching the whole site is a single
+   attribute on <html>:
+
+       <html data-theme="light">   ← peacock on off-white (current)
+       <html data-theme="dark">    ← orange on near-black
+
+   Components never hardcode a colour. If you find yourself reaching for
+   `white/10` in a component, add a token here instead — that is the rule that
+   keeps both themes working.
    ========================================================================== */
 
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* Surfaces — off-white page, white cards. The lift comes from shadow and
+     hairlines rather than from a change in hue. */
+  --p-ink: #f7f7f4; /* page background ("half white") */
+  --p-surface: #eeeee9; /* alternating band            */
+  --p-card: #ffffff; /* cards, popovers             */
+  --p-elevated: #ffffff; /* card hover (shadow does the work) */
+
+  /* Content. Note `subtle` is DARKER than `muted` here and lighter in dark
+     mode — both themes keep body copy as the more readable of the two. */
+  --p-fg: #111614; /* 14.7:1 on --p-ink */
+  --p-subtle: #414b4a; /*  8.4:1 — body copy      */
+  --p-muted: #5b6370; /*  5.8:1 — captions. The dark theme's #6b7280 only
+                              managed 4.50:1 here, i.e. AA with no margin. */
+
+  /* Hairlines and fills, tinted with the text colour rather than pure black */
+  --p-line: rgb(16 22 20 / 0.11);
+  --p-line-strong: rgb(16 22 20 / 0.2);
+  --p-fill-1: rgb(16 22 20 / 0.035);
+  --p-fill-2: rgb(16 22 20 / 0.07);
+
+  /* Brand — peacock. Deep enough that small labels clear AA on off-white
+     (5.4:1), and white sits on it at the same ratio. */
+  --p-brand: #0a6d75;
+  --p-brand-bright: #12909a;
+  --p-brand-deep: #064e56;
+  --p-on-brand: #ffffff;
+
+  /* Peacock proper: green through teal to blue, the way the feather runs. */
+  --p-brand-grad: linear-gradient(100deg, #0d8a6d 0%, #0a7d8c 48%, #0a5f9e 100%);
+  --p-fg-grad: linear-gradient(180deg, #111614 15%, #4d5654 135%);
+
+  --p-scrim: rgb(12 18 17 / 0.45);
+  --p-wordmark: rgb(16 22 20 / 0.07);
+  --p-grid: rgb(16 22 20 / 0.05);
+
+  --p-card-shadow:
+    0 1px 2px rgb(16 22 20 / 0.04), 0 18px 44px -26px rgb(16 22 20 / 0.22);
+  --p-card-highlight: none;
+
+  /* Depth cues. A near-opaque black shadow reads as dirt on a light page, so
+     each theme gets its own weight rather than sharing one value. */
+  --p-lift-shadow: 0 30px 70px -38px rgb(16 22 20 / 0.38);
+  --p-chip-shadow: 0 18px 45px -22px rgb(16 22 20 / 0.28);
+  --p-nav-shadow: 0 8px 28px -14px rgb(16 22 20 / 0.18);
+
+  --p-glass: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.82) 0%,
+    rgb(255 255 255 / 0.62) 100%
+  );
+
+  /* Ambient blooms behind the hero and CTA */
+  --p-aurora-1: rgb(13 138 109 / 0.20);
+  --p-aurora-2: rgb(10 125 140 / 0.20);
+  --p-aurora-3: rgb(10 95 158 / 0.14);
+
+  --p-noise-opacity: 0.04;
+  --p-noise-blend: multiply;
+
+  --p-scroll-thumb: #c9cac4;
+  --p-scroll-thumb-hover: #a9aaa3;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --p-ink: #050505;
+  --p-surface: #111111;
+  --p-card: #181818;
+  --p-elevated: #1f1f1f;
+
+  --p-fg: #ffffff;
+  --p-subtle: #9ca3af;
+  --p-muted: #6b7280;
+
+  --p-line: rgb(255 255 255 / 0.08);
+  --p-line-strong: rgb(255 255 255 / 0.14);
+  --p-fill-1: rgb(255 255 255 / 0.03);
+  --p-fill-2: rgb(255 255 255 / 0.06);
+
+  /* Brighter peacock — a deep teal disappears against near-black. Labels sit
+     on dark, so the fill takes a near-black label instead of white. */
+  --p-brand: #14a3b0;
+  --p-brand-bright: #35c6d2;
+  --p-brand-deep: #0b6c76;
+  --p-on-brand: #04191b;
+
+  --p-brand-grad: linear-gradient(100deg, #1fbb92 0%, #21b4c6 48%, #2f8fd8 100%);
+  --p-fg-grad: linear-gradient(180deg, #ffffff 20%, #8b8b8b 130%);
+
+  --p-scrim: rgb(0 0 0 / 0.8);
+  --p-wordmark: rgb(255 255 255 / 0.055);
+  --p-grid: rgb(255 255 255 / 0.045);
+
+  --p-card-shadow: none;
+  --p-card-highlight: linear-gradient(
+    160deg,
+    rgb(255 255 255 / 0.14),
+    transparent 38%
+  );
+
+  --p-lift-shadow: 0 40px 80px -32px rgb(0 0 0 / 0.9);
+  --p-chip-shadow: 0 20px 60px -24px rgb(0 0 0 / 0.9);
+  --p-nav-shadow: 0 8px 32px -12px rgb(0 0 0 / 0.8);
+
+  --p-glass: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.06) 0%,
+    rgb(255 255 255 / 0.02) 100%
+  );
+
+  --p-aurora-1: rgb(255 255 255 / 0.13);
+  --p-aurora-2: rgb(20 163 176 / 0.22);
+  --p-aurora-3: rgb(53 198 210 / 0.10);
+
+  --p-noise-opacity: 0.028;
+  --p-noise-blend: soft-light;
+
+  --p-scroll-thumb: #262626;
+  --p-scroll-thumb-hover: #3d3d3d;
+}
+
+/* ==========================================================================
+   DESIGN TOKENS
+
+   `@theme inline` makes Tailwind generate utilities that point straight at the
+   palette variables above, so `bg-ink` re-resolves when the theme attribute
+   changes instead of baking in one theme's value.
+   ========================================================================== */
+
+@theme inline {
+  --color-ink: var(--p-ink);
+  --color-surface: var(--p-surface);
+  --color-card: var(--p-card);
+  --color-elevated: var(--p-elevated);
+
+  /* `accent` is the primary text colour — white on dark, near-black on light */
+  --color-accent: var(--p-fg);
+  --color-subtle: var(--p-subtle);
+  --color-muted: var(--p-muted);
+
+  --color-line: var(--p-line);
+  --color-line-strong: var(--p-line-strong);
+  --color-fill-1: var(--p-fill-1);
+  --color-fill-2: var(--p-fill-2);
+
+  --color-brand: var(--p-brand);
+  --color-brand-bright: var(--p-brand-bright);
+  --color-brand-deep: var(--p-brand-deep);
+  --color-on-brand: var(--p-on-brand);
+
+  --color-scrim: var(--p-scrim);
+  --color-wordmark: var(--p-wordmark);
+}
+
 @theme {
-  /* Surfaces — a deliberately narrow, near-black range. Contrast comes from
-     type and hairlines, not from bright panels. */
-  --color-ink: #050505; /* page background            */
-  --color-surface: #111111; /* alternating band           */
-  --color-card: #181818; /* cards, popovers            */
-  --color-elevated: #1f1f1f; /* hover state for cards      */
-
-  /* Content */
-  --color-accent: #ffffff;
-  --color-muted: #6b7280;
-  --color-subtle: #9ca3af;
-
-  /* Hairlines */
-  --color-line: rgb(255 255 255 / 0.08);
-  --color-line-strong: rgb(255 255 255 / 0.14);
-
   --font-sans:
     'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', Roboto, sans-serif;
@@ -59,6 +211,7 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    background-color: var(--color-ink);
   }
 
   /* Lenis drives scrolling; native smooth-scroll would fight it. */
@@ -104,14 +257,31 @@
   }
 
   ::selection {
-    background: var(--color-accent);
-    color: var(--color-ink);
+    background: var(--color-brand);
+    color: var(--color-on-brand);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-brand);
     outline-offset: 3px;
     border-radius: 4px;
+  }
+
+  /* Applied by applyTheme() for the length of a theme switch only. Without it
+     each element re-colours on its own transition (or none at all) and the
+     change reads as a flicker; with it the whole page cross-fades at once.
+     Never left on, because a permanent global transition would interfere with
+     every hover state on the site. */
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 320ms var(--ease-out-quint),
+      border-color 320ms var(--ease-out-quint),
+      color 320ms var(--ease-out-quint),
+      fill 320ms var(--ease-out-quint) !important;
+    transition-delay: 0ms !important;
   }
 
   /* Slim, unobtrusive scrollbar */
@@ -122,12 +292,12 @@
     background: var(--color-ink);
   }
   ::-webkit-scrollbar-thumb {
-    background: #262626;
+    background: var(--p-scroll-thumb);
     border: 3px solid var(--color-ink);
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3d3d3d;
+    background: var(--p-scroll-thumb-hover);
   }
 }
 
@@ -158,25 +328,24 @@
    SURFACE TREATMENTS
    ========================================================================== */
 
-/** Frosted card — glass morphism, used sparingly on top of gradients. */
+/** Frosted panel. Translucent white in both themes — just far more of it on
+ *  light, where a 6% wash would read as nothing at all. */
 @utility glass {
-  background: linear-gradient(
-    180deg,
-    rgb(255 255 255 / 0.06) 0%,
-    rgb(255 255 255 / 0.02) 100%
-  );
+  background: var(--p-glass);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid var(--color-line);
 }
 
-/** The house card: near-black fill, hairline border, and a barely-there
- *  top highlight that reads as a light source above the page. */
+/** The house card. On dark it is lifted by a hairline highlight along the top
+ *  edge; on light that highlight is invisible, so a soft shadow does the same
+ *  job instead. Both are tokens, so the component never knows which it got. */
 @utility card-surface {
   position: relative;
   background-color: var(--color-card);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-card);
+  box-shadow: var(--p-card-shadow);
   isolation: isolate;
 
   &::before {
@@ -185,11 +354,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(
-      160deg,
-      rgb(255 255 255 / 0.14),
-      transparent 38%
-    );
+    background: var(--p-card-highlight);
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
@@ -200,9 +365,19 @@
   }
 }
 
-/** Text that fades from white to grey — for long display headlines. */
+/** Display text that fades toward grey — for long headlines. */
 @utility text-gradient {
-  background: linear-gradient(180deg, #ffffff 20%, #8b8b8b 130%);
+  background: var(--p-fg-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/** The brand equivalent — green through teal to blue. Used for the accented
+ *  word in a headline, and for statistics, where the figure is the thing
+ *  worth looking at. */
+@utility text-gradient-brand {
+  background: var(--p-brand-grad);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -211,12 +386,12 @@
 /** Fine dot grid used behind the hero and CTA. */
 @utility bg-grid {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    linear-gradient(to right, var(--p-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--p-grid) 1px, transparent 1px);
   background-size: 72px 72px;
 }
 
-/** Film grain. Keeps large flat black areas from banding on cheap panels. */
+/** Film grain. Keeps large flat areas from banding on cheap panels. */
 @utility bg-noise {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
 }
@@ -319,17 +494,6 @@
   }
   to {
     transform: translateX(200%);
-  }
-}
-
-@keyframes fade-up-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
   }
 }
 

@@ -1,0 +1,69 @@
+export type Theme = 'light' | 'dark'
+
+/** Also read by the inline boot script in index.html — keep the two in sync. */
+export const THEME_STORAGE_KEY = 'stacklabs-theme'
+
+/** Browser-chrome colour per theme. Mirrors --p-ink in globals.css. */
+const THEME_COLOR: Record<Theme, string> = {
+  light: '#f7f7f4',
+  dark: '#050505',
+}
+
+/**
+ * The theme is already on <html> by the time React mounts — the boot script in
+ * index.html puts it there before first paint. Reading it back, rather than
+ * recomputing, guarantees React's idea of the theme matches what is on screen.
+ */
+export function readTheme(): Theme {
+  if (typeof document === 'undefined') return 'light'
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
+}
+
+/** What a first-time visitor should get: their system preference. */
+export function preferredTheme(): Theme {
+  if (typeof window === 'undefined') return 'light'
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light'
+}
+
+export function hasStoredPreference(): boolean {
+  try {
+    return localStorage.getItem(THEME_STORAGE_KEY) !== null
+  } catch {
+    return false
+  }
+}
+
+/** Skips the cross-fade on the very first apply, which happens on mount and
+ *  would otherwise animate a theme that is already correct. */
+let applied = false
+
+export function applyTheme(theme: Theme) {
+  const root = document.documentElement
+
+  // Transition every colour at once so the switch reads as one movement
+  // rather than each element changing on its own schedule. Gated on motion
+  // preference, since this is decoration rather than feedback.
+  const animate =
+    applied && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (animate) {
+    root.classList.add('theme-transition')
+    window.setTimeout(() => root.classList.remove('theme-transition'), 360)
+  }
+
+  root.dataset.theme = theme
+  applied = true
+
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute('content', THEME_COLOR[theme])
+
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, theme)
+  } catch {
+    // Private browsing or blocked storage — the theme still applies for this
+    // session, it just will not be remembered.
+  }
+}

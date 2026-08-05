@@ -61,20 +61,67 @@ src/
 
 ## Design system
 
-Tokens are declared once in the `@theme` block of `globals.css`, and Tailwind
-generates utilities from them — `--color-card` becomes `bg-card`, `--text-h2`
-becomes `text-h2`.
+### Switching theme
 
-| Token | Value | Usage |
-| --- | --- | --- |
-| `ink` | `#050505` | page background |
-| `surface` | `#111111` | alternating section bands |
-| `card` | `#181818` | cards and popovers |
-| `elevated` | `#1f1f1f` | card hover |
-| `accent` | `#ffffff` | primary text, buttons |
-| `muted` | `#6b7280` | secondary text |
-| `subtle` | `#9ca3af` | body copy on dark cards |
-| `line` / `line-strong` | white at 8% / 14% | hairline borders |
+The site ships **both** palettes — peacock on off-white, and peacock on
+near-black — and visitors switch with the toggle in the header. There is
+nothing to configure.
+
+Resolution order on load:
+
+1. The visitor's saved choice (`localStorage`, key `stacklabs-theme`)
+2. Otherwise their OS setting (`prefers-color-scheme`)
+3. Otherwise light
+
+Until someone touches the toggle, the site follows their OS live — change the
+system theme and the page follows. After that their choice wins and sticks, and
+syncs across open tabs.
+
+**To force one theme**, delete `<ThemeToggle />` from `Navbar.tsx` and hardcode
+`data-theme` on `<html>` in `index.html`.
+
+#### Why the inline script in index.html
+
+It sets `data-theme` **before the browser paints**. Applying the theme from
+React instead would give every dark-mode visitor a full white flash on each
+page load — the single most common bug in hand-rolled theme switchers. It is
+inline and dependency-free so nothing has to be fetched first, and it runs
+ahead of both the stylesheet and the app bundle (asserted by the render test).
+
+The storage key is duplicated between that script and `src/lib/theme.ts` —
+change both together.
+
+### How it works
+
+Palette values live in `:root` / `[data-theme='dark']` as `--p-*` variables.
+The `@theme inline` block maps them to Tailwind utilities, so `bg-ink` compiles
+to `background-color: var(--p-ink)` and re-resolves when the attribute changes
+— rather than baking one theme's value into the class.
+
+| Token | Light | Dark | Usage |
+| --- | --- | --- | --- |
+| `ink` | `#f7f7f4` | `#050505` | page background |
+| `surface` | `#eeeee9` | `#111111` | alternating section bands |
+| `card` | `#ffffff` | `#181818` | cards and popovers |
+| `accent` | `#111614` | `#ffffff` | primary text |
+| `subtle` | `#414b4a` | `#9ca3af` | body copy |
+| `muted` | `#5b6370` | `#6b7280` | captions |
+| `brand` | `#0a6d75` | `#14a3b0` | CTAs, emphasis, interaction |
+| `on-brand` | `#ffffff` | `#04191b` | label colour on a brand fill |
+| `line` / `line-strong` | ink at 11% / 20% | white at 8% / 14% | hairlines |
+| `fill-1` / `fill-2` | ink at 3.5% / 7% | white at 3% / 6% | subtle surfaces |
+
+### Rules that keep both themes working
+
+- **Never hardcode a colour in a component.** If you reach for `white/10`, add
+  a token instead. The only exceptions are `Logo`, `Work` and `ProjectVisual`,
+  where the surface sits over imagery and must stay dark in both themes.
+- **Every brand fill uses `text-on-brand`**, not a fixed black or white — the
+  two themes need opposite labels. Both clear WCAG AA (6.1:1 light, 8.9:1 dark).
+- `subtle` is *darker* than `muted` on light and *lighter* on dark. Both themes
+  keep body copy as the more readable of the two.
+- Depth is themed too: `--p-lift-shadow`, `--p-chip-shadow` and
+  `--p-nav-shadow`. A near-opaque black shadow reads as dirt on a light page.
 
 Type is fluid: `--text-display`, `--text-h1`, `--text-h2`, `--text-h3` and
 `--text-lead` all use `clamp()`, so headings scale continuously between 375px

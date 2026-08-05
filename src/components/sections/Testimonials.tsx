@@ -26,10 +26,14 @@ export function Testimonials() {
             <figure className="card-surface relative flex h-full flex-col justify-between overflow-hidden p-8 md:p-11">
               <div
                 aria-hidden
-                className="pointer-events-none absolute -top-20 -right-10 size-72 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.07),transparent_65%)] blur-2xl"
+                className="pointer-events-none absolute -top-20 -right-10 size-72 rounded-full blur-2xl"
+                style={{
+                  background:
+                    'radial-gradient(circle, color-mix(in oklab, var(--p-brand) 18%, transparent), transparent 65%)',
+                }}
               />
 
-              <Quote className="relative size-9 text-white/15" />
+              <Quote className="relative size-9 text-brand/40" />
 
               <blockquote className="relative mt-7 text-xl leading-snug font-medium tracking-[-0.02em] text-balance md:text-[1.75rem] md:leading-[1.3]">
                 “{featured.quote}”
@@ -62,7 +66,7 @@ export function Testimonials() {
 function QuoteCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <figure className="card-surface flex h-full flex-col justify-between p-7 transition-colors duration-500 hover:bg-elevated md:p-8">
-      <div className="flex gap-0.5 text-accent">
+      <div className="flex gap-0.5 text-brand">
         {Array.from({ length: 5 }).map((_, index) => (
           <Star key={index} className="size-3.5" />
         ))}
@@ -95,7 +99,7 @@ function Attribution({
       <div className="flex items-center gap-3.5">
         {/* Monogram stands in for a headshot — consistent and never a broken
             image. Swap for an <img> when real photos exist. */}
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line bg-white/[0.05] text-[0.8125rem] font-semibold tracking-tight">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line bg-fill-2 text-[0.8125rem] font-semibold tracking-tight">
           {initials}
         </span>
 
