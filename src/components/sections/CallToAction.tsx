@@ -26,37 +26,38 @@ export function CallToAction() {
             <AuroraBackdrop className="[transform:translate3d(calc(var(--mx,0)*16px),calc(var(--my,0)*12px),0)]" />
 
             <div className="relative flex flex-col items-center text-center">
-              <Eyebrow>Free audit</Eyebrow>
+              <Eyebrow>Let's talk</Eyebrow>
 
               <h2 className="text-h1 text-gradient mt-7 max-w-[16ch] font-semibold">
-                Send us your Instagram. Get a plan back.
+                Ready to build something amazing?
               </h2>
 
               <p className="text-lead mt-6 max-w-xl leading-relaxed text-balance text-subtle">
-                No form to fill in and nothing to pay. Send your handle or your
-                store link and we will reply within two working days with what is
-                costing you sales, what we would build, and what it would cost.
+                Let's discuss your project today.
               </p>
 
               <div className="mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
+                {/* Falls back to email until there is a booking link. When you
+                    set up Cal.com or Calendly, uncomment `bookingUrl` in
+                    config/site.ts and swap this href for `site.bookingUrl`. */}
                 <Button
-                  href={`mailto:${site.email}?subject=Free%20store%20audit`}
+                  href={`mailto:${site.email}?subject=Booking%20a%20free%20call`}
                   size="lg"
-                  magnetic
-                  className="w-full sm:w-auto"
-                  icon={<ArrowRight className="size-4" />}
-                >
-                  Get my free audit
-                </Button>
-                <Button
-                  href={site.bookingUrl}
-                  size="lg"
-                  variant="secondary"
                   magnetic
                   className="w-full sm:w-auto"
                   icon={<ArrowUpRight className="size-4" />}
                 >
-                  Book a 20-min call
+                  Book a Free Call
+                </Button>
+                <Button
+                  href={`mailto:${site.email}?subject=Project%20quote%20request`}
+                  size="lg"
+                  variant="secondary"
+                  magnetic
+                  className="w-full sm:w-auto"
+                  icon={<ArrowRight className="size-4" />}
+                >
+                  Get a Quote
                 </Button>
               </div>
 

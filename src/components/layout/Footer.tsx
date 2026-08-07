@@ -45,14 +45,14 @@ export function Footer() {
             <FooterLink href="#contact">Contact</FooterLink>
           </FooterColumn>
 
-          <FooterColumn title="Elsewhere">
+          <FooterColumn title="Follow">
             {site.socials.map((social) => (
               <li key={social.label}>
                 <a
                   href={social.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="group inline-flex items-center gap-1 text-sm text-muted transition-colors duration-300 hover:text-accent"
+                  className="group inline-flex items-center gap-1 text-sm text-muted transition-colors duration-300 hover:text-brand"
                 >
                   {social.label}
                   <ArrowUpRight className="size-3 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />

@@ -14,11 +14,11 @@ export function Services() {
           eyebrow="Services"
           title={
             <>
-              Everything your store needs,
-              <br className="hidden sm:block" /> without the agency overhead.
+              Everything your business needs to
+              <br className="hidden sm:block" /> build a strong digital presence.
             </>
           }
-          description="Take the whole build, or the one piece that is holding you back. Shopify is where we spend most of our time — React and design work sit alongside it when a project needs them."
+          description="From UI/UX design and branding to Shopify stores, React & Next.js development, and social media creatives, we help businesses launch, grow, and stand out — all under one roof."
           action={
             <Button
               href="#contact"

@@ -23,11 +23,11 @@ export function Process() {
               eyebrow="Process"
               title={
                 <>
-                  A process built
-                  <br className="hidden sm:block" /> to remove surprises.
+                  A transparent process,
+                  <br className="hidden sm:block" /> from start to launch.
                 </>
               }
-              description="No black boxes and no month-long silences. You always know what stage we are at, what is next, and what we need from you."
+              description="We believe great projects start with clear communication. From discovery to delivery, you'll always know what's happening, what's coming next, and what we need from you — no guesswork, no long periods of silence, and no hidden surprises."
             />
 
             <Reveal delay={200} className="mt-10">

@@ -62,7 +62,7 @@ export function Hero({ ready }: Props) {
 
           {/* Headline — one animated line at a time, with the closing words
               carried in the brand colour. */}
-          <h1 className="text-display mt-8 max-w-[16ch] font-semibold">
+          <h1 className="text-display mt-8 max-w-[26ch] font-semibold">
             {hero.headline.map((line, index) => {
               const accent = hero.headlineAccent
               const hasAccent = Boolean(accent) && line.endsWith(accent)

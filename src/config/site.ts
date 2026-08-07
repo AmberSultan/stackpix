@@ -20,20 +20,21 @@ export const site = {
   /** Legal entity shown in the footer copyright line. */
   legalName: 'StackPix',
 
-  tagline: 'Shopify stores for brands that outgrew the DMs.',
+  tagline: 'You outgrew the DMs. Now build a store that keeps up.',
   description:
     'StackPix builds fast, premium Shopify stores for Instagram-first brands — and rescues the ones already live but not selling.',
 
   email: 'stackpixx@gmail.com',
-  phone: '+92 300 0000000', // ← CHANGE ME (or delete — it is only used here)
-  location: 'Remote — working with brands worldwide',
-  bookingUrl: 'https://cal.com/', // ← CHANGE ME: your Cal.com / Calendly link
+  // phone: '+92 300 0000000', // ← CHANGE ME (or delete — it is only used here)
+  location: 'Working with brands worldwide',
+  // bookingUrl: 'https://cal.com/', // ← CHANGE ME: your Cal.com / Calendly link
 
   socials: [
-    { label: 'Instagram', href: 'https://instagram.com' },
-    { label: 'WhatsApp', href: 'https://wa.me/920000000000' },
-    { label: 'LinkedIn', href: 'https://linkedin.com' },
-    { label: 'Dribbble', href: 'https://dribbble.com' },
+    { label: 'Instagram', href: 'https://instagram.com/' }, // ← CHANGE ME
+    {
+      label: 'Facebook',
+      href: 'https://www.facebook.com/profile.php?id=61592625421670',
+    },
   ],
 } as const
 
@@ -52,17 +53,38 @@ export const navLinks = [
 export const hero = {
   /** Honest scarcity beats invented volume — but only if you keep it accurate. */
   badge: 'Stop taking orders in the DMs. Start taking them 24/7.',
-  headline: ['Your Instagram sells.', 'Your store should too.'],
-  headlineAccent: 'should too.',
+  /* Three lines rather than two: at 66 characters this headline is roughly
+     three times the length of the old one, so it needs the extra break and a
+     smaller display size to fit. See --text-display in globals.css. */
+  headline: [
+    'We Design & Develop',
+    'High-Converting Websites',
+    'for Growing Businesses.',
+  ],
+  headlineAccent: 'for Growing Businesses.',
   subline:
-    'We build fast, premium Shopify stores for brands still taking orders in the DMs — and fix the ones that went live but never started selling. Fixed price, live in weeks, yours to keep.',
-  primaryCta: { label: 'Get a free store audit', href: '#contact' },
+    'Shopify Stores • UI/UX Design • React & Next.js Development • Branding • Social Media Design',
+  primaryCta: { label: 'Book a Free Call', href: '#contact' },
   secondaryCta: { label: 'See our work', href: '#work' },
-  /* Promises, not history. Every one of these is true before the first client. */
+  /**
+   * One credential plus two promises.
+   *
+   * "4+ years" is the only claim here about the past, and it is the ordinary
+   * kind a buyer expects — keep it accurate by counting the design and dev
+   * work you did before StackPix existed.
+   *
+   * A "98% client satisfaction" figure used to sit in the middle slot. It was
+   * removed because it cannot be evidenced without a survey, and standing
+   * beside "4+ years" it implied a client history the Work section does not
+   * show — which puts the honest numbers around it in doubt too.
+   *
+   * "24h reply" replaced "24/7 support" so the fold matches the FAQ and the
+   * Care service card, which both promise a reply within a working day.
+   */
   metrics: [
-    { value: '2–4 wks', label: 'Kickoff to live' },
-    { value: '90+', label: 'Lighthouse, guaranteed' },
-    { value: 'Free', label: 'Store audit to start' },
+    { value: '4+', label: 'Years of experience' },
+    { value: '2–4 wks', label: 'From kickoff to live' },
+    { value: '24h', label: 'Reply time' },
   ],
   /**
    * The two floating chips either side of the hero. Deliberately NOT a repeat
@@ -74,31 +96,47 @@ export const hero = {
    * which contradicted the rest of the page.
    */
   chips: [
-    { label: 'Aftercare', value: '30 days' },
+    // Both of these cost nothing to honour. A free-support window is billable
+    // time you are giving away, so it does not belong on the fold as a hook —
+    // it belongs further down, sized to what you can actually absorb.
+    { label: 'Pricing', value: 'Fixed upfront' },
     { label: 'Ownership', value: '100% yours' },
   ],
 } as const
 
 /* ------------------------------------------------------------------ toolbelt */
 
+export type TechName =
+  | 'shopify'
+  | 'react'
+  | 'next'
+  | 'typescript'
+  | 'tailwind'
+  | 'figma'
+  | 'node'
+  | 'vercel'
+
 /**
  * A capability strip, not a client list. A new studio with two builds cannot
  * fill a "trusted by" row without inventing brands — but showing what the work
  * is built on is both honest and reassuring to a non-technical buyer.
  *
- * Swap this for real client names the moment you have four or more.
+ * The marks are drawn in Icons.tsx as simplified monochrome glyphs, and each
+ * one is shown alongside its name — so nothing depends on the drawing being a
+ * pixel-accurate reproduction of someone else's trademark. To use official
+ * artwork instead, drop each brand's SVG into `public/brand/tech/` and swap the
+ * <TechLogo> in TrustedBy.tsx for an <img>.
  */
-export const toolbelt = [
-  'SHOPIFY',
-  'LIQUID',
-  'REACT',
-  'NEXT.JS',
-  'TYPESCRIPT',
-  'TAILWIND',
-  'FIGMA',
-  'KLAVIYO',
-  'META PIXEL',
-] as const
+export const toolbelt: { name: string; logo: TechName }[] = [
+  { name: 'Shopify', logo: 'shopify' },
+  { name: 'React', logo: 'react' },
+  { name: 'Next.js', logo: 'next' },
+  { name: 'TypeScript', logo: 'typescript' },
+  { name: 'Tailwind', logo: 'tailwind' },
+  { name: 'Figma', logo: 'figma' },
+  { name: 'Node.js', logo: 'node' },
+  { name: 'Vercel', logo: 'vercel' },
+]
 
 /* ---------------------------------------------------------------- services */
 
@@ -111,6 +149,8 @@ export type IconName =
   | 'speed'
   | 'shield'
   | 'support'
+  | 'brand'
+  | 'social'
 
 export type Service = {
   id: string
@@ -170,20 +210,20 @@ export const services: Service[] = [
     icon: 'code',
   },
   {
-    id: 'performance',
-    title: 'Speed & Performance',
+    id: 'brand-identity',
+    title: 'Brand Identity & Logo Design',
     description:
-      'A slow store loses sales before the first product loads. We find what is dragging it down, cut it, and show you the before and after.',
-    bullets: ['Core Web Vitals audit', 'Image & app cleanup', 'Measured, not guessed'],
-    icon: 'speed',
+      'The system your whole business is built on — a mark that works at every size, and the rules that keep everything after it consistent.',
+    bullets: ['Logo design', 'Brand guidelines', 'Typography', 'Colour system'],
+    icon: 'brand',
   },
   {
-    id: 'care',
-    title: 'Ongoing Care & Support',
+    id: 'social-media',
+    title: 'Social Media',
     description:
-      'Someone on hand for the updates, fixes, new sections and sale campaigns — so you are not learning Shopify at midnight before a launch.',
-    bullets: ['Reply within 24h', 'Campaign & sale setup', 'Monthly, cancel anytime'],
-    icon: 'support',
+      'Creative built for the feed, not repurposed from a website. Designed to stop the scroll and sized correctly for every placement.',
+    bullets: ['Instagram posts', 'Facebook ads', 'LinkedIn creatives', 'Carousel posts'],
+    icon: 'social',
   },
 ]
 
@@ -359,9 +399,9 @@ export const processSteps = [
   },
   {
     title: 'Aftercare',
-    duration: '30 days, included',
+    duration: '14 days, included',
     description:
-      'A month of fixes and questions included with every build, no retainer required. Stay on monthly afterwards if it is useful; leave if it is not.',
+      'Two weeks of fixes and questions included with every build, no retainer required. Almost everything that surfaces after a launch surfaces in that window. Stay on monthly afterwards if it is useful; leave if it is not.',
   },
 ] as const
 
@@ -382,22 +422,15 @@ export type Stat = {
  * can only inflate.
  */
 export const stats: Stat[] = [
+  /* "90+ Lighthouse" and "24h reply time" were removed here: the first was
+     tied to the Speed & Performance service card that no longer exists, and
+     reply time now lives in the hero metrics instead, so repeating it here
+     would say the same thing twice on one page. */
   {
-    value: 90,
-    suffix: '+',
-    label: 'Lighthouse score',
-    caption: 'Mobile, at launch — or we keep working',
-    decimals: 0,
-  },
-  {
-    value: 24,
-    suffix: 'h',
-    label: 'Reply time',
-    caption: 'Any message, any working day',
-    decimals: 0,
-  },
-  {
-    value: 30,
+    // Was 30. A free month of support on a fixed-price build is a large
+    // amount of billable time to give away, and most post-launch issues
+    // appear within the first fortnight anyway.
+    value: 14,
     suffix: '',
     label: 'Days of aftercare',
     caption: 'Included with every build',

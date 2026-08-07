@@ -1,5 +1,6 @@
 import { Marquee } from '@/components/ui/Marquee'
 import { Reveal } from '@/components/ui/Reveal'
+import { TechLogo } from '@/components/ui/Icons'
 import { toolbelt } from '@/config/site'
 
 /**
@@ -31,10 +32,13 @@ export function TrustedBy() {
         <Marquee duration={46}>
           {toolbelt.map((tool) => (
             <span
-              key={tool}
-              className="px-8 text-lg font-medium tracking-[0.14em] whitespace-nowrap text-muted opacity-70 transition-all duration-500 hover:text-brand hover:opacity-100 sm:px-12 sm:text-xl"
+              key={tool.name}
+              className="flex items-center gap-3 px-7 whitespace-nowrap text-muted opacity-70 transition-all duration-500 hover:text-brand hover:opacity-100 sm:px-10"
             >
-              {tool}
+              <TechLogo name={tool.logo} className="size-7 shrink-0" />
+              <span className="text-lg font-medium tracking-[-0.01em] sm:text-xl">
+                {tool.name}
+              </span>
             </span>
           ))}
         </Marquee>

@@ -3,6 +3,7 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Counter } from '@/components/ui/Counter'
 import { Check } from '@/components/ui/Icons'
 import { stats, differentiators } from '@/config/site'
+import { cn } from '@/lib/cn'
 
 export function WhyUs() {
   return (
@@ -15,8 +16,17 @@ export function WhyUs() {
           description="We are a new studio, so we are not going to wave a project count at you. These are commitments you can hold us to on the first build — and check for yourself at launch."
         />
 
-        {/* Stats */}
-        <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Stats. The column count follows the data — a four-column grid
+            holding two tiles reads as a row with something missing. Each
+            branch is a complete class string so Tailwind can find it. */}
+        <ul
+          className={cn(
+            'mt-16 grid gap-4 sm:grid-cols-2',
+            stats.length >= 4 && 'lg:grid-cols-4',
+            stats.length === 3 && 'lg:grid-cols-3',
+            stats.length <= 2 && 'mx-auto max-w-3xl',
+          )}
+        >
           {stats.map((stat, index) => (
             <Reveal as="li" key={stat.label} delay={index * 90}>
               <div className="card-surface group relative h-full overflow-hidden p-7 text-center md:p-8">
