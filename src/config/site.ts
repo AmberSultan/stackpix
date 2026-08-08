@@ -220,6 +220,8 @@ export type IconName =
   | 'brand'
   | 'social'
 
+export type EnquiryType = (typeof enquiryTypes)[number]
+
 export type Service = {
   id: string
   title: string
@@ -228,6 +230,12 @@ export type Service = {
   icon: IconName
   /** Featured cards span two columns on desktop. */
   featured?: boolean
+  /**
+   * Which dropdown option this card's "Get a quote" preselects in the form.
+   * Typed against `enquiryTypes`, so renaming an option there fails the build
+   * rather than silently sending people to a value that no longer exists.
+   */
+  enquiryType: EnquiryType
 }
 
 export const services: Service[] = [
@@ -236,13 +244,19 @@ export const services: Service[] = [
     title: 'Shopify Store Development',
     description:
       'A complete store, built and launched. Design, products, payments, shipping and delivery — set up properly so you can run it yourself the day we hand it over.',
+    /* "Custom design, not a stock theme" used to sit here. It ruled out
+       starting from a premium theme, which is often the right call on budget
+       and timeline — so it was a promise that would sometimes have to be
+       broken. This says the outcome instead of the method: however we get
+       there, the store looks like the brand rather than the template. */
     bullets: [
-      'Custom design, not a stock theme',
+      'Designed around your brand',
       'Payments & COD configured',
       'Training so you can run it',
     ],
     icon: 'store',
     featured: true,
+    enquiryType: 'A new Shopify store',
   },
   {
     id: 'store-rescue',
@@ -251,6 +265,7 @@ export const services: Service[] = [
       'Already have a site that is not bringing in orders? We audit it, tell you exactly what is costing you sales, then fix it — or rebuild it if that is genuinely cheaper.',
     bullets: ['Free audit first', 'Fix the leaks, keep the brand', 'No rebuild unless it is warranted'],
     icon: 'shield',
+    enquiryType: 'Fixing an existing store',
   },
   {
     id: 'theme-customization',
@@ -259,6 +274,7 @@ export const services: Service[] = [
       'Own your look without paying for a full build. We take your theme and shape it into something that actually resembles your brand.',
     bullets: ['Bespoke sections', 'Settings you can edit', 'No page-builder bloat'],
     icon: 'theme',
+    enquiryType: 'Fixing an existing store',
   },
   {
     id: 'ui-ux-design',
@@ -268,6 +284,7 @@ export const services: Service[] = [
     bullets: ['Mobile-first, always', 'Designed in Figma first', 'Built to convert, not just to look good'],
     icon: 'design',
     featured: true,
+    enquiryType: 'UI/UX design for a website',
   },
   {
     id: 'react-next',
@@ -276,6 +293,7 @@ export const services: Service[] = [
       'Marketing sites, landing pages and custom web apps on the modern React stack — for when Shopify is not the right tool for the job.',
     bullets: ['Next.js & React', 'Type-safe end to end', 'Deployed and documented'],
     icon: 'code',
+    enquiryType: 'A website (React / Next.js)',
   },
   {
     id: 'brand-identity',
@@ -284,6 +302,7 @@ export const services: Service[] = [
       'The system your whole business is built on — a mark that works at every size, and the rules that keep everything after it consistent.',
     bullets: ['Logo design', 'Brand guidelines', 'Typography', 'Colour system'],
     icon: 'brand',
+    enquiryType: 'Branding or logo design',
   },
   {
     id: 'social-media',
@@ -292,6 +311,7 @@ export const services: Service[] = [
       'Creative built for the feed, not repurposed from a website. Designed to stop the scroll and sized correctly for every placement.',
     bullets: ['Instagram posts', 'Facebook ads', 'LinkedIn creatives', 'Carousel posts'],
     icon: 'social',
+    enquiryType: 'Social media creatives',
   },
 ]
 
@@ -570,7 +590,14 @@ export const faqs = [
   {
     question: 'How much does a Shopify store cost?',
     answer:
-      'A complete store build starts at PKR 60,000 / $220 and most land between that and PKR 180,000 / $650 depending on how many products, pages and integrations you need. Theme customisation and rescue work start lower. You get a fixed price after the free audit — never an open-ended hourly rate.', // ← CHANGE ME: set your real numbers
+      'Every store is different — cost depends on your products, pages, design complexity and integrations: payments, inventory, apps and the rest. We start with a free audit to understand exactly what you need, then give you a fixed price. Never open-ended hourly billing, and no surprises later.',
+    /* Consider adding a starting figure to this answer. "It depends" is the
+       most common answer on agency sites and one of the most expensive: a
+       visitor who gets no signal on cost usually assumes "expensive" and
+       leaves, while everyone who does write in has to be disqualified by
+       hand. A floor — "projects start at PKR X" — is not a quote, it is a
+       filter that works while you sleep. */
+    cta: { label: 'Book your free audit', href: '#contact' },
   },
   {
     question: 'How long does it take?',
@@ -591,11 +618,6 @@ export const faqs = [
     question: 'Do you set up products, payments and delivery too?',
     answer:
       'Yes, all of it. Product uploads, variants and pricing, payment methods including cash on delivery, shipping rates and courier integration, plus the abandoned-cart and order emails. We hand over a store that is ready to take a real order, not an empty shell.',
-  },
-  {
-    question: 'What if I do not like the design?',
-    answer:
-      'You see the design in Figma before a line of code is written, and revisions at that stage are included — that is the whole reason we design first. Nothing gets built until you have said yes to how it looks.',
   },
   {
     question: 'Who owns the store and the code?',

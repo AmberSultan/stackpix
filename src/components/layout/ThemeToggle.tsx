@@ -24,8 +24,6 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      // The label states the outcome, not the current state — "Switch to dark"
-      // is unambiguous where "Dark mode" is not.
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
       title={`Switch to ${isDark ? 'light' : 'dark'} theme`}
       className={cn(

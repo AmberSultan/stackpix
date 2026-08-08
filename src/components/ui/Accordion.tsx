@@ -1,10 +1,14 @@
 import { useId, useState } from 'react'
-import { Plus } from './Icons'
+import { ArrowRight, Plus } from './Icons'
+import { scrollToSection } from '@/lib/smoothScroll'
 import { cn } from '@/lib/cn'
 
 export type AccordionItem = {
   question: string
   answer: string
+  /** Optional action below the answer, for questions where the honest reply
+   *  is "it depends — let us look at yours". */
+  cta?: { label: string; href: string }
 }
 
 type Props = {
@@ -74,9 +78,26 @@ export function Accordion({ items, defaultOpen = 0 }: Props) {
               )}
             >
               <div className="overflow-hidden">
-                <p className="max-w-2xl pr-12 pb-7 leading-relaxed text-muted">
+                <p className="max-w-2xl pr-12 leading-relaxed text-muted">
                   {item.answer}
                 </p>
+
+                {item.cta ? (
+                  <a
+                    href={item.cta.href}
+                    onClick={(event) => {
+                      if (!item.cta!.href.startsWith('#')) return
+                      event.preventDefault()
+                      scrollToSection(item.cta!.href)
+                    }}
+                    className="group/cta mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand transition-colors duration-300 hover:text-brand-bright"
+                  >
+                    {item.cta.label}
+                    <ArrowRight className="size-4 transition-transform duration-300 ease-[var(--ease-out-quint)] group-hover/cta:translate-x-0.5" />
+                  </a>
+                ) : null}
+
+                <div className="pb-7" />
               </div>
             </div>
           </div>

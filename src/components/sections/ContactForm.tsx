@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Field, Honeypot } from '@/components/ui/Field'
+import { onQuoteRequest } from '@/lib/enquiryIntent'
 import { ArrowRight, Check } from '@/components/ui/Icons'
 import { enquiry, enquiryTypes, site } from '@/config/site'
 import { cn } from '@/lib/cn'
@@ -63,6 +64,23 @@ export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [honeypot, setHoneypot] = useState('')
+
+  /**
+   * A service card's "Get a quote" fills the dropdown in before the visitor
+   * arrives. Focus moves to the message field with `preventScroll`, so the
+   * form is ready to type into without the browser jumping there and fighting
+   * the smooth scroll already in progress.
+   */
+  useEffect(
+    () =>
+      onQuoteRequest((service) => {
+        setValues((current) => ({ ...current, need: service }))
+        setErrors((current) => ({ ...current, need: undefined }))
+        setStatus('idle')
+        document.getElementById('message')?.focus({ preventScroll: true })
+      }),
+    [],
+  )
 
   const set = (key: keyof Values) => (value: string) => {
     setValues((current) => ({ ...current, [key]: value }))

@@ -4,6 +4,8 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Button } from '@/components/ui/Button'
 import { ServiceIcon, ArrowUpRight, Check } from '@/components/ui/Icons'
 import { services, type Service } from '@/config/site'
+import { requestQuote } from '@/lib/enquiryIntent'
+import { scrollToSection } from '@/lib/smoothScroll'
 import { cn } from '@/lib/cn'
 
 export function Services() {
@@ -105,14 +107,26 @@ function ServiceCard({ service }: { service: Service }) {
         ))}
       </ul>
 
-      {/* Pushes the CTA to the bottom so cards of unequal height still align */}
+      {/* Pushes the CTA to the bottom so cards of unequal height still align.
+
+          The label used to read "Learn more", which promises a page explaining
+          the service — there is no such page, and the link goes to the contact
+          form. Naming the actual outcome removes the bait. */}
       <div className="relative mt-auto pt-7">
         <a
           href="#contact"
+          onClick={(event) => {
+            event.preventDefault()
+            // Preselect this service in the form, so nobody arrives at a
+            // dropdown asking a question they have just answered.
+            requestQuote(service.enquiryType)
+            scrollToSection('#contact')
+          }}
+          aria-label={`Get a quote for ${service.title}`}
           className="inline-flex items-center gap-1.5 text-sm font-medium text-accent"
         >
           <span className="relative">
-            Learn more
+            Get a quote
             <span className="absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-brand transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:origin-left group-hover:scale-x-100" />
           </span>
           <ArrowUpRight className="size-3.5 transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
