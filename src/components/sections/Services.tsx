@@ -20,7 +20,7 @@ export function Services() {
               <br className="hidden sm:block" /> build a strong digital presence.
             </>
           }
-          description="From UI/UX design and branding to Shopify stores, React & Next.js development, and social media creatives, we help businesses launch, grow, and stand out — all under one roof."
+          description="From UI/UX design and branding to Shopify stores, React & Next.js development, and social media creatives, we help businesses launch, grow, and stand out, all under one roof."
           action={
             <Button
               href="#contact"

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { setScrollLocked } from '@/lib/smoothScroll'
+import { ModalCloseContext } from './modalClose'
 import { Close } from './Icons'
 import { cn } from '@/lib/cn'
 
@@ -36,16 +37,38 @@ export function Modal({ open, onClose, children, label }: Props) {
   // in rather than appearing at its final position.
   const [entered, setEntered] = useState(false)
 
-  const requestClose = useCallback(() => {
-    if (closingRef.current) return
-    closingRef.current = true
+  /**
+   * `after` runs once the overlay is fully gone. Anything a child wants to do
+   * to the page underneath — scrolling to a section, focusing a field — has to
+   * wait for that, or it happens behind a full-screen panel and looks to the
+   * visitor like the button did nothing.
+   */
+  const requestClose = useCallback(
+    (after?: () => void) => {
+      if (closingRef.current) return
+      closingRef.current = true
 
-    setEntered(false)
-    window.setTimeout(() => {
-      restoreFocusRef.current?.focus()
-      onClose()
-    }, EXIT_DURATION)
-  }, [onClose])
+      setEntered(false)
+      window.setTimeout(() => {
+        // preventScroll: restoring focus to the element that opened the modal
+        // would otherwise drag the page back to it, undoing anything `after`
+        // is about to do.
+        restoreFocusRef.current?.focus({ preventScroll: true })
+        onClose()
+
+        if (!after) return
+
+        // Release the lock here rather than waiting for the unmount effect to
+        // do it. `onClose` only *schedules* a re-render, so at this instant
+        // Lenis is still stopped and the page still has overflow:hidden — a
+        // scroll requested now is silently dropped. Unlock, let React commit,
+        // then run the callback.
+        setScrollLocked(false)
+        requestAnimationFrame(() => after())
+      }, EXIT_DURATION)
+    },
+    [onClose],
+  )
 
   useEffect(() => {
     if (!open) return
@@ -105,12 +128,16 @@ export function Modal({ open, onClose, children, label }: Props) {
   if (!open) return null
 
   return createPortal(
+    <ModalCloseContext.Provider value={requestClose}>
     <div className="fixed inset-0 z-100" role="dialog" aria-modal="true" aria-label={label}>
       <button
         type="button"
         tabIndex={-1}
         aria-hidden="true"
-        onClick={requestClose}
+        // Wrapped, not passed directly: as a handler it would hand the click
+        // event to `requestClose` as its `after` callback, which then tries to
+        // invoke the event.
+        onClick={() => requestClose()}
         className={cn(
           'absolute inset-0 cursor-default bg-scrim backdrop-blur-xl',
           'transition-opacity duration-500 ease-[var(--ease-out-quint)]',
@@ -132,7 +159,7 @@ export function Modal({ open, onClose, children, label }: Props) {
         <div className="sticky top-0 z-10 flex justify-end border-b border-line bg-ink/85 px-5 py-4 backdrop-blur-xl md:px-10">
           <button
             type="button"
-            onClick={requestClose}
+            onClick={() => requestClose()}
             className={cn(
               'flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2',
               'text-sm text-subtle transition-colors duration-300',
@@ -146,7 +173,8 @@ export function Modal({ open, onClose, children, label }: Props) {
 
         {children}
       </div>
-    </div>,
+    </div>
+    </ModalCloseContext.Provider>,
     document.body,
   )
 }

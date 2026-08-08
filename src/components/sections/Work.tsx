@@ -58,8 +58,8 @@ export function Work() {
 
         <Reveal className="mt-20 flex flex-col items-center gap-4" variant="fade">
           <p className="max-w-md text-center text-sm text-muted">
-            Want to see how we would approach yours? We will audit your store or
-            your Instagram and send back a plan, free.
+            Want to see how we would approach yours? Send us your site and we
+            will come back with what we would change, and why. No charge.
           </p>
           {/* Goes to the form, which now offers an audit as its first option —
               so the button and its destination promise the same thing. */}

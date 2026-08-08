@@ -3,11 +3,11 @@
  *
  *  POSITIONING NOTE (read before editing):
  *
- *  Stackpixx is a new studio. This copy is written to be true on day one — it
+ *  StackPixx is a new studio. This copy is written to be true on day one — it
  *  claims no project count, no client roster and no testimonials that do not
  *  exist. Instead it competes on terms a new studio can genuinely offer and a
  *  large agency usually cannot: fixed pricing, direct access to the builder,
- *  a speed guarantee, and full ownership.
+ *  performance as standard, and full ownership.
  *
  *  If you add a number to this file, make sure you could prove it on request.
  *  A prospect who catches one invented figure discounts everything else.
@@ -243,7 +243,7 @@ export const services: Service[] = [
     id: 'shopify-development',
     title: 'Shopify Store Development',
     description:
-      'A complete store, built and launched. Design, products, payments, shipping and delivery — set up properly so you can run it yourself the day we hand it over.',
+      'A complete store, built and launched. Design, products, payments, shipping and delivery, all set up properly so you can run it yourself the day we hand it over.',
     /* "Custom design, not a stock theme" used to sit here. It ruled out
        starting from a premium theme, which is often the right call on budget
        and timeline — so it was a promise that would sometimes have to be
@@ -262,7 +262,7 @@ export const services: Service[] = [
     id: 'store-rescue',
     title: 'Store Rescue & Rebuild',
     description:
-      'Already have a site that is not bringing in orders? We audit it, tell you exactly what is costing you sales, then fix it — or rebuild it if that is genuinely cheaper.',
+      'Already have a site that is not bringing in orders? We audit it, tell you exactly what is costing you sales, then fix it, or rebuild it if that is genuinely cheaper.',
     bullets: ['Free audit first', 'Fix the leaks, keep the brand', 'No rebuild unless it is warranted'],
     icon: 'shield',
     enquiryType: 'Fixing an existing store',
@@ -280,7 +280,7 @@ export const services: Service[] = [
     id: 'ui-ux-design',
     title: 'UI/UX Design',
     description:
-      'Interface design grounded in how people really shop on a phone — clear hierarchy, obvious next step, and a checkout with nothing in the way.',
+      'Interface design grounded in how people really shop on a phone: clear hierarchy, obvious next step, and a checkout with nothing in the way.',
     bullets: ['Mobile-first, always', 'Designed in Figma first', 'Built to convert, not just to look good'],
     icon: 'design',
     featured: true,
@@ -290,7 +290,7 @@ export const services: Service[] = [
     id: 'react-next',
     title: 'React / Next.js Development',
     description:
-      'Marketing sites, landing pages and custom web apps on the modern React stack — for when Shopify is not the right tool for the job.',
+      'Marketing sites, landing pages and custom web apps on the modern React stack, for when Shopify is not the right tool for the job.',
     bullets: ['Next.js & React', 'Type-safe end to end', 'Deployed and documented'],
     icon: 'code',
     enquiryType: 'A website (React / Next.js)',
@@ -299,7 +299,7 @@ export const services: Service[] = [
     id: 'brand-identity',
     title: 'Brand Identity & Logo Design',
     description:
-      'The system your whole business is built on — a mark that works at every size, and the rules that keep everything after it consistent.',
+      'The system your whole business is built on: a mark that works at every size, and the rules that keep everything after it consistent.',
     bullets: ['Logo design', 'Brand guidelines', 'Typography', 'Colour system'],
     icon: 'brand',
     enquiryType: 'Branding or logo design',
@@ -362,45 +362,45 @@ export function publishedResults(project: Project) {
 }
 
 /**
- * Only real work belongs here. One genuine case study with an honest write-up
- * outsells four invented ones — the invented ones cannot survive a single
+ * Only real work belongs here. Two genuine case studies with honest write-ups
+ * outsell six invented ones — the invented ones cannot survive a single
  * follow-up question.
  *
- * To add your second build (the one delivered through another company): ask
- * that company whether you may show it and how to credit it. "Built for
- * [brand] in partnership with [company]" is normal, and being straight about
- * it reads better than a vague claim.
+ * Each `problem` and `solution` should describe what the client actually
+ * asked for and what you actually changed, because you will be asked about
+ * both in a sales call. If a build was delivered through another company, ask
+ * them how to credit it: "built for [brand] in partnership with [company]" is
+ * normal, and reads better than a vague claim.
  */
 export const projects: Project[] = [
   {
     slug: 'mira-farms',
     client: 'Mira Farms',
-    category: 'Gourmet & gifting — Shopify',
+    category: 'Gourmet & gifting · Custom Shopify theme',
     year: '2026', // ← CHECK ME
     visual: 'lifestyle',
     image: '/projects/mirafarms.webp',
     imageFit: 'full',
     url: 'https://mirafarms.com/',
     summary:
-      'A Dubai social enterprise selling saffron, dates and gift boxes — where the gifting route had to be as considered as the product.',
+      'A Dubai gifting brand whose storefront had fallen a long way behind its product. Rebuilt as a custom Shopify theme, designed screen by screen in Figma before a line of code was written.',
     overview:
-      'Mira Farms sells luxury dried fruit, nuts, saffron, honey and chocolate from Dubai Design District under the line "luxury products with social impact", sourcing from Afghan farmers.',
+      'Mira Farms sells saffron, dates, nuts and curated gift boxes from Dubai Design District, under the line "luxury products with social impact" and sourcing from Afghan farmers. The range is premium and much of it is bought as a gift,  but none of the care that goes into the product was reaching the people buying it.',
     stack: [
+      'Figma',
       'Shopify',
       'Liquid',
       'Custom theme',
+      'Motion design',
       'Responsive design',
-      'Collection merchandising',
-      'Email capture',
     ],
-    /* ↓↓↓ VERIFY BEFORE PUBLISHING. These two paragraphs are written from what
-       is observable on the live site, not from the actual brief. Replace them
-       with what the client really asked for and what you really changed — you
-       will be asked about this in a sales call. ↓↓↓ */
+    /* `**double asterisks**` render bold and brighter — see ui/RichText.tsx.
+       Mark the argument, not the adjectives: one or two runs per paragraph,
+       on the sentence a skimmer should leave with. */
     problem:
-      'A social enterprise selling luxury gifts has to tell two stories that can easily undercut each other: the product has to feel worth its price, and the farmer-impact story has to be told without turning the shop into a charity appeal. On top of that, most visitors to a brand like this arrive wanting a gift rather than a specific jar of honey — so a catalogue organised purely by product type asks them to do the work.',
+      'The existing site worked, which is **the hardest kind of problem to justify fixing**. It was simply dated, visually flat, entirely static, and built on a template that had never been shaped around the brand. That gap costs more in gifting than in almost any other category: **someone choosing a gift is buying presentation as much as contents**, and a storefront that feels ordinary quietly argues against a premium price. A range spanning seven categories and a named gift-box collection also needed a structure no off-the-shelf theme was built to hold.',
     solution:
-      'Gifting is promoted to its own top-level route rather than being buried as a collection, with the named boxes doing the choosing for undecided buyers. The impact story lives in a dedicated Story section so it supports the brand without interrupting the buying path, and a first-order code (FIRSTTIME10) converts first-time visitors while they are still on the page.',
+      'We **designed the storefront in Figma first**, every key screen, agreed with the client before any code existed, then **built it as a custom Shopify theme** from those designs rather than bending a purchased theme toward them. That route is slower at the start and pays for itself immediately after, because **layout, typography and motion are all ours to control** instead of things to work around. Animation was used where it earns attention rather than everywhere, gifting was given a route of its own, and the catalogue was restructured so a visitor can shop by occasion as easily as by product.',
     results: [
       { value: '—', label: 'Conversion rate' },
       { value: '—', label: 'Gift box share of orders' },
@@ -411,7 +411,11 @@ export const projects: Project[] = [
   {
     slug: 'ornagems',
     client: 'Ornagems',
-    category: 'Jewellery — Shopify',
+    /* Deliberately labelled differently from Mira Farms. That build was a
+       custom theme designed in Figma; this one started from a premium theme
+       and was taken to code level. Naming both routes shows a studio that
+       picks the right one rather than selling the same thing twice. */
+    category: 'Jewellery · Shopify store build',
     year: '2026',
     visual: 'jewelry',
     image: '/projects/ornagems.webp',
@@ -420,21 +424,21 @@ export const projects: Project[] = [
     imageFit: 'full',
     url: 'https://sza504-6m.myshopify.com/',
     summary:
-      'A launch-ready jewellery storefront built around everyday luxury — and a checkout that steers a cash-on-delivery market toward paying up front.',
+      'A demi-fine jewellery label taken from nothing to a working store, with the theme customised at code level until it matched the reference site the client had in mind.',
     overview:
-      'Ornagems by Zahra launched direct-to-consumer with a demi-fine range built for daily wear rather than the vault. The storefront leads with editorial campaign photography and routes shoppers straight into intent-led entry points — New Arrivals, Clearance Sale and Gift for Her — instead of burying everything under a single catalogue.',
+      'Ornagems by Zahra sells demi-fine jewellery built for daily wear rather than the vault. There was no store to improve on and no checkout to repair, so everything was built from the ground up: the catalogue, the cart, payments, delivery, and the trust signals a new label needs before anyone will spend money on jewellery online.',
     stack: [
       'Shopify',
+      'Clarity theme',
       'Liquid',
-      'Custom theme',
-      'Responsive design',
+      'Theme customisation',
+      'Product reviews app',
       'WhatsApp Business',
-      'Meta Pixel',
     ],
     problem:
-      'A brand new label launching into a cash-on-delivery market carries two problems at once. COD ties up working capital and invites refused deliveries, and a store nobody has heard of has no reviews or reputation to lean on when a shopper is deciding whether to trust it with a jewellery purchase.',
+      'A new jewellery label launching with nothing behind it meets three problems at once. **There is no store**, so every part of the buying path has to be built rather than improved. **There is no reputation**, and jewellery is a considered purchase few people make on trust alone. And the market runs on cash on delivery, which ties up working capital and invites refused parcels. The client also arrived with a clear picture of the result they wanted, in the form of a reference site, and no theme matches another site out of the box.',
     solution:
-      'A rotating announcement bar puts a concrete reason to prepay above the fold — Rs. 100 off and no 4% COD surcharge — so the incentive is seen before the cart, not at it. A persistent WhatsApp button turns pre-purchase hesitation into a conversation, a launch-wide 20% offer creates a reason to buy now, and a dedicated gifting route captures buyers shopping for someone else.',
+      'We started from the **Clarity theme** rather than building one from scratch, because the client had a reference to match and a launch date to hit, then **took the theme to code level** to close the distance between the two. From there the full commerce spine was set up properly: product catalogue and variants, **add to cart, checkout flow, delivery charges and discount codes**, each tested with real orders before launch. A **live reviews app** gives a brand with no history somewhere to start building one, and a persistent WhatsApp button turns pre-purchase hesitation into a conversation. The announcement bar puts a concrete reason to prepay above the fold, so the incentive is seen before the cart rather than at it.',
     /* ↓↓↓ Fill these in once the store has 30 days of data. Until then the
        results block hides itself rather than showing empty dashes. ↓↓↓ */
     results: [
@@ -453,19 +457,25 @@ export const processSteps = [
     title: 'Free audit',
     duration: 'Day 1',
     description:
-      'Send us your Instagram or your current site. We come back with what is costing you sales and what we would do about it — written down, no call required, no charge.',
+      'Send us your Instagram or your current site. We come back with what is costing you sales and what we would do about it. Written down, no call required, no charge.',
   },
   {
     title: 'Scope & quote',
     duration: 'Day 2–3',
     description:
-      'You get a fixed price and a fixed date before anything starts. If we underestimate the work, that is ours to absorb — not a change request halfway through.',
+      'You get a fixed price and a fixed date before anything starts. If we underestimate the work, that is ours to absorb, not a change request halfway through.',
   },
   {
     title: 'Design',
     duration: 'Week 1',
+    /* Two routes, because there genuinely are two. Describing only the Figma
+       path would promise custom design screens to every client, including the
+       ones on a premium theme who will never receive them. This step is also
+       the only place the hero's "Design — approved by you" chip is now
+       substantiated, since the matching FAQ was removed — so the sign-off
+       promise has to survive both routes. */
     description:
-      'We design the key screens in Figma and show you on your own phone before writing any code. Changes are cheap at this stage and expensive later, so this is where we slow down.',
+      'For a pre-built theme, you share the websites, styles, and ideas you like, and we shape the theme around your brand and vision.For a custom build, we design the key screens in Figma and show you before any code is written.Either way, the choice is yours. ',
   },
   {
     title: 'Build',
@@ -483,13 +493,17 @@ export const processSteps = [
     title: 'Launch & handover',
     duration: 'Week 4',
     description:
-      'Domain, analytics and pixels connected, then we walk you through running it yourself — adding products, editing sections, launching a sale. Recorded, so you can rewatch it.',
+      'Domain, analytics and pixels connected, then we walk you through running it yourself: adding products, editing sections, launching a sale. Recorded, so you can rewatch it.',
   },
   {
     title: 'Aftercare',
     duration: '14 days, included',
+    /* Kept at 14 rather than cut to 7. The risk here is not the length of the
+       window but what people put through it, so the scope is stated instead:
+       fixes and questions are covered, new work is quoted. Seven days would
+       give a Friday launch only five working days and buy back very little. */
     description:
-      'Two weeks of fixes and questions included with every build, no retainer required. Almost everything that surfaces after a launch surfaces in that window. Stay on monthly afterwards if it is useful; leave if it is not.',
+      'Two weeks of bug fixes and questions, included with every build and no retainer required. Almost everything that surfaces after a launch surfaces in that window. New features and design changes are quoted separately. If you want us on hand after that, there is a monthly plan you can leave whenever it stops being useful.',
   },
 ] as const
 
@@ -533,26 +547,44 @@ export const stats: Stat[] = [
   },
 ]
 
+/**
+ * Each of these answers a specific fear rather than making a generic claim:
+ * will they understand me, will the cost move, will it be slow, will I be
+ * stuck with them. That is why they work — "we are passionate about design"
+ * answers nothing anyone was actually worried about.
+ */
 export const differentiators = [
   {
-    title: 'You talk to the person building it',
+    title: 'You talk directly to the person building it',
     description:
-      'We are a small studio, so there is no account manager relaying messages and no junior quietly inheriting your project. You get the builder, directly, start to finish.',
+      'You work directly with the person building your store, from start to finish. No account managers or unnecessary layers. Your questions and feedback go straight to the people doing the work.',
   },
   {
     title: 'Fixed price, agreed before we start',
+    /* "within the agreed scope" is doing real work here: it commits us to
+       absorbing our own underestimates without also committing us to absorb
+       every new requirement added after the quote. */
     description:
-      'You approve a number and a date up front. If the work takes longer than we estimated, that is our problem to absorb — not an invoice you did not expect.',
+      'You approve the scope, price and timeline before development begins. If we underestimate the work within the agreed scope, we absorb the difference, not you. No surprise invoices halfway through the project.',
   },
   {
-    title: 'Built to a speed budget',
+    title: 'Performance is built in',
+    /* Deliberately no "90+ Lighthouse or we keep working" here any more.
+       Shopify scores move with third-party apps, review widgets and tracking
+       scripts that the client often insists on and we do not control — so a
+       hard number was a promise that could be broken by someone else's
+       decision. This commits to the work and to showing the result, which is
+       entirely ours to keep. */
     description:
-      'Every store ships at 90+ mobile Lighthouse or we keep working until it does. We send you the score at launch so you can check it yourself.',
+      'Performance is not an afterthought. We optimise your store for fast loading and strong Lighthouse performance, then share the results with you at launch so you can verify them yourself.',
   },
   {
     title: 'You own everything, from day one',
+    /* "every login" was removed: third-party apps and subscriptions sometimes
+       sit under the client's own accounts or under different arrangements, so
+       it was a wider promise than we can always keep. */
     description:
-      'The Shopify account, the theme code, the Figma file and every login are yours. Nothing is built on something that keeps you tied to us.',
+      'Your Shopify account, theme, code, Figma files, domain and project assets belong to you. You get full access from day one, no lock-ins and no dependency on us to run your store.',
   },
 ] as const
 
@@ -583,14 +615,14 @@ export const testimonials: Testimonial[] = []
 
 export const faqs = [
   {
-    question: 'I sell on Instagram already — do I actually need a website?',
+    question: 'I sell on Instagram already. Do I actually need a website?',
     answer:
       'If you are happy answering "price?" fifty times a day, no. A store earns its keep by doing the parts you are doing manually: showing prices and sizes, taking the order and the payment at 2am, and letting a customer buy without waiting for you to reply. Instagram is where people find you; the store is where they buy without you in the room.',
   },
   {
     question: 'How much does a Shopify store cost?',
     answer:
-      'Every store is different — cost depends on your products, pages, design complexity and integrations: payments, inventory, apps and the rest. We start with a free audit to understand exactly what you need, then give you a fixed price. Never open-ended hourly billing, and no surprises later.',
+      'Every store is different. Cost depends on your products, pages, design complexity and integrations: payments, inventory, apps and the rest. We start with a free audit to understand exactly what you need, then give you a fixed price. Never open-ended hourly billing, and no surprises later.',
     /* Consider adding a starting figure to this answer. "It depends" is the
        most common answer on agency sites and one of the most expensive: a
        visitor who gets no signal on cost usually assumes "expensive" and
@@ -607,12 +639,12 @@ export const faqs = [
   {
     question: 'My store is already live but it is not getting sales.',
     answer:
-      'That is the most common thing we are asked to look at, and it is usually a handful of specific problems rather than a mystery — slow loading on mobile data, no trust signals, a checkout that asks for too much, or products that are hard to find. Send us the link and we will tell you which ones apply to you, free. If a rebuild is not warranted, we will say so.',
+      'That is the most common thing we are asked to look at, and it is usually a handful of specific problems rather than a mystery: slow loading on mobile data, no trust signals, a checkout that asks for too much, or products that are hard to find. Send us the link and we will tell you which ones apply to you, free. If a rebuild is not warranted, we will say so.',
   },
   {
     question: 'You are a new studio. Why should I trust you with my brand?',
     answer:
-      'Fair question, and here is the honest answer: we are small and new, which is exactly why your project gets our full attention rather than being third in a queue. We de-risk it for you instead of asking you to take our word — a free audit before you spend anything, a fixed price agreed up front, payment split across milestones rather than in advance, and everything in your own accounts from day one. If we disappear tomorrow, you still own a working store.',
+      'Fair question, and here is the honest answer: we are small and new, which is exactly why your project gets our full attention rather than being third in a queue. We de-risk it for you instead of asking you to take our word: a free audit before you spend anything, a fixed price agreed up front, payment split across milestones rather than in advance, and everything in your own accounts from day one. If we disappear tomorrow, you still own a working store.',
   },
   {
     question: 'Do you set up products, payments and delivery too?',

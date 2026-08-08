@@ -19,15 +19,18 @@ export function Faq() {
                   <br className="hidden sm:block" /> everyone asks first.
                 </>
               }
-              description="Straight answers on cost, timelines and ownership — including why you should trust a studio this new. If yours is not here, just ask."
+              description="Straight answers on cost, timelines and ownership, including why you should trust a studio this new. If yours is not here, just ask."
             />
 
             <Reveal delay={200} className="mt-9">
               <div className="card-surface flex flex-col gap-4 p-6">
                 <p className="text-sm text-muted">Still deciding?</p>
+                {/* Works whether or not they already sell online. "Costing you
+                    sales" assumed an existing store, which quietly excluded
+                    the visitor who has not built one yet. */}
                 <p className="leading-relaxed">
-                  Send us your store link or your Instagram handle. We will reply
-                  with three specific things costing you sales — free, no call
+                  Send us your site, or just tell us what you sell. We will reply
+                  with three specific things we would do first. Free, no call
                   required, no pitch attached.
                 </p>
                 <Button

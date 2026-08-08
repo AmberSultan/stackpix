@@ -13,7 +13,7 @@ export function WhyUs() {
           eyebrow="Why choose us"
           align="center"
           title="What we promise, in writing."
-          description="We are a new studio, so we are not going to wave a project count at you. These are commitments you can hold us to on the first build — and check for yourself at launch."
+          description="StackPix is a new studio, but the experience behind it isn't new, so we are not going to wave a project count at you. These are commitments you can hold us to on the first build and check for yourself at launch."
         />
 
         {/* Stats. The column count follows the data — a four-column grid

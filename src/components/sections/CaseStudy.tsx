@@ -1,4 +1,8 @@
 import { ProjectVisual } from '@/components/ui/ProjectVisual'
+import { RichText } from '@/components/ui/RichText'
+import { useModalClose } from '@/components/ui/modalClose'
+import { requestQuote } from '@/lib/enquiryIntent'
+import { scrollToSection } from '@/lib/smoothScroll'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/Icons'
 import { HairlineDivider } from '@/components/ui/Backdrop'
@@ -11,6 +15,9 @@ import { publishedResults, type Project } from '@/config/site'
  */
 export function CaseStudy({ project }: { project: Project }) {
   const results = publishedResults(project)
+  // Null when rendered outside a Modal, so this component stays usable on a
+  // standalone page if case studies ever get their own routes.
+  const closeModal = useModalClose()
 
   return (
     <article className="pb-24">
@@ -30,9 +37,10 @@ export function CaseStudy({ project }: { project: Project }) {
 
           <h2 className="text-h1 mt-5 font-semibold">{project.client}</h2>
 
-          <p className="text-lead mt-6 max-w-2xl leading-relaxed text-subtle">
-            {project.summary}
-          </p>
+          {/* `summary` is the card teaser and deliberately not repeated here.
+              Shown together, it and the overview below read as two
+              introductions saying the same thing. The overview is the fuller
+              of the two, so it carries the opening on its own. */}
 
           {project.url ? (
             <a
@@ -79,7 +87,12 @@ export function CaseStudy({ project }: { project: Project }) {
         <div className="mt-16 grid gap-4 md:grid-cols-2">
           <div className="card-surface p-7 md:p-9">
             <SectionLabel>The problem</SectionLabel>
-            <p className="mt-5 leading-relaxed text-muted">{project.problem}</p>
+            {/* `**marked**` runs come through brighter and heavier, so the
+                argument survives being skimmed rather than read. */}
+            <RichText
+              text={project.problem}
+              className="mt-5 leading-relaxed text-muted"
+            />
           </div>
 
           <div className="card-surface relative overflow-hidden p-7 md:p-9">
@@ -93,9 +106,10 @@ export function CaseStudy({ project }: { project: Project }) {
               }}
             />
             <SectionLabel>The solution</SectionLabel>
-            <p className="relative mt-5 leading-relaxed text-subtle">
-              {project.solution}
-            </p>
+            <RichText
+              text={project.solution}
+              className="relative mt-5 leading-relaxed text-subtle"
+            />
           </div>
         </div>
 
@@ -111,7 +125,7 @@ export function CaseStudy({ project }: { project: Project }) {
                 >
                   <img
                     src={src}
-                    alt={`${project.client} — screen ${index + 1}`}
+                    alt={`${project.client} screen ${index + 1}`}
                     loading="lazy"
                     decoding="async"
                     className="w-full"
@@ -142,22 +156,43 @@ export function CaseStudy({ project }: { project: Project }) {
         </section>
         ) : null}
 
-        {/* Closing CTA */}
+        {/* Closing CTA.
+
+            The heading used to read "Want results like these?" while the
+            results block above is hidden until real figures exist — it asked
+            about numbers the visitor had not been shown. */}
         <div className="card-surface mt-16 flex flex-col items-start justify-between gap-6 p-8 md:flex-row md:items-center md:p-10">
           <div>
-            <h3 className="text-h3 font-semibold">Want results like these?</h3>
+            <h3 className="text-h3 font-semibold">
+              Want something like this for your brand?
+            </h3>
             <p className="mt-2 text-muted">
               Tell us where your store is losing people. We will tell you what we
               would do about it.
             </p>
           </div>
+
+          {/* Closes the overlay first, then scrolls. Scrolling straight away
+              moves the page behind a full-screen panel, so the button appears
+              to do nothing — which is exactly how this read before.
+
+              `requestQuote` also preselects the audit option and puts the
+              cursor in the message field, so the visitor lands on a form that
+              has already absorbed what they clicked. */}
           <Button
-            href="#contact"
+            onClick={() => {
+              const openEnquiry = () => {
+                requestQuote('A free audit of my current site')
+                scrollToSection('#contact')
+              }
+              if (closeModal) closeModal(openEnquiry)
+              else openEnquiry()
+            }}
             size="lg"
             icon={<ArrowUpRight className="size-4" />}
             className="shrink-0"
           >
-            Book Discovery Call
+            Get a free store audit
           </Button>
         </div>
       </div>

@@ -13,7 +13,7 @@ export function Logo({ className }: { className?: string }) {
   return (
     <a
       href="#top"
-      aria-label={`${site.name} — home`}
+      aria-label={`${site.name} home`}
       className={cn('group flex items-center gap-2.5', className)}
     >
       <span className="relative flex size-8 items-center justify-center overflow-hidden rounded-[0.6rem] bg-brand text-on-brand">

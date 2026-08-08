@@ -117,7 +117,7 @@ export function ContactForm() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: site.contactFormKey,
-          subject: `New enquiry from ${values.name.trim()} — ${values.need}`,
+          subject: `New enquiry from ${values.name.trim()}: ${values.need}`,
           from_name: site.name,
           name: values.name.trim(),
           email: values.email.trim(),
@@ -148,7 +148,7 @@ export function ContactForm() {
         <span className="flex size-12 items-center justify-center rounded-full bg-brand text-on-brand">
           <Check className="size-6" strokeWidth={2.5} />
         </span>
-        <h3 className="text-h3 font-semibold">Thanks — that's with us.</h3>
+        <h3 className="text-h3 font-semibold">Thanks, that's with us.</h3>
         <p className="max-w-sm leading-relaxed text-muted">
           We read every message ourselves and reply within one working day. If
           it is urgent, email us directly at{' '}
@@ -237,7 +237,7 @@ export function ContactForm() {
         <div className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-sm">
           <p className="font-medium text-red-300">That did not send.</p>
           <p className="mt-1 leading-relaxed text-subtle">
-            Something went wrong at our end — your message is still in the form,
+            Something went wrong at our end. Your message is still in the form,
             so nothing is lost. Try again, or email us at{' '}
             <a href={enquiry.quote} className="text-accent underline underline-offset-4">
               {site.email}
