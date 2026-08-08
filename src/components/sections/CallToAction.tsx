@@ -3,7 +3,13 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Eyebrow } from '@/components/ui/SectionHeading'
 import { ArrowUpRight, ArrowRight } from '@/components/ui/Icons'
 import { AuroraBackdrop, GridBackdrop } from '@/components/ui/Backdrop'
-import { bookingIsEmailFallback, enquiry, site } from '@/config/site'
+import { ContactForm } from './ContactForm'
+import {
+  bookingIsEmailFallback,
+  contactFormEnabled,
+  enquiry,
+  site,
+} from '@/config/site'
 import { useMouseParallax } from '@/hooks/useMouseParallax'
 
 /**
@@ -36,43 +42,54 @@ export function CallToAction() {
                 Let's discuss your project today.
               </p>
 
-              <div className="mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
-                <Button
-                  href={enquiry.call}
-                  size="lg"
-                  magnetic
-                  className="w-full sm:w-auto"
-                  icon={<ArrowUpRight className="size-4" />}
-                >
-                  Book a Free Call
-                </Button>
-                <Button
-                  href={enquiry.quote}
-                  size="lg"
-                  variant="secondary"
-                  magnetic
-                  className="w-full sm:w-auto"
-                  icon={<ArrowRight className="size-4" />}
-                >
-                  Get a Quote
-                </Button>
-              </div>
+              {contactFormEnabled ? (
+                /* A form beats mailto: links outright — it works on every
+                   device, never hands the visitor an OS app-picker, and it
+                   arrives with the context needed to answer properly. */
+                <div className="mt-11 w-full max-w-2xl">
+                  <ContactForm />
+                </div>
+              ) : (
+                <>
+                  <div className="mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
+                    <Button
+                      href={enquiry.call}
+                      size="lg"
+                      magnetic
+                      className="w-full sm:w-auto"
+                      icon={<ArrowUpRight className="size-4" />}
+                    >
+                      Book a Free Call
+                    </Button>
+                    <Button
+                      href={enquiry.quote}
+                      size="lg"
+                      variant="secondary"
+                      magnetic
+                      className="w-full sm:w-auto"
+                      icon={<ArrowRight className="size-4" />}
+                    >
+                      Get a Quote
+                    </Button>
+                  </div>
 
-              {/* Safety net while the buttons are mailto: links. On a desktop
-                  with no mail client configured a mailto opens nothing at all
-                  and gives no feedback, so the address is shown as copyable
-                  text too. This disappears the moment `bookingUrl` is set. */}
-              {bookingIsEmailFallback ? (
-                <p className="mt-6 text-sm text-muted">
-                  Or email us directly at{' '}
-                  <a
-                    href={enquiry.quote}
-                    className="text-accent underline decoration-line-strong underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
-                  >
-                    {site.email}
-                  </a>
-                </p>
-              ) : null}
+                  {/* Safety net while the buttons are mailto: links. On a
+                      desktop with no mail client configured a mailto opens an
+                      OS app-picker or nothing at all, so the address is shown
+                      as copyable text too. */}
+                  {bookingIsEmailFallback ? (
+                    <p className="mt-6 text-sm text-muted">
+                      Or email us directly at{' '}
+                      <a
+                        href={enquiry.quote}
+                        className="text-accent underline decoration-line-strong underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
+                      >
+                        {site.email}
+                      </a>
+                    </p>
+                  ) : null}
+                </>
+              )}
 
               {/* Reassurance line — removes the last objection to clicking */}
               <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.8125rem] text-muted">

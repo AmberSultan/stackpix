@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One page, because the site is one page. The #section links are not separate
+  URLs and must not be listed here — a sitemap full of anchors to the same
+  document reads as duplicate content.
+
+  Update <lastmod> when you make a meaningful content change. If you add a
+  custom domain, every URL below changes with it.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://stackpix.vercel.app/</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

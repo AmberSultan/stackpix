@@ -20,7 +20,7 @@ export const site = {
   /** Legal entity shown in the footer copyright line. */
   legalName: 'StackPixx',
 
-  tagline: 'You outgrew the DMs. Now build a store that keeps up.',
+  tagline: 'Don\'t Just Exist. Stand Out',
   /* A `description` field used to sit here but was never rendered — the meta
      description lives in index.html, and two sources for one string drift. */
 
@@ -41,8 +41,22 @@ export const site = {
    */
   bookingUrl: '',
 
+  /**
+   * Web3Forms access key. Submissions land in the inbox above.
+   *
+   * Safe to commit — Web3Forms designs this to be public and it is visible in
+   * the client bundle either way. It identifies the destination inbox; it
+   * grants no access to anything.
+   *
+   * Empty this string and the contact form stops rendering, with the CTA
+   * falling back to buttons. That guard exists because a form which silently
+   * fails to send is worse than no form: the visitor believes they got through
+   * and you never hear from them.
+   */
+  contactFormKey: '4ffcdfde-107d-4515-87fc-41ec36058749',
+
   socials: [
-    { label: 'Instagram', href: 'https://www.instagram.com/stackpixx/' }, // ← CHANGE ME
+    { label: 'Instagram', href: 'https://www.instagram.com/stackpixx/' },
     {
       label: 'Facebook',
       href: 'https://www.facebook.com/profile.php?id=61592625421670',
@@ -75,6 +89,20 @@ export const enquiry = {
  *  the address as visible text, so a click that opens nothing is never a
  *  dead end. */
 export const bookingIsEmailFallback = !site.bookingUrl
+
+/** The CTA renders the contact form only once a key exists. */
+export const contactFormEnabled = Boolean(site.contactFormKey)
+
+/** What "what do you need?" offers. Keep these aligned with `services`. */
+export const enquiryTypes = [
+  'A new Shopify store',
+  'Fixing an existing store',
+  'A website (React / Next.js)',
+  'UI/UX design for a website',
+  'Branding or logo design',
+  'Social media creatives',
+  'Not sure yet',
+] as const
 
 /* ---------------------------------------------------------------- navigation */
 

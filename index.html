@@ -45,24 +45,22 @@
     <link rel="apple-touch-icon" href="/brand/logo.svg" />
 
     <!--
-      ⚠ BEFORE LAUNCH: replace BOTH https://example.com/ URLs below with your
-      real domain. A canonical tag pointing at someone else's domain tells
-      Google this page is a copy of theirs.
-      og:image must also become an absolute URL (https://yourdomain/brand/
-      og-image.png) — Facebook, WhatsApp and LinkedIn will not resolve a
-      relative path.
+      SITE URL — currently the Vercel deployment. If you later add a custom
+      domain, three lines below must change together: canonical, og:url and
+      og:image. Leaving any of them pointing at the old host tells Google the
+      real version of this page lives somewhere else.
     -->
     <title>StackPixx — Shopify Stores &amp; Web Design for Growing Brands</title>
     <meta
       name="description"
       content="We design and develop high-converting Shopify stores and websites for growing brands. Fixed price, live in two to four weeks, and everything is yours to keep."
     />
-    <link rel="canonical" href="https://example.com/" />
+    <link rel="canonical" href="https://stackpix.vercel.app/" />
 
     <!-- Open Graph / social sharing -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="StackPixx" />
-    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:url" content="https://stackpix.vercel.app/" />
     <meta
       property="og:title"
       content="StackPixx — Shopify Stores &amp; Web Design for Growing Brands"
@@ -71,7 +69,12 @@
       property="og:description"
       content="We design and develop high-converting Shopify stores and websites for growing brands. Fixed price, live in two to four weeks."
     />
-    <meta property="og:image" content="/brand/og-image.png" />
+    <!-- Absolute, not relative: Facebook, WhatsApp and LinkedIn fetch this
+         from their own servers and cannot resolve a path. -->
+    <meta
+      property="og:image"
+      content="https://stackpix.vercel.app/brand/og-image.png"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -79,6 +82,58 @@
       content="StackPixx — we design and develop high-converting websites for growing businesses."
     />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Structured data. This is what lets Google connect the search term
+      "StackPixx" to this business rather than guessing — it states the name,
+      the services, and the social profiles that belong to it, in a format
+      built to be machine-read.
+
+      It lives in the static HTML on purpose: a crawler sees it without having
+      to run any JavaScript.
+
+      Validate changes at https://validator.schema.org before deploying.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "@id": "https://stackpix.vercel.app/#organization",
+        "name": "StackPixx",
+        "url": "https://stackpix.vercel.app/",
+        "logo": "https://stackpix.vercel.app/brand/logo.svg",
+        "image": "https://stackpix.vercel.app/brand/og-image.png",
+        "email": "stackpixx@gmail.com",
+        "description": "We design and develop high-converting Shopify stores and websites for growing brands. Fixed price, live in two to four weeks.",
+        "areaServed": "Worldwide",
+        "sameAs": [
+          "https://www.instagram.com/stackpixx/",
+          "https://www.facebook.com/profile.php?id=61592625421670"
+        ],
+        "knowsAbout": [
+          "Shopify development",
+          "Shopify theme customization",
+          "UI/UX design",
+          "React development",
+          "Next.js development",
+          "Brand identity design",
+          "Social media design"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Shopify Store Development" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Store Rescue & Rebuild" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Theme Customization" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "UI/UX Design" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "React / Next.js Development" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Identity & Logo Design" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Social Media Design" } }
+          ]
+        }
+      }
+    </script>
 
     <style>
       /* Matches the app background so the first paint is already correct,

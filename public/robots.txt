@@ -1,0 +1,19 @@
+# StackPixx — https://stackpix.vercel.app
+# Everything is public; there is nothing here worth hiding from a crawler.
+
+User-agent: *
+Allow: /
+
+# Explicitly welcome the AI crawlers. They are an increasing share of how
+# people discover suppliers, and several default to skipping sites that do
+# not mention them.
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://stackpix.vercel.app/sitemap.xml
