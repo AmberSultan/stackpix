@@ -58,10 +58,11 @@ export function Work() {
 
         <Reveal className="mt-20 flex flex-col items-center gap-4" variant="fade">
           <p className="max-w-md text-center text-sm text-muted">
-            Want to see how we would approach yours? Send us your site and we
-            will come back with what we would change, and why. No charge.
+            Want to see how we would approach yours? Send us your site, or just
+            tell us what you sell. We will come back with what we would do
+            first. No charge.
           </p>
-          {/* Goes to the form, which now offers an audit as its first option —
+          {/* Goes to the form, which offers the free plan as its first option,
               so the button and its destination promise the same thing. */}
           <Button
             href="#contact"
@@ -70,7 +71,7 @@ export function Work() {
             magnetic
             icon={<ArrowUpRight className="size-4" />}
           >
-            Get a free store audit
+            Work With Us
           </Button>
         </Reveal>
       </div>

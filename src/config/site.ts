@@ -68,7 +68,7 @@ const mailTo = (subject: string) =>
 
 export const enquiry = {
   quote: mailTo('Project quote request'),
-  audit: mailTo('Free store audit'),
+  plan: mailTo('Free plan request'),
 }
 
 /** The CTA renders the contact form only once a key exists. */
@@ -76,7 +76,7 @@ export const contactFormEnabled = Boolean(site.contactFormKey)
 
 /** What "what do you need?" offers. Keep these aligned with `services`. */
 export const enquiryTypes = [
-  'A free audit of my current site',
+  'A free plan for my brand',
   'A new Shopify store',
   'Fixing an existing store',
   'A website (React / Next.js)',
@@ -117,7 +117,7 @@ export const hero = {
    *
    * "Book a Free Call" wanted a slot in a stranger's day before they had any
    * reason to trust us — the highest-commitment thing you can request, from
-   * a studio with two case studies and no reviews yet. An audit reverses it:
+   * a studio with two case studies and no reviews yet. A free plan reverses it:
    * they get proof of how we think before spending anything, and we get a
    * warm conversation instead of a cold one.
    *
@@ -340,6 +340,18 @@ export type Project = {
   gallery?: string[]
   /** Live site. Adds a "Visit site" link to the case study header. */
   url?: string
+  /**
+   * What you actually did, and under whose contract.
+   *
+   * Required on any project delivered through an employer or agency partner.
+   * Without it the case study's "we" implies StackPixx held the client
+   * relationship, which invites one question you cannot answer well late in a
+   * sale: "can I speak to them about how it went?"
+   *
+   * Stating it costs very little. "I led design and build on this" is a strong
+   * claim, and being upfront reads as confident rather than as a hedge.
+   */
+  credit?: string
   summary: string
   overview: string
   stack: string[]
@@ -382,6 +394,10 @@ export const projects: Project[] = [
     image: '/projects/mirafarms.webp',
     imageFit: 'full',
     url: 'https://mirafarms.com/',
+    /* ← CHANGE ME once you have checked with your employer. If they are happy
+       to be named, "Delivered at [Company]" is stronger than "an agency
+       partner" — a named studio is verifiable, an unnamed one is not. */
+    credit: 'Design and development, delivered through an agency partner',
     summary:
       'A Dubai gifting brand whose storefront had fallen a long way behind its product. Rebuilt as a custom Shopify theme, designed screen by screen in Figma before a line of code was written.',
     overview:
@@ -423,6 +439,7 @@ export const projects: Project[] = [
     // card. Switch to 'frame' to render it inside browser chrome instead.
     imageFit: 'full',
     url: 'https://sza504-6m.myshopify.com/',
+    credit: 'Design and development, delivered through an agency partner',
     summary:
       'A demi-fine jewellery label taken from nothing to a working store, with the theme customised at code level until it matched the reference site the client had in mind.',
     overview:
@@ -454,10 +471,10 @@ export const projects: Project[] = [
 
 export const processSteps = [
   {
-    title: 'Free audit',
+    title: 'Free plan',
     duration: 'Day 1',
     description:
-      'Send us your Instagram or your current site. We come back with what is costing you sales and what we would do about it. Written down, no call required, no charge.',
+      'Send us your site if you have one, or just tell us what you sell. We come back with what we would do first and why, written down. No call required, no charge.',
   },
   {
     title: 'Scope & quote',
@@ -629,7 +646,7 @@ export const faqs = [
        leaves, while everyone who does write in has to be disqualified by
        hand. A floor — "projects start at PKR X" — is not a quote, it is a
        filter that works while you sleep. */
-    cta: { label: 'Book your free audit', href: '#contact' },
+    cta: { label: 'Get your free plan', href: '#contact' },
   },
   {
     question: 'How long does it take?',

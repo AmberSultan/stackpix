@@ -68,18 +68,32 @@ export function CaseStudy({ project }: { project: Project }) {
             </p>
           </section>
 
-          <section>
-            <SectionLabel>Tech stack</SectionLabel>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <li
-                  key={tech}
-                  className="rounded-full border border-line bg-fill-1 px-3.5 py-1.5 text-sm text-subtle"
-                >
-                  {tech}
-                </li>
-              ))}
-            </ul>
+          <section className="flex flex-col gap-10">
+            <div>
+              <SectionLabel>Tech stack</SectionLabel>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {project.stack.map((tech) => (
+                  <li
+                    key={tech}
+                    className="rounded-full border border-line bg-fill-1 px-3.5 py-1.5 text-sm text-subtle"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Sits with the project facts rather than in small print at the
+                bottom. Buried, it looks like something being got past you;
+                stated plainly next to the stack, it reads as context. */}
+            {project.credit ? (
+              <div>
+                <SectionLabel>Role</SectionLabel>
+                <p className="mt-5 leading-relaxed text-subtle">
+                  {project.credit}
+                </p>
+              </div>
+            ) : null}
           </section>
         </div>
 
@@ -167,8 +181,8 @@ export function CaseStudy({ project }: { project: Project }) {
               Want something like this for your brand?
             </h3>
             <p className="mt-2 text-muted">
-              Tell us where your store is losing people. We will tell you what we
-              would do about it.
+              Tell us what you are building, or where your current site is losing
+              people. We will tell you what we would do about it.
             </p>
           </div>
 
@@ -176,13 +190,13 @@ export function CaseStudy({ project }: { project: Project }) {
               moves the page behind a full-screen panel, so the button appears
               to do nothing — which is exactly how this read before.
 
-              `requestQuote` also preselects the audit option and puts the
+              `requestQuote` also preselects the free-plan option and puts the
               cursor in the message field, so the visitor lands on a form that
               has already absorbed what they clicked. */}
           <Button
             onClick={() => {
               const openEnquiry = () => {
-                requestQuote('A free audit of my current site')
+                requestQuote('A free plan for my brand')
                 scrollToSection('#contact')
               }
               if (closeModal) closeModal(openEnquiry)
@@ -192,7 +206,7 @@ export function CaseStudy({ project }: { project: Project }) {
             icon={<ArrowUpRight className="size-4" />}
             className="shrink-0"
           >
-            Get a free store audit
+            Work with us 
           </Button>
         </div>
       </div>
