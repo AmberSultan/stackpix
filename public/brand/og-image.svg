@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!--
+    Source for the social sharing card. Run `npm run optimize:images` to render
+    og-image.png (1200×630) from this file.
+
+    Text is set in a system font stack rather than Inter on purpose: the render
+    happens on your machine, and a webfont that is not installed would silently
+    fall back or drop out entirely.
+  -->
+  <defs>
+    <radialGradient id="glow" cx="26%" cy="18%" r="70%">
+      <stop offset="0%" stop-color="#0f96a4" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#0f96a4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="88%" cy="86%" r="55%">
+      <stop offset="0%" stop-color="#0f9a76" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0f9a76" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1fbb92"/>
+      <stop offset="50%" stop-color="#2ab5c4"/>
+      <stop offset="100%" stop-color="#3193de"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#050505"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- hairline grid, matching the site's hero backdrop -->
+  <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="1">
+    <path d="M0 158h1200M0 315h1200M0 472h1200"/>
+    <path d="M240 0v630M480 0v630M720 0v630M960 0v630"/>
+  </g>
+
+  <!-- logo tile -->
+  <rect x="88" y="92" width="76" height="76" rx="20" fill="#0f96a4"/>
+  <text x="126" y="132" fill="#021214" font-family="Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="42" font-weight="700" text-anchor="middle" dominant-baseline="central">S</text>
+
+  <text x="184" y="132" fill="#ffffff" font-family="Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="38" font-weight="600" letter-spacing="-1" dominant-baseline="central">StackPixx</text>
+
+  <!-- headline -->
+  <text x="88" y="300" fill="#ffffff" font-family="Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="72" font-weight="700" letter-spacing="-2.5">We design &amp; develop</text>
+  <text x="88" y="384" fill="#ffffff" font-family="Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="72" font-weight="700" letter-spacing="-2.5">high-converting websites</text>
+  <text x="88" y="468" fill="url(#accent)" font-family="Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="72" font-weight="700" letter-spacing="-2.5">for growing businesses.</text>
+
+  <!-- capability line -->
+  <text x="88" y="552" fill="#8b93a1" font-family="Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="25" font-weight="400" letter-spacing="0.4">Shopify Stores  •  UI/UX Design  •  React &amp; Next.js  •  Branding</text>
+
+  <rect x="0" y="622" width="1200" height="8" fill="url(#accent)"/>
+</svg>

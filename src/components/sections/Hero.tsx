@@ -31,7 +31,9 @@ export function Hero({ ready }: Props) {
     <section
       ref={parallaxRef}
       id="top"
-      className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-24 pb-20 md:pt-36"
+      // Focusable only via the skip link, never in the normal tab order.
+      tabIndex={-1}
+      className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-24 pb-20 outline-none md:pt-36"
     >
       {/* Background stack. Each layer takes a different multiple of --mx/--my
           so the field gains depth as the cursor moves. */}

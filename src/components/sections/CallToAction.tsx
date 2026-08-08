@@ -3,7 +3,7 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Eyebrow } from '@/components/ui/SectionHeading'
 import { ArrowUpRight, ArrowRight } from '@/components/ui/Icons'
 import { AuroraBackdrop, GridBackdrop } from '@/components/ui/Backdrop'
-import { enquiry } from '@/config/site'
+import { bookingIsEmailFallback, enquiry, site } from '@/config/site'
 import { useMouseParallax } from '@/hooks/useMouseParallax'
 
 /**
@@ -57,6 +57,22 @@ export function CallToAction() {
                   Get a Quote
                 </Button>
               </div>
+
+              {/* Safety net while the buttons are mailto: links. On a desktop
+                  with no mail client configured a mailto opens nothing at all
+                  and gives no feedback, so the address is shown as copyable
+                  text too. This disappears the moment `bookingUrl` is set. */}
+              {bookingIsEmailFallback ? (
+                <p className="mt-6 text-sm text-muted">
+                  Or email us directly at{' '}
+                  <a
+                    href={enquiry.quote}
+                    className="text-accent underline decoration-line-strong underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
+                  >
+                    {site.email}
+                  </a>
+                </p>
+              ) : null}
 
               {/* Reassurance line — removes the last objection to clicking */}
               <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.8125rem] text-muted">

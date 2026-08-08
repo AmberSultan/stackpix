@@ -54,16 +54,46 @@ export function setScrollLocked(locked: boolean) {
   document.body.style.overflow = locked ? 'hidden' : ''
 }
 
-/** Smoothly scroll to a `#section-id`, accounting for the fixed header. */
-export function scrollToSection(hash: string) {
+/**
+ * Smoothly scroll to a `#section-id`, accounting for the fixed header.
+ *
+ * `pushHistory` writes the hash into the address bar so a section can be
+ * shared or bookmarked, and so the Back button steps back through the page
+ * rather than leaving the site. It is off for programmatic scrolls (the skip
+ * link, restoring an inbound hash) where a history entry would be noise.
+ */
+export function scrollToSection(hash: string, pushHistory = true) {
   const target = document.querySelector(hash)
   if (!target) return
+
+  if (pushHistory && window.location.hash !== hash) {
+    window.history.pushState(null, '', hash)
+  }
 
   if (lenis) {
     lenis.scrollTo(target as HTMLElement, { offset: -80, duration: 1.35 })
   } else {
-    const top =
-      target.getBoundingClientRect().top + window.scrollY - 80
+    const top = target.getBoundingClientRect().top + window.scrollY - 80
     window.scrollTo({ top, behavior: 'smooth' })
   }
+}
+
+/**
+ * Makes Back and Forward move between sections, and honours a hash the visitor
+ * arrived with. Returns a cleanup function.
+ */
+export function initHashNavigation(): () => void {
+  const goToCurrentHash = () => {
+    const { hash } = window.location
+    if (hash && document.querySelector(hash)) scrollToSection(hash, false)
+  }
+
+  window.addEventListener('popstate', goToCurrentHash)
+  return () => window.removeEventListener('popstate', goToCurrentHash)
+}
+
+/** Scroll to an inbound `#hash` once the page is interactive. */
+export function restoreInboundHash() {
+  const { hash } = window.location
+  if (hash && document.querySelector(hash)) scrollToSection(hash, false)
 }

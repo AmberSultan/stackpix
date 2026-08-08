@@ -14,23 +14,35 @@
  * ==========================================================================*/
 
 export const site = {
-  name: 'Stackpixx',
+  name: 'StackPixx',
   /** Short form used inside the logo mark (1–2 characters look best). */
   mark: 'S',
   /** Legal entity shown in the footer copyright line. */
-  legalName: 'Stackpixx',
+  legalName: 'StackPixx',
 
   tagline: 'You outgrew the DMs. Now build a store that keeps up.',
-  description:
-    'Stackpixx builds fast, premium Shopify stores for Instagram-first brands — and rescues the ones already live but not selling.',
+  /* A `description` field used to sit here but was never rendered — the meta
+     description lives in index.html, and two sources for one string drift. */
 
   email: 'stackpixx@gmail.com',
-  // phone: '+92 300 0000000', // ← CHANGE ME (or delete — it is only used here)
   location: 'Working with brands worldwide',
-  // bookingUrl: 'https://cal.com/', // ← CHANGE ME: your Cal.com / Calendly link
+
+  /**
+   * ↓↓↓ PASTE YOUR CAL.COM / CALENDLY LINK HERE ↓↓↓
+   *
+   * Leave it empty and every "Book a Free Call" button falls back to email —
+   * nothing breaks, it just works less well. Once this is set, all three
+   * buttons switch over at once.
+   *
+   * Deliberately a booking page rather than WhatsApp: this studio sells
+   * "stop running your business out of DMs". Routing our own leads into a
+   * chat thread would argue against the pitch, and a prospect who notices
+   * has a fair question about it.
+   */
+  bookingUrl: '',
 
   socials: [
-    { label: 'Instagram', href: 'https://instagram.com/' }, // ← CHANGE ME
+    { label: 'Instagram', href: 'https://www.instagram.com/stackpixx/' }, // ← CHANGE ME
     {
       label: 'Facebook',
       href: 'https://www.facebook.com/profile.php?id=61592625421670',
@@ -49,11 +61,20 @@ export const site = {
  * up Cal.com or Calendly, swap `call` for that URL and every "Book a Free Call"
  * button follows automatically.
  */
+const mailTo = (subject: string) =>
+  `mailto:${site.email}?subject=${encodeURIComponent(subject)}`
+
 export const enquiry = {
-  call: `mailto:${site.email}?subject=${encodeURIComponent('Booking a free call')}`,
-  quote: `mailto:${site.email}?subject=${encodeURIComponent('Project quote request')}`,
-  audit: `mailto:${site.email}?subject=${encodeURIComponent('Free store audit')}`,
-} as const
+  /** A real booking page when one exists, email until then. */
+  call: site.bookingUrl || mailTo('Booking a free call'),
+  quote: mailTo('Project quote request'),
+  audit: mailTo('Free store audit'),
+}
+
+/** True while `call` is still the email fallback — the UI uses this to offer
+ *  the address as visible text, so a click that opens nothing is never a
+ *  dead end. */
+export const bookingIsEmailFallback = !site.bookingUrl
 
 /* ---------------------------------------------------------------- navigation */
 
@@ -309,13 +330,13 @@ export const projects: Project[] = [
     category: 'Gourmet & gifting — Shopify',
     year: '2026', // ← CHECK ME
     visual: 'lifestyle',
-    image: '/projects/mirafarms.png',
+    image: '/projects/mirafarms.webp',
     imageFit: 'full',
     url: 'https://mirafarms.com/',
     summary:
       'A Dubai social enterprise selling saffron, dates and gift boxes — where the gifting route had to be as considered as the product.',
     overview:
-      'Mira Farms sells luxury dried fruit, nuts, saffron, honey and chocolate from Dubai Design District under the line "luxury products with social impact", sourcing from Afghan farmers. The storefront carries seven product categories and a named gift-box range — Sabira, Masuma, Asal, Aziza, Amira and Hafiza — priced in AED for the UAE market.',
+      'Mira Farms sells luxury dried fruit, nuts, saffron, honey and chocolate from Dubai Design District under the line "luxury products with social impact", sourcing from Afghan farmers.',
     stack: [
       'Shopify',
       'Liquid',
@@ -345,7 +366,7 @@ export const projects: Project[] = [
     category: 'Jewellery — Shopify',
     year: '2026',
     visual: 'jewelry',
-    image: '/projects/ornagems.png',
+    image: '/projects/ornagems.webp',
     // The Ornagems hero is a full-bleed campaign shot — it earns the whole
     // card. Switch to 'frame' to render it inside browser chrome instead.
     imageFit: 'full',

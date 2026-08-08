@@ -97,9 +97,12 @@
   --p-card: #181818;
   --p-elevated: #1f1f1f;
 
-  --p-fg: #ffffff;
-  --p-subtle: #9ca3af;
-  --p-muted: #6b7280;
+  --p-fg: #ffffff; /* 20.4:1 on --p-ink */
+  --p-subtle: #9ca3af; /*  8.0:1 — body copy  */
+  --p-muted: #8b93a1; /*  6.6:1 page, 5.7:1 on cards. Was #6b7280, which
+                              measured 4.22:1 on the page and 3.67:1 on a card
+                              — below AA, and `muted` carries captions, footer
+                              links and project categories. */
 
   --p-line: rgb(255 255 255 / 0.08);
   --p-line-strong: rgb(255 255 255 / 0.14);
@@ -109,10 +112,14 @@
   /* #0d8a98 exactly, as chosen — it measures 4.96:1 against this background,
      so it needs no adjustment here. Labels sit on dark, so a brand fill takes
      a near-black label (5.11:1) rather than white. */
-  --p-brand: #0d8a98;
+  /* A touch lighter than the light theme's source value: #0d8a98 measured
+     4.32:1 against a card and its label 4.40:1, both just under AA. This is
+     the same hue lifted ~6%, which clears 5.0:1 on cards and 5.4:1 for the
+     label without reading as a different colour. */
+  --p-brand: #0f96a4;
   --p-brand-bright: #2ab5c4;
   --p-brand-deep: #085e69;
-  --p-on-brand: #04191b;
+  --p-on-brand: #021214;
 
   --p-brand-grad: linear-gradient(100deg, #1fbb92 0%, #2ab5c4 48%, #3193de 100%);
   --p-fg-grad: linear-gradient(180deg, #ffffff 20%, #8b8b8b 130%);

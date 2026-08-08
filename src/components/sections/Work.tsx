@@ -6,7 +6,7 @@ import { ProjectVisual } from '@/components/ui/ProjectVisual'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/Icons'
 import { CaseStudy } from './CaseStudy'
-import { projects, publishedResults, type Project } from '@/config/site'
+import { enquiry, projects, publishedResults, type Project } from '@/config/site'
 import { cn } from '@/lib/cn'
 
 export function Work() {
@@ -61,8 +61,12 @@ export function Work() {
             Want to see how we would approach yours? We will audit your store or
             your Instagram and send back a plan, free.
           </p>
+          {/* Opens email with the subject pre-set, rather than scrolling to
+              the CTA section — that section offers a call and a quote, so
+              sending an audit request there delivered something the button
+              did not promise. */}
           <Button
-            href="#contact"
+            href={enquiry.audit}
             variant="secondary"
             size="lg"
             magnetic

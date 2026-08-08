@@ -51,6 +51,21 @@ export function Navbar() {
 
   return (
     <>
+      {/* First thing in the tab order. Without it a keyboard or screen-reader
+          user re-traverses the logo, theme toggle, five nav links and the CTA
+          on every visit before reaching any content. */}
+      <a
+        href="#top"
+        onClick={(event) => {
+          event.preventDefault()
+          document.getElementById('top')?.focus()
+          scrollToSection('#top')
+        }}
+        className="sr-only z-100 focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:rounded-full focus:bg-brand focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-on-brand"
+      >
+        Skip to content
+      </a>
+
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-90 transition-[padding] duration-500 ease-[var(--ease-out-quint)]',

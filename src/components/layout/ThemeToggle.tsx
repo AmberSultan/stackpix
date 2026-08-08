@@ -14,6 +14,13 @@ export function ThemeToggle({ className }: { className?: string }) {
   const isDark = theme === 'dark'
 
   return (
+    <>
+      {/* The button's own label flips as a side effect of the click, which
+          screen readers do not announce. This says what happened. */}
+      <span aria-live="polite" className="sr-only">
+        {isDark ? 'Dark theme enabled' : 'Light theme enabled'}
+      </span>
+
     <button
       type="button"
       onClick={toggle}
@@ -50,5 +57,6 @@ export function ThemeToggle({ className }: { className?: string }) {
         <Sun className="size-4.5" />
       </span>
     </button>
+    </>
   )
 }

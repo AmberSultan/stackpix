@@ -7,6 +7,20 @@ import { cn } from '@/lib/cn'
 const DURATION = 1500
 /** Time the curtain takes to clear the viewport, per the transition below. */
 const LIFT_DURATION = 1100
+const SEEN_KEY = 'stackpixx-intro-seen'
+
+/**
+ * True the first time this browser tab loads the site. A curtain buys goodwill
+ * once; on a refresh or a return visit it is 1.5s of blocked scrolling between
+ * someone and the thing they came back for.
+ */
+function shouldPlay(): boolean {
+  try {
+    return sessionStorage.getItem(SEEN_KEY) === null
+  } catch {
+    return true // private mode — play it rather than crash
+  }
+}
 
 type Props = {
   /** Fires when the curtain starts lifting, so the hero can animate in behind it. */
@@ -25,14 +39,22 @@ type Props = {
  */
 export function Preloader({ onComplete }: Props) {
   const reducedMotion = usePrefersReducedMotion()
+  // Read once on mount, so the value cannot change mid-render.
+  const [play] = useState(shouldPlay)
   const [progress, setProgress] = useState(0)
   const [lifting, setLifting] = useState(false)
   const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (reducedMotion || !play) {
       onComplete()
       return
+    }
+
+    try {
+      sessionStorage.setItem(SEEN_KEY, '1')
+    } catch {
+      // Storage blocked — the curtain simply plays again next time.
     }
 
     setScrollLocked(true)
@@ -65,9 +87,9 @@ export function Preloader({ onComplete }: Props) {
       window.clearTimeout(timer)
       setScrollLocked(false)
     }
-  }, [reducedMotion, onComplete])
+  }, [reducedMotion, play, onComplete])
 
-  if (reducedMotion || hidden) return null
+  if (reducedMotion || !play || hidden) return null
 
   return (
     <div
