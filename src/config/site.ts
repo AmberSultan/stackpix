@@ -135,11 +135,19 @@ export const hero = {
    * and drifted into claiming a 98/100 Lighthouse and a 6-week build, both of
    * which contradicted the rest of the page.
    */
+  /**
+   * Deliberately no price and no free-support window here.
+   *
+   * Money on the fold invites a visitor to compare on cost before they have
+   * seen anything, which is the one frame a new studio cannot win. Pricing is
+   * answered properly in the FAQ, where there is room to justify it.
+   *
+   * Both of these answer an unspoken worry instead, and both cost nothing to
+   * honour: "what if the design is wrong and I am stuck with it", and "what if
+   * they hold my store hostage".
+   */
   chips: [
-    // Both of these cost nothing to honour. A free-support window is billable
-    // time you are giving away, so it does not belong on the fold as a hook —
-    // it belongs further down, sized to what you can actually absorb.
-    { label: 'Pricing', value: 'Fixed upfront' },
+    { label: 'Design', value: 'Approved by you' },
     { label: 'Ownership', value: '100% yours' },
   ],
 } as const
