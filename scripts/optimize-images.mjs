@@ -53,6 +53,20 @@ for (const file of existsSync(SOURCES) ? readdirSync(SOURCES) : []) {
 
 /* ------------------------------------------------------- og image → png -- */
 
+/* ------------------------------------------------- apple touch icon → png */
+
+/* iOS ignores SVG for `apple-touch-icon`: a home-screen save falls back to a
+   blank tile or a screenshot of the page. It needs a real 180×180 raster. */
+const logo = join(BRAND, 'logo.svg')
+if (existsSync(logo)) {
+  const out = join(BRAND, 'apple-touch-icon.png')
+  await sharp(logo, { density: 400 })
+    .resize(180, 180, { fit: 'cover' })
+    .png({ compressionLevel: 9 })
+    .toFile(out)
+  console.log(`icon   logo.svg → apple-touch-icon.png  ${kb(statSync(out).size)}  (180×180)`)
+}
+
 const ogSvg = join(BRAND, 'og-image.svg')
 if (existsSync(ogSvg)) {
   const out = join(BRAND, 'og-image.png')

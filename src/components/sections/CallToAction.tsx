@@ -46,12 +46,12 @@ export function CallToAction() {
                 </div>
               ) : (
                 /* Only reached if the form key is cleared. Kept working, and
-                   kept consistent with the rest of the site: the free plan first,
+                   kept consistent with the rest of the site: the free proposal first,
                    email second, no call. */
                 <>
                   <div className="mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
                     <Button
-                      href={enquiry.plan}
+                      href={enquiry.proposal}
                       size="lg"
                       magnetic
                       className="w-full sm:w-auto"
@@ -88,7 +88,7 @@ export function CallToAction() {
 
               {/* Reassurance line — removes the last objection to clicking */}
               <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.8125rem] text-muted">
-                <li>Free plan, no strings</li>
+                <li>Free proposal, no strings</li>
                 <li aria-hidden className="hidden size-1 rounded-full bg-muted sm:block" />
                 <li>Fixed price before we start</li>
                 <li aria-hidden className="hidden size-1 rounded-full bg-muted sm:block" />

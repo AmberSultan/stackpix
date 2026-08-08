@@ -190,7 +190,7 @@ export function CaseStudy({ project }: { project: Project }) {
           <Button
             onClick={() => {
               const openEnquiry = () => {
-                requestQuote('A free plan for my brand')
+                requestQuote('A free proposal')
                 scrollToSection('#contact')
               }
               if (closeModal) closeModal(openEnquiry)

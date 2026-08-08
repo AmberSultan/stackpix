@@ -62,7 +62,7 @@ export function Work() {
             tell us what you sell. We will come back with what we would do
             first. No charge.
           </p>
-          {/* Goes to the form, which offers the free plan as its first option,
+          {/* Goes to the form, which offers the free proposal as its first option,
               so the button and its destination promise the same thing. */}
           <Button
             href="#contact"

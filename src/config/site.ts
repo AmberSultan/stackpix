@@ -68,7 +68,7 @@ const mailTo = (subject: string) =>
 
 export const enquiry = {
   quote: mailTo('Project quote request'),
-  plan: mailTo('Free plan request'),
+  proposal: mailTo('Free proposal request'),
 }
 
 /** The CTA renders the contact form only once a key exists. */
@@ -76,7 +76,7 @@ export const contactFormEnabled = Boolean(site.contactFormKey)
 
 /** What "what do you need?" offers. Keep these aligned with `services`. */
 export const enquiryTypes = [
-  'A free plan for my brand',
+  'A free proposal',
   'A new Shopify store',
   'Fixing an existing store',
   'A website (React / Next.js)',
@@ -99,8 +99,20 @@ export const navLinks = [
 /* -------------------------------------------------------------------- hero */
 
 export const hero = {
-  /** Honest scarcity beats invented volume — but only if you keep it accurate. */
-  badge: 'Stop taking orders in the DMs. Start taking them 24/7.',
+  /**
+   * An availability line, which is what a pill above a headline is for.
+   *
+   * It used to read "Stop taking orders in the DMs. Start taking them 24/7."
+   * That is a headline, and it aimed at Instagram sellers while the headline
+   * below it aims at growing businesses generally — so the fold opened by
+   * naming two different audiences and made the visitor work out which one
+   * they were.
+   *
+   * Keep this true. If you are booked, say so; scarcity only works while it
+   * is accurate. To add urgency with a number: "Taking on 3 new projects
+   * this month".
+   */
+  badge: 'Don\'t Just Exist. Stand Out',
   /* Three lines rather than two: at 66 characters this headline is roughly
      three times the length of the old one, so it needs the extra break and a
      smaller display size to fit. See --text-display in globals.css. */
@@ -117,14 +129,14 @@ export const hero = {
    *
    * "Book a Free Call" wanted a slot in a stranger's day before they had any
    * reason to trust us — the highest-commitment thing you can request, from
-   * a studio with two case studies and no reviews yet. A free plan reverses it:
-   * they get proof of how we think before spending anything, and we get a
-   * warm conversation instead of a cold one.
+   * a studio with two case studies and no reviews yet. A free proposal
+   * reverses it: they get proof of how we think before spending anything, and
+   * we get a warm conversation instead of a cold one.
    *
    * It scrolls to the form rather than opening email, because a mailto on a
    * desktop with no mail client shows an OS app-picker listing browsers.
    */
-  primaryCta: { label: 'Get a free store audit', href: '#contact' },
+  primaryCta: { label: 'Get a free proposal', href: '#contact' },
   secondaryCta: { label: 'See our work', href: '#work' },
   /**
    * One credential plus two promises.
@@ -487,7 +499,7 @@ export const projects: Project[] = [
 
 export const processSteps = [
   {
-    title: 'Free plan',
+    title: 'Free proposal',
     duration: 'Day 1',
     description:
       'Send us your site if you have one, or just tell us what you sell. We come back with what we would do first and why, written down. No call required, no charge.',
@@ -662,7 +674,7 @@ export const faqs = [
        leaves, while everyone who does write in has to be disqualified by
        hand. A floor — "projects start at PKR X" — is not a quote, it is a
        filter that works while you sleep. */
-    cta: { label: 'Get your free plan', href: '#contact' },
+    cta: { label: 'Get a free proposal', href: '#contact' },
   },
   {
     question: 'How long does it take?',
