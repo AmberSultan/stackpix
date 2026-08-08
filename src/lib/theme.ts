@@ -1,7 +1,7 @@
 export type Theme = 'light' | 'dark'
 
 /** Also read by the inline boot script in index.html — keep the two in sync. */
-export const THEME_STORAGE_KEY = 'stackpix-theme'
+export const THEME_STORAGE_KEY = 'stackpixx-theme'
 
 /** Browser-chrome colour per theme. Mirrors --p-ink in globals.css. */
 const THEME_COLOR: Record<Theme, string> = {

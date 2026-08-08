@@ -3,7 +3,7 @@
  *
  *  POSITIONING NOTE (read before editing):
  *
- *  Stackpix is a new studio. This copy is written to be true on day one — it
+ *  Stackpixx is a new studio. This copy is written to be true on day one — it
  *  claims no project count, no client roster and no testimonials that do not
  *  exist. Instead it competes on terms a new studio can genuinely offer and a
  *  large agency usually cannot: fixed pricing, direct access to the builder,
@@ -14,15 +14,15 @@
  * ==========================================================================*/
 
 export const site = {
-  name: 'StackPix',
+  name: 'Stackpixx',
   /** Short form used inside the logo mark (1–2 characters look best). */
   mark: 'S',
   /** Legal entity shown in the footer copyright line. */
-  legalName: 'StackPix',
+  legalName: 'Stackpixx',
 
   tagline: 'You outgrew the DMs. Now build a store that keeps up.',
   description:
-    'StackPix builds fast, premium Shopify stores for Instagram-first brands — and rescues the ones already live but not selling.',
+    'Stackpixx builds fast, premium Shopify stores for Instagram-first brands — and rescues the ones already live but not selling.',
 
   email: 'stackpixx@gmail.com',
   // phone: '+92 300 0000000', // ← CHANGE ME (or delete — it is only used here)
@@ -36,6 +36,23 @@ export const site = {
       href: 'https://www.facebook.com/profile.php?id=61592625421670',
     },
   ],
+} as const
+
+/* ------------------------------------------------------------ enquiry links */
+
+/**
+ * Every enquiry CTA on the site points at one of these, so there is a single
+ * place to change where leads land.
+ *
+ * They open the visitor's mail client with the subject already filled in —
+ * which also tells you at a glance which button someone pressed. When you set
+ * up Cal.com or Calendly, swap `call` for that URL and every "Book a Free Call"
+ * button follows automatically.
+ */
+export const enquiry = {
+  call: `mailto:${site.email}?subject=${encodeURIComponent('Booking a free call')}`,
+  quote: `mailto:${site.email}?subject=${encodeURIComponent('Project quote request')}`,
+  audit: `mailto:${site.email}?subject=${encodeURIComponent('Free store audit')}`,
 } as const
 
 /* ---------------------------------------------------------------- navigation */
@@ -64,14 +81,16 @@ export const hero = {
   headlineAccent: 'for Growing Businesses.',
   subline:
     'Shopify Stores • UI/UX Design • React & Next.js Development • Branding • Social Media Design',
-  primaryCta: { label: 'Book a Free Call', href: '#contact' },
+  /* Opens email directly rather than scrolling to the contact section — one
+     less step between wanting to get in touch and doing it. */
+  primaryCta: { label: 'Book a Free Call', href: enquiry.call },
   secondaryCta: { label: 'See our work', href: '#work' },
   /**
    * One credential plus two promises.
    *
    * "4+ years" is the only claim here about the past, and it is the ordinary
    * kind a buyer expects — keep it accurate by counting the design and dev
-   * work you did before StackPix existed.
+   * work you did before Stackpixx existed.
    *
    * A "98% client satisfaction" figure used to sit in the middle slot. It was
    * removed because it cannot be evidenced without a survey, and standing

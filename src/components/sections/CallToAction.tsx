@@ -3,7 +3,7 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Eyebrow } from '@/components/ui/SectionHeading'
 import { ArrowUpRight, ArrowRight } from '@/components/ui/Icons'
 import { AuroraBackdrop, GridBackdrop } from '@/components/ui/Backdrop'
-import { site } from '@/config/site'
+import { enquiry } from '@/config/site'
 import { useMouseParallax } from '@/hooks/useMouseParallax'
 
 /**
@@ -37,11 +37,8 @@ export function CallToAction() {
               </p>
 
               <div className="mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
-                {/* Falls back to email until there is a booking link. When you
-                    set up Cal.com or Calendly, uncomment `bookingUrl` in
-                    config/site.ts and swap this href for `site.bookingUrl`. */}
                 <Button
-                  href={`mailto:${site.email}?subject=Booking%20a%20free%20call`}
+                  href={enquiry.call}
                   size="lg"
                   magnetic
                   className="w-full sm:w-auto"
@@ -50,7 +47,7 @@ export function CallToAction() {
                   Book a Free Call
                 </Button>
                 <Button
-                  href={`mailto:${site.email}?subject=Project%20quote%20request`}
+                  href={enquiry.quote}
                   size="lg"
                   variant="secondary"
                   magnetic
