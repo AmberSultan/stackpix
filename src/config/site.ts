@@ -319,6 +319,15 @@ export const services: Service[] = [
 
 export type Project = {
   slug: string
+  /**
+   * Rendered publicly, and shipped inside the JavaScript bundle.
+   *
+   * Never put a name here you could not publish. Everything in this object
+   * reaches the browser: a "confidential" flag hides fields from the page, it
+   * does not hide them from anyone who opens devtools. For a client you cannot
+   * name, put a descriptor here and keep the real name in a code comment,
+   * which is stripped at build time.
+   */
   client: string
   category: string
   year: string
@@ -341,17 +350,16 @@ export type Project = {
   /** Live site. Adds a "Visit site" link to the case study header. */
   url?: string
   /**
-   * What you actually did, and under whose contract.
+   * Runs the case study anonymised: the live link is hidden and the study is
+   * labelled "Client confidential".
    *
-   * Required on any project delivered through an employer or agency partner.
-   * Without it the case study's "we" implies StackPixx held the client
-   * relationship, which invites one question you cannot answer well late in a
-   * sale: "can I speak to them about how it went?"
+   * Labelled rather than silently unnamed. Omitting a name looks like hiding
+   * something; stating that the client is confidential is a normal line on an
+   * agency portfolio and reads as professional.
    *
-   * Stating it costs very little. "I led design and build on this" is a strong
-   * claim, and being upfront reads as confident rather than as a hedge.
+   * Set to false to publish the real name and link again.
    */
-  credit?: string
+  confidential?: boolean
   summary: string
   overview: string
   stack: string[]
@@ -380,28 +388,36 @@ export function publishedResults(project: Project) {
  *
  * Each `problem` and `solution` should describe what the client actually
  * asked for and what you actually changed, because you will be asked about
- * both in a sales call. If a build was delivered through another company, ask
- * them how to credit it: "built for [brand] in partnership with [company]" is
- * normal, and reads better than a vague claim.
+ * both in a sales call.
+ *
+ * Both entries currently run `confidential`, so neither carries a client name
+ * or a live link. That makes the write-ups unverifiable by design: they show
+ * how you think rather than proving what you shipped. A project you own
+ * outright — your own concept store, or a direct client — is the thing that
+ * closes that gap, and nobody can ask you to take it down.
  */
 export const projects: Project[] = [
   {
-    slug: 'mira-farms',
-    client: 'Mira Farms',
+    slug: 'gifting-brand',
+    /* Real client: Mira Farms (mirafarms.com). Kept in this comment only.
+       Comments are stripped at build time; anything in the data below ships
+       inside the JavaScript bundle and is readable in devtools. */
+    client: 'Luxury gifting brand, Dubai',
     category: 'Gourmet & gifting · Custom Shopify theme',
     year: '2026', // ← CHECK ME
     visual: 'lifestyle',
-    image: '/projects/mirafarms.webp',
+    /* Filename is deliberately generic: an <img src> naming the client would
+       identify them just as plainly as the heading would. */
+    image: '/projects/gifting-brand.webp',
     imageFit: 'full',
-    url: 'https://mirafarms.com/',
-    /* ← CHANGE ME once you have checked with your employer. If they are happy
-       to be named, "Delivered at [Company]" is stronger than "an agency
-       partner" — a named studio is verifiable, an unnamed one is not. */
-    credit: 'Design and development, delivered through an agency partner',
+    /* No `url` while confidential. It would ship in the bundle and identify
+       the client to anyone who opened devtools. The live URL is in the comment
+       above; restore it here if the client can be named. */
+    confidential: true,
     summary:
       'A Dubai gifting brand whose storefront had fallen a long way behind its product. Rebuilt as a custom Shopify theme, designed screen by screen in Figma before a line of code was written.',
     overview:
-      'Mira Farms sells saffron, dates, nuts and curated gift boxes from Dubai Design District, under the line "luxury products with social impact" and sourcing from Afghan farmers. The range is premium and much of it is bought as a gift,  but none of the care that goes into the product was reaching the people buying it.',
+      'A Dubai brand selling saffron, dates, nuts and curated gift boxes, positioned around luxury with social impact and sourcing from Afghan farmers. The range is premium and much of it is bought as a gift, but none of the care that goes into the product was reaching the people buying it.',
     stack: [
       'Figma',
       'Shopify',
@@ -425,8 +441,9 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'ornagems',
-    client: 'Ornagems',
+    slug: 'jewellery-brand',
+    /* Real client: Ornagems. Kept in this comment only, for the same reason. */
+    client: 'Demi-fine jewellery store, Pakistan',
     /* Deliberately labelled differently from Mira Farms. That build was a
        custom theme designed in Figma; this one started from a premium theme
        and was taken to code level. Naming both routes shows a studio that
@@ -434,16 +451,15 @@ export const projects: Project[] = [
     category: 'Jewellery · Shopify store build',
     year: '2026',
     visual: 'jewelry',
-    image: '/projects/ornagems.webp',
-    // The Ornagems hero is a full-bleed campaign shot — it earns the whole
-    // card. Switch to 'frame' to render it inside browser chrome instead.
+    image: '/projects/jewellery-brand.webp',
+    // Full-bleed campaign shot: it earns the whole card. Switch to 'frame' to
+    // render it inside browser chrome instead.
     imageFit: 'full',
-    url: 'https://sza504-6m.myshopify.com/',
-    credit: 'Design and development, delivered through an agency partner',
+    confidential: true,
     summary:
       'A demi-fine jewellery label taken from nothing to a working store, with the theme customised at code level until it matched the reference site the client had in mind.',
     overview:
-      'Ornagems by Zahra sells demi-fine jewellery built for daily wear rather than the vault. There was no store to improve on and no checkout to repair, so everything was built from the ground up: the catalogue, the cart, payments, delivery, and the trust signals a new label needs before anyone will spend money on jewellery online.',
+      'A new label selling demi-fine jewellery built for daily wear rather than the vault. There was no store to improve on and no checkout to repair, so everything was built from the ground up: the catalogue, the cart, payments, delivery, and the trust signals a new label needs before anyone will spend money on jewellery online.',
     stack: [
       'Shopify',
       'Clarity theme',

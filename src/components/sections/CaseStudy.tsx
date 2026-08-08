@@ -33,6 +33,12 @@ export function CaseStudy({ project }: { project: Project }) {
             <span>{project.category}</span>
             <span aria-hidden className="size-1 rounded-full bg-muted" />
             <span>{project.year}</span>
+            {project.confidential ? (
+              <>
+                <span aria-hidden className="size-1 rounded-full bg-muted" />
+                <span className="text-brand">Client confidential</span>
+              </>
+            ) : null}
           </div>
 
           <h2 className="text-h1 mt-5 font-semibold">{project.client}</h2>
@@ -42,7 +48,9 @@ export function CaseStudy({ project }: { project: Project }) {
               introductions saying the same thing. The overview is the fuller
               of the two, so it carries the opening on its own. */}
 
-          {project.url ? (
+          {/* Hidden while confidential, but the URL stays in the config: one
+              flag brings the link back if the client can be named later. */}
+          {project.url && !project.confidential ? (
             <a
               href={project.url}
               target="_blank"
@@ -68,32 +76,18 @@ export function CaseStudy({ project }: { project: Project }) {
             </p>
           </section>
 
-          <section className="flex flex-col gap-10">
-            <div>
-              <SectionLabel>Tech stack</SectionLabel>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {project.stack.map((tech) => (
-                  <li
-                    key={tech}
-                    className="rounded-full border border-line bg-fill-1 px-3.5 py-1.5 text-sm text-subtle"
-                  >
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Sits with the project facts rather than in small print at the
-                bottom. Buried, it looks like something being got past you;
-                stated plainly next to the stack, it reads as context. */}
-            {project.credit ? (
-              <div>
-                <SectionLabel>Role</SectionLabel>
-                <p className="mt-5 leading-relaxed text-subtle">
-                  {project.credit}
-                </p>
-              </div>
-            ) : null}
+          <section>
+            <SectionLabel>Tech stack</SectionLabel>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {project.stack.map((tech) => (
+                <li
+                  key={tech}
+                  className="rounded-full border border-line bg-fill-1 px-3.5 py-1.5 text-sm text-subtle"
+                >
+                  {tech}
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
 

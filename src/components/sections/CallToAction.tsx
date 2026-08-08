@@ -57,7 +57,7 @@ export function CallToAction() {
                       className="w-full sm:w-auto"
                       icon={<ArrowUpRight className="size-4" />}
                     >
-                      Get a free plan
+                      Work With Us
                     </Button>
                     <Button
                       href={enquiry.quote}
