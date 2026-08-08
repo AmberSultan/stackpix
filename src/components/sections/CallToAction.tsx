@@ -4,12 +4,7 @@ import { Eyebrow } from '@/components/ui/SectionHeading'
 import { ArrowUpRight, ArrowRight } from '@/components/ui/Icons'
 import { AuroraBackdrop, GridBackdrop } from '@/components/ui/Backdrop'
 import { ContactForm } from './ContactForm'
-import {
-  bookingIsEmailFallback,
-  contactFormEnabled,
-  enquiry,
-  site,
-} from '@/config/site'
+import { contactFormEnabled, enquiry, site } from '@/config/site'
 import { useMouseParallax } from '@/hooks/useMouseParallax'
 
 /**
@@ -50,16 +45,19 @@ export function CallToAction() {
                   <ContactForm />
                 </div>
               ) : (
+                /* Only reached if the form key is cleared. Kept working, and
+                   kept consistent with the rest of the site: an audit first,
+                   email second, no call. */
                 <>
                   <div className="mt-11 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
                     <Button
-                      href={enquiry.call}
+                      href={enquiry.audit}
                       size="lg"
                       magnetic
                       className="w-full sm:w-auto"
                       icon={<ArrowUpRight className="size-4" />}
                     >
-                      Book a Free Call
+                      Get a free store audit
                     </Button>
                     <Button
                       href={enquiry.quote}
@@ -69,25 +67,22 @@ export function CallToAction() {
                       className="w-full sm:w-auto"
                       icon={<ArrowRight className="size-4" />}
                     >
-                      Get a Quote
+                      Email us
                     </Button>
                   </div>
 
-                  {/* Safety net while the buttons are mailto: links. On a
-                      desktop with no mail client configured a mailto opens an
-                      OS app-picker or nothing at all, so the address is shown
-                      as copyable text too. */}
-                  {bookingIsEmailFallback ? (
-                    <p className="mt-6 text-sm text-muted">
-                      Or email us directly at{' '}
-                      <a
-                        href={enquiry.quote}
-                        className="text-accent underline decoration-line-strong underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
-                      >
-                        {site.email}
-                      </a>
-                    </p>
-                  ) : null}
+                  {/* Both buttons are mailto: links here. On a desktop with no
+                      mail client one opens an OS app-picker or nothing at all,
+                      so the address is always shown as copyable text too. */}
+                  <p className="mt-6 text-sm text-muted">
+                    Or email us directly at{' '}
+                    <a
+                      href={enquiry.quote}
+                      className="text-accent underline decoration-line-strong underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
+                    >
+                      {site.email}
+                    </a>
+                  </p>
                 </>
               )}
 

@@ -28,20 +28,6 @@ export const site = {
   location: 'Working with brands worldwide',
 
   /**
-   * ↓↓↓ PASTE YOUR CAL.COM / CALENDLY LINK HERE ↓↓↓
-   *
-   * Leave it empty and every "Book a Free Call" button falls back to email —
-   * nothing breaks, it just works less well. Once this is set, all three
-   * buttons switch over at once.
-   *
-   * Deliberately a booking page rather than WhatsApp: this studio sells
-   * "stop running your business out of DMs". Routing our own leads into a
-   * chat thread would argue against the pitch, and a prospect who notices
-   * has a fair question about it.
-   */
-  bookingUrl: '',
-
-  /**
    * Web3Forms access key. Submissions land in the inbox above.
    *
    * Safe to commit — Web3Forms designs this to be public and it is visible in
@@ -67,34 +53,30 @@ export const site = {
 /* ------------------------------------------------------------ enquiry links */
 
 /**
- * Every enquiry CTA on the site points at one of these, so there is a single
- * place to change where leads land.
+ * Direct-email routes, kept in one place.
  *
- * They open the visitor's mail client with the subject already filled in —
- * which also tells you at a glance which button someone pressed. When you set
- * up Cal.com or Calendly, swap `call` for that URL and every "Book a Free Call"
- * button follows automatically.
+ * These are secondary: the contact form is the main way in. They exist as the
+ * escape hatch shown alongside it, and as the fallback if the form key is ever
+ * cleared. The subject line tells you at a glance which route someone took.
+ *
+ * There is deliberately no "book a call" route. It asked for the largest
+ * commitment a stranger can give, and on a desktop with no mail client the
+ * mailto opened an OS app-picker listing web browsers.
  */
 const mailTo = (subject: string) =>
   `mailto:${site.email}?subject=${encodeURIComponent(subject)}`
 
 export const enquiry = {
-  /** A real booking page when one exists, email until then. */
-  call: site.bookingUrl || mailTo('Booking a free call'),
   quote: mailTo('Project quote request'),
   audit: mailTo('Free store audit'),
 }
-
-/** True while `call` is still the email fallback — the UI uses this to offer
- *  the address as visible text, so a click that opens nothing is never a
- *  dead end. */
-export const bookingIsEmailFallback = !site.bookingUrl
 
 /** The CTA renders the contact form only once a key exists. */
 export const contactFormEnabled = Boolean(site.contactFormKey)
 
 /** What "what do you need?" offers. Keep these aligned with `services`. */
 export const enquiryTypes = [
+  'A free audit of my current site',
   'A new Shopify store',
   'Fixing an existing store',
   'A website (React / Next.js)',
@@ -130,9 +112,19 @@ export const hero = {
   headlineAccent: 'for Growing Businesses.',
   subline:
     'Shopify Stores • UI/UX Design • React & Next.js Development • Branding • Social Media Design',
-  /* Opens email directly rather than scrolling to the contact section — one
-     less step between wanting to get in touch and doing it. */
-  primaryCta: { label: 'Book a Free Call', href: enquiry.call },
+  /**
+   * Leads with something given rather than something asked for.
+   *
+   * "Book a Free Call" wanted a slot in a stranger's day before they had any
+   * reason to trust us — the highest-commitment thing you can request, from
+   * a studio with two case studies and no reviews yet. An audit reverses it:
+   * they get proof of how we think before spending anything, and we get a
+   * warm conversation instead of a cold one.
+   *
+   * It scrolls to the form rather than opening email, because a mailto on a
+   * desktop with no mail client shows an OS app-picker listing browsers.
+   */
+  primaryCta: { label: 'Get a free store audit', href: '#contact' },
   secondaryCta: { label: 'See our work', href: '#work' },
   /**
    * One credential plus two promises.
