@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
   applyTheme,
-  hasStoredPreference,
-  preferredTheme,
   readTheme,
   THEME_STORAGE_KEY,
   type Theme,
@@ -14,6 +12,9 @@ import {
  * State is seeded from the DOM, which the boot script has already set, so the
  * first render matches what the user is looking at. Everything after that is
  * one-way: state changes, the effect writes it to the document.
+ *
+ * The operating system's colour-scheme preference is intentionally not
+ * consulted — see DEFAULT_THEME in lib/theme.ts.
  */
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(readTheme)
@@ -33,21 +34,9 @@ export function useTheme() {
     return () => window.removeEventListener('storage', onStorage)
   }, [])
 
-  // Follow the OS only until the visitor expresses a preference of their own.
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-color-scheme: dark)')
-    const onChange = (event: MediaQueryListEvent) => {
-      if (hasStoredPreference()) return
-      setTheme(event.matches ? 'dark' : 'light')
-    }
-
-    mql.addEventListener('change', onChange)
-    return () => mql.removeEventListener('change', onChange)
-  }, [])
-
   const toggle = useCallback(() => {
     setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
   }, [])
 
-  return { theme, toggle, setTheme, preferred: preferredTheme }
+  return { theme, toggle, setTheme }
 }

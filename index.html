@@ -25,12 +25,12 @@
     <script>
       (function () {
         try {
+          // Light unless this visitor has explicitly chosen otherwise.
+          // The OS dark-mode setting is deliberately NOT consulted: the site
+          // is designed light-first, and a visitor whose laptop is in dark
+          // mode would otherwise never see the intended design.
           var stored = localStorage.getItem('stackpixx-theme')
-          var theme =
-            stored ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light')
+          var theme = stored === 'dark' ? 'dark' : 'light'
           document.documentElement.dataset.theme = theme
           document
             .querySelector('meta[name="theme-color"]')

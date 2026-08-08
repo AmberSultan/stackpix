@@ -15,25 +15,25 @@ const THEME_COLOR: Record<Theme, string> = {
  * recomputing, guarantees React's idea of the theme matches what is on screen.
  */
 export function readTheme(): Theme {
-  if (typeof document === 'undefined') return 'light'
+  if (typeof document === 'undefined') return DEFAULT_THEME
   return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
 }
 
-/** What a first-time visitor should get: their system preference. */
-export function preferredTheme(): Theme {
-  if (typeof window === 'undefined') return 'light'
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light'
-}
-
-export function hasStoredPreference(): boolean {
-  try {
-    return localStorage.getItem(THEME_STORAGE_KEY) !== null
-  } catch {
-    return false
-  }
-}
+/**
+ * What a first-time visitor gets.
+ *
+ * Light, regardless of their operating system's dark-mode setting. That is a
+ * deliberate departure from the usual advice to follow `prefers-color-scheme`:
+ * this site was designed light-first, and on a laptop set to dark a visitor
+ * would land on the alternate palette and never see the intended one.
+ *
+ * Dark remains one tap away and is remembered once chosen — it is the default
+ * that changes here, not the choice.
+ *
+ * Kept in sync with the boot script in index.html, which applies the same rule
+ * before first paint.
+ */
+export const DEFAULT_THEME: Theme = 'light'
 
 /** Skips the cross-fade on the very first apply, which happens on mount and
  *  would otherwise animate a theme that is already correct. */
