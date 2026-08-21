@@ -1,8 +1,7 @@
 import { ProjectVisual } from '@/components/ui/ProjectVisual'
 import { RichText } from '@/components/ui/RichText'
 import { useModalClose } from '@/components/ui/modalClose'
-import { requestQuote } from '@/lib/enquiryIntent'
-import { scrollToSection } from '@/lib/smoothScroll'
+import { openContactDialog } from '@/lib/contactDialog'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/Icons'
 import { HairlineDivider } from '@/components/ui/Backdrop'
@@ -180,19 +179,15 @@ export function CaseStudy({ project }: { project: Project }) {
             </p>
           </div>
 
-          {/* Closes the overlay first, then scrolls. Scrolling straight away
-              moves the page behind a full-screen panel, so the button appears
-              to do nothing — which is exactly how this read before.
+          {/* Closes this overlay before opening the contact dialog. Two panels
+              stacked would each hold the scroll lock, and whichever closed
+              first would release it out from under the other.
 
-              `requestQuote` also preselects the free-plan option and puts the
-              cursor in the message field, so the visitor lands on a form that
-              has already absorbed what they clicked. */}
+              The proposal option is preselected, so the visitor lands on a
+              form that has already absorbed what they clicked. */}
           <Button
             onClick={() => {
-              const openEnquiry = () => {
-                requestQuote('A free proposal')
-                scrollToSection('#contact')
-              }
+              const openEnquiry = () => openContactDialog('A free proposal')
               if (closeModal) closeModal(openEnquiry)
               else openEnquiry()
             }}

@@ -1,23 +1,7 @@
-/* ============================================================================
- *  SITE CONFIG — the single source of truth for every word on this website.
- *
- *  POSITIONING NOTE (read before editing):
- *
- *  StackPixx is a new studio. This copy is written to be true on day one — it
- *  claims no project count, no client roster and no testimonials that do not
- *  exist. Instead it competes on terms a new studio can genuinely offer and a
- *  large agency usually cannot: fixed pricing, direct access to the builder,
- *  performance as standard, and full ownership.
- *
- *  If you add a number to this file, make sure you could prove it on request.
- *  A prospect who catches one invented figure discounts everything else.
- * ==========================================================================*/
 
 export const site = {
   name: 'StackPixx',
-  /** Short form used inside the logo mark (1–2 characters look best). */
   mark: 'S',
-  /** Legal entity shown in the footer copyright line. */
   legalName: 'StackPixx',
 
   tagline: 'Don\'t Just Exist. Stand Out',
@@ -27,18 +11,6 @@ export const site = {
   email: 'stackpixx@gmail.com',
   location: 'Working with brands worldwide',
 
-  /**
-   * Web3Forms access key. Submissions land in the inbox above.
-   *
-   * Safe to commit — Web3Forms designs this to be public and it is visible in
-   * the client bundle either way. It identifies the destination inbox; it
-   * grants no access to anything.
-   *
-   * Empty this string and the contact form stops rendering, with the CTA
-   * falling back to buttons. That guard exists because a form which silently
-   * fails to send is worse than no form: the visitor believes they got through
-   * and you never hear from them.
-   */
   contactFormKey: '4ffcdfde-107d-4515-87fc-41ec36058749',
 
   socials: [
@@ -47,22 +19,11 @@ export const site = {
       label: 'Facebook',
       href: 'https://www.facebook.com/profile.php?id=61592625421670',
     },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/stackpixx' },
   ],
 } as const
 
-/* ------------------------------------------------------------ enquiry links */
 
-/**
- * Direct-email routes, kept in one place.
- *
- * These are secondary: the contact form is the main way in. They exist as the
- * escape hatch shown alongside it, and as the fallback if the form key is ever
- * cleared. The subject line tells you at a glance which route someone took.
- *
- * There is deliberately no "book a call" route. It asked for the largest
- * commitment a stranger can give, and on a desktop with no mail client the
- * mailto opened an OS app-picker listing web browsers.
- */
 const mailTo = (subject: string) =>
   `mailto:${site.email}?subject=${encodeURIComponent(subject)}`
 
@@ -99,85 +60,22 @@ export const navLinks = [
 /* -------------------------------------------------------------------- hero */
 
 export const hero = {
-  /**
-   * An availability line, which is what a pill above a headline is for.
-   *
-   * It used to read "Stop taking orders in the DMs. Start taking them 24/7."
-   * That is a headline, and it aimed at Instagram sellers while the headline
-   * below it aims at growing businesses generally — so the fold opened by
-   * naming two different audiences and made the visitor work out which one
-   * they were.
-   *
-   * Keep this true. If you are booked, say so; scarcity only works while it
-   * is accurate. To add urgency with a number: "Taking on 3 new projects
-   * this month".
-   */
-  badge: 'Don\'t Just Exist. Stand Out',
-  /* Three lines rather than two: at 66 characters this headline is roughly
-     three times the length of the old one, so it needs the extra break and a
-     smaller display size to fit. See --text-display in globals.css. */
+
+  badge: 'Don\'t Just Exist. Stand Out.',
+
   headline: [
     'We Design & Develop',
-    'High-Converting Websites',
-    'for Growing Businesses.',
+    'Websites That',
+    'Grow Your Business.',
   ],
-  headlineAccent: 'for Growing Businesses.',
+  headlineAccent: 'Grow Your Business.',
   subline:
     'Shopify Stores • UI/UX Design • React & Next.js Development • Branding • Social Media Design',
-  /**
-   * Leads with something given rather than something asked for.
-   *
-   * "Book a Free Call" wanted a slot in a stranger's day before they had any
-   * reason to trust us — the highest-commitment thing you can request, from
-   * a studio with two case studies and no reviews yet. A free proposal
-   * reverses it: they get proof of how we think before spending anything, and
-   * we get a warm conversation instead of a cold one.
-   *
-   * It scrolls to the form rather than opening email, because a mailto on a
-   * desktop with no mail client shows an OS app-picker listing browsers.
-   */
-  primaryCta: { label: 'Get a free proposal', href: '#contact' },
+
+  primaryCta: { label: 'Get a free proposal' },
   secondaryCta: { label: 'See our work', href: '#work' },
-  /**
-   * One credential plus two promises.
-   *
-   * "4+ years" is the only claim here about the past, and it is the ordinary
-   * kind a buyer expects — keep it accurate by counting the design and dev
-   * work you did before Stackpixx existed.
-   *
-   * A "98% client satisfaction" figure used to sit in the middle slot. It was
-   * removed because it cannot be evidenced without a survey, and standing
-   * beside "4+ years" it implied a client history the Work section does not
-   * show — which puts the honest numbers around it in doubt too.
-   *
-   * "24h reply" replaced "24/7 support" so the fold matches the FAQ and the
-   * Care service card, which both promise a reply within a working day.
-   */
-  metrics: [
-    { value: '4+', label: 'Years of experience' },
-    { value: '2–4 wks', label: 'From kickoff to live' },
-    { value: '24h', label: 'Reply time' },
-  ],
-  /**
-   * The two floating chips either side of the hero. Deliberately NOT a repeat
-   * of `metrics` above — these carry the two commitments that strip does not,
-   * so the fold says four things rather than three twice.
-   *
-   * Keep them consistent with `stats`. They used to be hardcoded in Hero.tsx
-   * and drifted into claiming a 98/100 Lighthouse and a 6-week build, both of
-   * which contradicted the rest of the page.
-   */
-  /**
-   * Deliberately no price and no free-support window here.
-   *
-   * Money on the fold invites a visitor to compare on cost before they have
-   * seen anything, which is the one frame a new studio cannot win. Pricing is
-   * answered properly in the FAQ, where there is room to justify it.
-   *
-   * Both of these answer an unspoken worry instead, and both cost nothing to
-   * honour: "what if the design is wrong and I am stuck with it", and "what if
-   * they hold my store hostage".
-   */
+
+  
   chips: [
     { label: 'Design', value: 'Approved by you' },
     { label: 'Ownership', value: '100% yours' },
@@ -196,17 +94,6 @@ export type TechName =
   | 'node'
   | 'vercel'
 
-/**
- * A capability strip, not a client list. A new studio with two builds cannot
- * fill a "trusted by" row without inventing brands — but showing what the work
- * is built on is both honest and reassuring to a non-technical buyer.
- *
- * The marks are drawn in Icons.tsx as simplified monochrome glyphs, and each
- * one is shown alongside its name — so nothing depends on the drawing being a
- * pixel-accurate reproduction of someone else's trademark. To use official
- * artwork instead, drop each brand's SVG into `public/brand/tech/` and swap the
- * <TechLogo> in TrustedBy.tsx for an <img>.
- */
 export const toolbelt: { name: string; logo: TechName }[] = [
   { name: 'Shopify', logo: 'shopify' },
   { name: 'React', logo: 'react' },
@@ -242,11 +129,6 @@ export type Service = {
   icon: IconName
   /** Featured cards span two columns on desktop. */
   featured?: boolean
-  /**
-   * Which dropdown option this card's "Get a quote" preselects in the form.
-   * Typed against `enquiryTypes`, so renaming an option there fails the build
-   * rather than silently sending people to a value that no longer exists.
-   */
   enquiryType: EnquiryType
 }
 
@@ -256,11 +138,6 @@ export const services: Service[] = [
     title: 'Shopify Store Development',
     description:
       'A complete store, built and launched. Design, products, payments, shipping and delivery, all set up properly so you can run it yourself the day we hand it over.',
-    /* "Custom design, not a stock theme" used to sit here. It ruled out
-       starting from a premium theme, which is often the right call on budget
-       and timeline — so it was a promise that would sometimes have to be
-       broken. This says the outcome instead of the method: however we get
-       there, the store looks like the brand rather than the template. */
     bullets: [
       'Designed around your brand',
       'Payments & COD configured',
@@ -275,7 +152,7 @@ export const services: Service[] = [
     title: 'Store Rescue & Rebuild',
     description:
       'Already have a site that is not bringing in orders? We audit it, tell you exactly what is costing you sales, then fix it, or rebuild it if that is genuinely cheaper.',
-    bullets: ['Free audit first', 'Fix the leaks, keep the brand', 'No rebuild unless it is warranted'],
+    bullets: ['Free proposal first', 'Fix the leaks, keep the brand', 'No rebuild unless it is warranted'],
     icon: 'shield',
     enquiryType: 'Fixing an existing store',
   },
@@ -331,33 +208,14 @@ export const services: Service[] = [
 
 export type Project = {
   slug: string
-  /**
-   * Rendered publicly, and shipped inside the JavaScript bundle.
-   *
-   * Never put a name here you could not publish. Everything in this object
-   * reaches the browser: a "confidential" flag hides fields from the page, it
-   * does not hide them from anyone who opens devtools. For a client you cannot
-   * name, put a descriptor here and keep the real name in a code comment,
-   * which is stripped at build time.
-   */
   client: string
   category: string
   year: string
   /** Tints the cover artwork, and is the fallback when `image` is absent. */
   visual: 'fashion' | 'jewelry' | 'beauty' | 'lifestyle'
-  /**
-   * Real screenshot, served from `public/`. A missing file degrades to the
-   * generated mock rather than a broken image.
-   */
   image?: string
-  /**
-   * How `image` is presented.
-   *  - `full`  — edge to edge. Best when the store's hero is a big piece of
-   *              photography that should carry the card on its own.
-   *  - `frame` — inside a browser frame (the default). Best for UI-led screens.
-   */
   imageFit?: 'full' | 'frame'
-  /** Extra screenshots shown as a gallery inside the case study. */
+
   gallery?: string[]
   /** Live site. Adds a "Visit site" link to the case study header. */
   url?: string
@@ -526,7 +384,7 @@ export const processSteps = [
     title: 'Build',
     duration: 'Week 2–3',
     description:
-      'Products, payments, shipping and delivery configured alongside the design. You get a live preview link from day one, so you are never waiting to find out how it is going.',
+      'Products, payments, shipping and delivery configured alongside the design. You get a preview link from the first week, so you are never waiting to find out how it is going.',
   },
   {
     title: 'Test',
@@ -570,9 +428,9 @@ export type Stat = {
  */
 export const stats: Stat[] = [
   /* "90+ Lighthouse" and "24h reply time" were removed here: the first was
-     tied to the Speed & Performance service card that no longer exists, and
-     reply time now lives in the hero metrics instead, so repeating it here
-     would say the same thing twice on one page. */
+     tied to a service card that no longer exists, and the second moved to the
+     hero. The hero strip has since gone too, so reply time is now promised
+     only in the Care service card and the FAQ. */
   {
     // Was 30. A free month of support on a fixed-price build is a large
     // amount of billable time to give away, and most post-launch issues
@@ -667,14 +525,14 @@ export const faqs = [
   {
     question: 'How much does a Shopify store cost?',
     answer:
-      'Every store is different. Cost depends on your products, pages, design complexity and integrations: payments, inventory, apps and the rest. We start with a free audit to understand exactly what you need, then give you a fixed price. Never open-ended hourly billing, and no surprises later.',
+      'Every store is different. Cost depends on your products, pages, design complexity and integrations: payments, inventory, apps and the rest. We start with a free proposal to understand exactly what you need, then give you a fixed price. Never open-ended hourly billing, and no surprises later.',
     /* Consider adding a starting figure to this answer. "It depends" is the
        most common answer on agency sites and one of the most expensive: a
        visitor who gets no signal on cost usually assumes "expensive" and
        leaves, while everyone who does write in has to be disqualified by
        hand. A floor — "projects start at PKR X" — is not a quote, it is a
        filter that works while you sleep. */
-    cta: { label: 'Get a free proposal', href: '#contact' },
+    cta: { label: 'Get a free proposal' },
   },
   {
     question: 'How long does it take?',
@@ -689,7 +547,7 @@ export const faqs = [
   {
     question: 'You are a new studio. Why should I trust you with my brand?',
     answer:
-      'Fair question, and here is the honest answer: we are small and new, which is exactly why your project gets our full attention rather than being third in a queue. We de-risk it for you instead of asking you to take our word: a free audit before you spend anything, a fixed price agreed up front, payment split across milestones rather than in advance, and everything in your own accounts from day one. If we disappear tomorrow, you still own a working store.',
+      'Fair question, and here is the honest answer: we are small and new, which is exactly why your project gets our full attention rather than being third in a queue. We de-risk it for you instead of asking you to take our word: a free proposal before you spend anything, a fixed price agreed up front, payment split across milestones rather than in advance, and everything in your own accounts from day one. If we disappear tomorrow, you still own a working store.',
   },
   {
     question: 'Do you set up products, payments and delivery too?',

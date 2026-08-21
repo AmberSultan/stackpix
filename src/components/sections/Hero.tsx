@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/Button'
 import { ArrowUpRight, ArrowRight } from '@/components/ui/Icons'
 import { AuroraBackdrop, GridBackdrop } from '@/components/ui/Backdrop'
 import { hero } from '@/config/site'
+import { openContactDialog } from '@/lib/contactDialog'
 import { useMouseParallax } from '@/hooks/useMouseParallax'
 import { cn } from '@/lib/cn'
 
@@ -125,7 +126,7 @@ export function Hero({ ready }: Props) {
               style={stagger(4)}
             >
               <Button
-                href={hero.primaryCta.href}
+                onClick={() => openContactDialog()}
                 size="lg"
                 magnetic
                 className="w-full sm:w-auto"
@@ -146,23 +147,6 @@ export function Hero({ ready }: Props) {
             </div>
           </div>
 
-          {/* Proof strip */}
-          <ul
-            className={cn(
-              'mt-20 grid w-full max-w-2xl grid-cols-3 divide-x divide-line',
-              enterClass,
-            )}
-            style={stagger(5)}
-          >
-            {hero.metrics.map((metric) => (
-              <li key={metric.label} className="px-2 sm:px-6">
-                <p className="text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">
-                  {metric.value}
-                </p>
-                <p className="mt-1.5 text-[0.8125rem] text-muted">{metric.label}</p>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
 

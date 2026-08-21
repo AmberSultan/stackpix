@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Field, Honeypot } from '@/components/ui/Field'
-import { onQuoteRequest } from '@/lib/enquiryIntent'
 import { ArrowRight, Check } from '@/components/ui/Icons'
 import { enquiry, enquiryTypes, site } from '@/config/site'
+import { scrollElementIntoView } from '@/lib/smoothScroll'
 import { cn } from '@/lib/cn'
 
 const ENDPOINT = 'https://api.web3forms.com/submit'
@@ -59,28 +59,38 @@ function validate(values: Values): Errors {
   return errors
 }
 
-export function ContactForm() {
-  const [values, setValues] = useState<Values>(EMPTY)
+/**
+ * `bare` drops the card shell. The form supplies its own card when it sits in
+ * a page section, and goes bare inside the contact dialog, which is already a
+ * card — nesting the two reads as a panel inside a panel.
+ */
+type FormProps = {
+  bare?: boolean
+  /**
+   * Preselects the dropdown, so someone who pressed "Get a quote" on a service
+   * card is not asked a question they have just answered.
+   *
+   * A prop rather than a subscription: the dialog's form does not exist until
+   * the dialog opens, so a message published at click time would arrive before
+   * anything was listening.
+   */
+  initialNeed?: string
+  /**
+   * Fires once the message is away, so a host can react to the form changing
+   * from a task into a receipt. The dialog uses it to drop its own heading:
+   * "Tell us what you are building" sitting above "Thanks, that's with us"
+   * asks for something the visitor has just finished doing.
+   */
+  onSuccess?: () => void
+}
+
+export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps = {}) {
+  const [values, setValues] = useState<Values>(() =>
+    initialNeed ? { ...EMPTY, need: initialNeed } : EMPTY,
+  )
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [honeypot, setHoneypot] = useState('')
-
-  /**
-   * A service card's "Get a quote" fills the dropdown in before the visitor
-   * arrives. Focus moves to the message field with `preventScroll`, so the
-   * form is ready to type into without the browser jumping there and fighting
-   * the smooth scroll already in progress.
-   */
-  useEffect(
-    () =>
-      onQuoteRequest((service) => {
-        setValues((current) => ({ ...current, need: service }))
-        setErrors((current) => ({ ...current, need: undefined }))
-        setStatus('idle')
-        document.getElementById('message')?.focus({ preventScroll: true })
-      }),
-    [],
-  )
 
   const set = (key: keyof Values) => (value: string) => {
     setValues((current) => ({ ...current, [key]: value }))
@@ -94,8 +104,10 @@ export function ContactForm() {
     if (status === 'submitting') return // guard against double-submit
 
     // A filled honeypot means a bot. Pretend it worked and send nothing.
+    // Identical UI to a real success, or the trap announces itself.
     if (honeypot) {
       setStatus('success')
+      onSuccess?.()
       return
     }
 
@@ -103,9 +115,15 @@ export function ContactForm() {
     if (Object.keys(found).length > 0) {
       setErrors(found)
       // Move focus to the first problem so keyboard and screen-reader users
-      // are not left guessing why nothing happened.
+      // are not left guessing why nothing happened. Focus without scrolling,
+      // then ease over: focus() on its own snaps, and the form is often inside
+      // the contact dialog, where a snap is the only hard movement on the site.
       const first = Object.keys(found)[0]
-      document.getElementById(first)?.focus()
+      const field = document.getElementById(first)
+      if (field) {
+        field.focus({ preventScroll: true })
+        scrollElementIntoView(field)
+      }
       return
     }
 
@@ -134,6 +152,7 @@ export function ContactForm() {
 
       setStatus('success')
       setValues(EMPTY)
+      onSuccess?.()
     } catch {
       setStatus('error')
     }
@@ -142,7 +161,7 @@ export function ContactForm() {
   if (status === 'success') {
     return (
       <div
-        className="card-surface flex flex-col items-center gap-4 p-10 text-center"
+        className={cn('flex flex-col items-center gap-4 text-center', bare ? 'py-6' : 'card-surface p-10')}
         role="status"
       >
         <span className="flex size-12 items-center justify-center rounded-full bg-brand text-on-brand">
@@ -162,7 +181,11 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="card-surface p-6 text-left md:p-9">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className={cn('text-left', bare ? '' : 'card-surface p-6 md:p-9')}
+    >
       {/* Announces the outcome to screen readers, which otherwise get no
           signal that anything happened after the button was pressed. */}
       <p aria-live="polite" className="sr-only">

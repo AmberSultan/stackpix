@@ -1,20 +1,23 @@
 import { useId, useState } from 'react'
 import { ArrowRight, Plus } from './Icons'
-import { scrollToSection } from '@/lib/smoothScroll'
 import { cn } from '@/lib/cn'
 
 export type AccordionItem = {
   question: string
   answer: string
   /** Optional action below the answer, for questions where the honest reply
-   *  is "it depends — let us look at yours". */
-  cta?: { label: string; href: string }
+   *  is "it depends, let us look at yours". */
+  cta?: { label: string }
 }
 
 type Props = {
   items: readonly AccordionItem[]
   /** Index open on first paint. Pass `null` for all-closed. */
   defaultOpen?: number | null
+  /** Runs when any item's `cta` is pressed. The handler lives with the section
+   *  rather than here so this stays a plain UI component with no idea what a
+   *  contact form is. */
+  onCtaClick?: () => void
 }
 
 /**
@@ -24,7 +27,7 @@ type Props = {
  * smoothly without measuring the content or hardcoding a max-height that
  * breaks the moment the copy changes.
  */
-export function Accordion({ items, defaultOpen = 0 }: Props) {
+export function Accordion({ items, defaultOpen = 0, onCtaClick }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(defaultOpen)
   const baseId = useId()
 
@@ -82,19 +85,15 @@ export function Accordion({ items, defaultOpen = 0 }: Props) {
                   {item.answer}
                 </p>
 
-                {item.cta ? (
-                  <a
-                    href={item.cta.href}
-                    onClick={(event) => {
-                      if (!item.cta!.href.startsWith('#')) return
-                      event.preventDefault()
-                      scrollToSection(item.cta!.href)
-                    }}
-                    className="group/cta mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand transition-colors duration-300 hover:text-brand-bright"
+                {item.cta && onCtaClick ? (
+                  <button
+                    type="button"
+                    onClick={onCtaClick}
+                    className="group/cta mt-4 inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-brand transition-colors duration-300 hover:text-brand-bright"
                   >
                     {item.cta.label}
                     <ArrowRight className="size-4 transition-transform duration-300 ease-[var(--ease-out-quint)] group-hover/cta:translate-x-0.5" />
-                  </a>
+                  </button>
                 ) : null}
 
                 <div className="pb-7" />

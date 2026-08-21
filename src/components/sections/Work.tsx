@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/Icons'
 import { CaseStudy } from './CaseStudy'
 import { projects, publishedResults, type Project } from '@/config/site'
+import { openContactDialog } from '@/lib/contactDialog'
 import { cn } from '@/lib/cn'
 
 export function Work() {
@@ -62,10 +63,10 @@ export function Work() {
             tell us what you sell. We will come back with what we would do
             first. No charge.
           </p>
-          {/* Goes to the form, which offers the free proposal as its first option,
-              so the button and its destination promise the same thing. */}
+          {/* Opens the form, which offers the free proposal as its first
+              option, so the button and what it opens promise the same thing. */}
           <Button
-            href="#contact"
+            onClick={() => openContactDialog()}
             variant="secondary"
             size="lg"
             magnetic

@@ -4,6 +4,7 @@ import { Accordion } from '@/components/ui/Accordion'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/Icons'
 import { faqs, site } from '@/config/site'
+import { openContactDialog } from '@/lib/contactDialog'
 
 export function Faq() {
   return (
@@ -46,7 +47,10 @@ export function Faq() {
           </div>
 
           <Reveal delay={120}>
-            <Accordion items={faqs} />
+            <Accordion
+              items={faqs}
+              onCtaClick={() => openContactDialog('A free proposal')}
+            />
           </Reveal>
         </div>
       </div>

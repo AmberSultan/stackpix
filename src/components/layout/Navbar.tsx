@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Logo } from './Logo'
+import { ContactModal } from './ContactModal'
+import { onOpenContactDialog, openContactDialog } from '@/lib/contactDialog'
 import { ThemeToggle } from './ThemeToggle'
 import { Button } from '@/components/ui/Button'
 import { Menu, Close, ArrowUpRight } from '@/components/ui/Icons'
 import { hero, navLinks, site } from '@/config/site'
 import { useActiveSection } from '@/hooks/useActiveSection'
-import { scrollToSection, setScrollLocked } from '@/lib/smoothScroll'
+import {
+  initNestedScroll,
+  scrollToSection,
+  setScrollLocked,
+} from '@/lib/smoothScroll'
 import { cn } from '@/lib/cn'
 
 const SECTION_IDS = navLinks.map((link) => link.href.slice(1))
@@ -13,6 +19,23 @@ const SECTION_IDS = navLinks.map((link) => link.href.slice(1))
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
+  /** Which service the visitor pressed, if they came from a service card. */
+  const [contactService, setContactService] = useState<string | undefined>()
+
+  const menuScrollRef = useRef<HTMLDivElement>(null)
+  const menuContentRef = useRef<HTMLDivElement>(null)
+
+  /* The navbar owns the dialog because it is the one component always
+     mounted. Any CTA on the page calls openContactDialog() and lands here. */
+  useEffect(
+    () =>
+      onOpenContactDialog((service) => {
+        setContactService(service)
+        setContactOpen(true)
+      }),
+    [],
+  )
   const activeSection = useActiveSection(SECTION_IDS)
 
   // Condense the header once the hero starts leaving.
@@ -30,6 +53,17 @@ export function Navbar() {
     if (!menuOpen) return
     setScrollLocked(true)
     return () => setScrollLocked(false)
+  }, [menuOpen])
+
+  // Same easing inside the menu as on the page. Only while it is open: the
+  // overlay stays mounted and merely hidden, so an instance created on mount
+  // would sit there listening for wheel events over an invisible panel.
+  useEffect(() => {
+    if (!menuOpen) return
+    const wrapper = menuScrollRef.current
+    const content = menuContentRef.current
+    if (!wrapper || !content) return
+    return initNestedScroll(wrapper, content)
   }, [menuOpen])
 
   // A resize past the mobile breakpoint should not leave the overlay stuck open.
@@ -58,7 +92,10 @@ export function Navbar() {
         href="#top"
         onClick={(event) => {
           event.preventDefault()
-          document.getElementById('top')?.focus()
+          // preventScroll matters: a plain focus() jumps the page to the
+          // target instantly, and the eased scroll below then has nothing
+          // left to travel.
+          document.getElementById('top')?.focus({ preventScroll: true })
           scrollToSection('#top')
         }}
         className="sr-only z-100 focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:rounded-full focus:bg-brand focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-on-brand"
@@ -123,7 +160,11 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <ThemeToggle className="max-lg:hidden" />
 
-              <Button href="#contact" size="sm" className="max-lg:hidden">
+              <Button
+                onClick={() => openContactDialog()}
+                size="sm"
+                className="max-lg:hidden"
+              >
                 Start a project
               </Button>
 
@@ -153,71 +194,93 @@ export function Navbar() {
       >
         <div className="absolute inset-0 bg-ink/95 backdrop-blur-2xl" />
 
-        <div className="relative flex h-full flex-col">
-          <div className="container-page flex items-center justify-between py-8">
-            <Logo />
+        {/* Scrollable, because the five links plus the header and the CTA add
+            up to more than a short phone's viewport, and a flex item will not
+            shrink below its content. Without this the CTA at the bottom is
+            simply unreachable. `min-h-full` keeps the nav optically centred
+            on the taller screens where it all fits. */}
+        <div
+          ref={menuScrollRef}
+          data-lenis-prevent
+          className="relative h-full overflow-y-auto overscroll-contain"
+        >
+          <div ref={menuContentRef} className="flex min-h-full flex-col">
+            <div className="container-page flex items-center justify-between py-8">
+              <Logo />
 
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <button
-                type="button"
-                onClick={() => setMenuOpen(false)}
-                aria-label="Close menu"
-                className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-accent transition-colors duration-300 hover:bg-fill-2"
-              >
-                <Close className="size-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close menu"
+                  className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-line text-accent transition-colors duration-300 hover:bg-fill-2"
+                >
+                  <Close className="size-5" />
+                </button>
+              </div>
             </div>
-          </div>
 
-          <nav
-            aria-label="Mobile"
-            className="container-page flex flex-1 flex-col justify-center gap-1"
-          >
-            {navLinks.map((link, index) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(event) => {
-                  event.preventDefault()
-                  handleNavClick(link.href)
+            <nav
+              aria-label="Mobile"
+              className="container-page flex flex-1 flex-col justify-center gap-1"
+            >
+              {navLinks.map((link, index) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(event) => {
+                    event.preventDefault()
+                    handleNavClick(link.href)
+                  }}
+                  style={{ transitionDelay: menuOpen ? `${120 + index * 55}ms` : '0ms' }}
+                  className={cn(
+                    'border-b border-line py-5 text-[2rem] font-medium tracking-[-0.03em]',
+                    'transition-[opacity,transform] duration-700 ease-[var(--ease-out-quint)]',
+                    menuOpen
+                      ? 'translate-y-0 opacity-100'
+                      : 'translate-y-6 opacity-0',
+                  )}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* The header's CTA moves here on mobile, where it gets full width
+                and a reason to tap rather than four words squeezed into a pill. */}
+            <div className="container-page space-y-4 pb-12">
+              <Button
+                size="lg"
+                className="w-full"
+                icon={<ArrowUpRight className="size-4" />}
+                onClick={() => {
+                  // Close the menu first, then open the dialog once its exit has
+                  // played. Both lock scrolling, so overlapping them would leave
+                  // the menu's cleanup releasing the dialog's lock.
+                  setMenuOpen(false)
+                  window.setTimeout(() => openContactDialog(), 260)
                 }}
-                style={{ transitionDelay: menuOpen ? `${120 + index * 55}ms` : '0ms' }}
-                className={cn(
-                  'border-b border-line py-5 text-[2rem] font-medium tracking-[-0.03em]',
-                  'transition-[opacity,transform] duration-700 ease-[var(--ease-out-quint)]',
-                  menuOpen
-                    ? 'translate-y-0 opacity-100'
-                    : 'translate-y-6 opacity-0',
-                )}
               >
-                {link.label}
+                {hero.primaryCta.label}
+              </Button>
+
+              <a
+                href={`mailto:${site.email}`}
+                className="block text-center text-sm text-muted transition-colors hover:text-accent"
+              >
+                {site.email}
               </a>
-            ))}
-          </nav>
-
-          {/* The header's CTA moves here on mobile, where it gets full width
-              and a reason to tap rather than four words squeezed into a pill. */}
-          <div className="container-page space-y-4 pb-12">
-            <Button
-              href={hero.primaryCta.href}
-              size="lg"
-              className="w-full"
-              icon={<ArrowUpRight className="size-4" />}
-              onClick={() => setMenuOpen(false)}
-            >
-              {hero.primaryCta.label}
-            </Button>
-
-            <a
-              href={`mailto:${site.email}`}
-              className="block text-center text-sm text-muted transition-colors hover:text-accent"
-            >
-              {site.email}
-            </a>
+            </div>
           </div>
         </div>
       </div>
+
+      <ContactModal
+        open={contactOpen}
+        service={contactService}
+        onClose={() => setContactOpen(false)}
+      />
     </>
   )
 }

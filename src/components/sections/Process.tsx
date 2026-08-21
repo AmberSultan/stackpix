@@ -3,6 +3,7 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Button } from '@/components/ui/Button'
 import { ArrowUpRight } from '@/components/ui/Icons'
 import { processSteps } from '@/config/site'
+import { openContactDialog } from '@/lib/contactDialog'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
 
 /**
@@ -31,13 +32,16 @@ export function Process() {
             />
 
             <Reveal delay={200} className="mt-10">
+              {/* Named after step one of the list beside it. It used to read
+                  "Start with discovery", which is a step this process no
+                  longer has. */}
               <Button
-                href="#contact"
+                onClick={() => openContactDialog('A free proposal')}
                 size="lg"
                 magnetic
                 icon={<ArrowUpRight className="size-4" />}
               >
-                Start with discovery
+                Start with a free proposal
               </Button>
             </Reveal>
           </div>

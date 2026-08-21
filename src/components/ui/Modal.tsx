@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { setScrollLocked } from '@/lib/smoothScroll'
+import { initNestedScroll, setScrollLocked } from '@/lib/smoothScroll'
 import { ModalCloseContext } from './modalClose'
 import { Close } from './Icons'
 import { cn } from '@/lib/cn'
@@ -13,10 +13,19 @@ type Props = {
   onClose: () => void
   children: ReactNode
   label: string
+  /**
+   * `sheet` — near full-height panel rising from the bottom. For long content
+   * that the visitor will scroll through, like a case study.
+   *
+   * `dialog` — centred, width-capped card. For a short, self-contained task
+   * such as a form. A form floating in the middle of a full-height sheet
+   * reads as an empty page with something small in it.
+   */
+  variant?: 'sheet' | 'dialog'
 }
 
 /**
- * Full-screen overlay used for case studies.
+ * Focus-trapping overlay.
  *
  * Closing is initiated from inside the component: the exit transition plays
  * first, then `onClose` fires and the parent unmounts it. That ordering keeps
@@ -28,8 +37,17 @@ type Props = {
  * dialog and restored on close, and a keyboard trap so Tab cannot wander
  * behind the overlay.
  */
-export function Modal({ open, onClose, children, label }: Props) {
+export function Modal({
+  open,
+  onClose,
+  children,
+  label,
+  variant = 'sheet',
+}: Props) {
+  const isDialog = variant === 'dialog'
+
   const panelRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const restoreFocusRef = useRef<HTMLElement | null>(null)
   const closingRef = useRef(false)
 
@@ -90,6 +108,18 @@ export function Modal({ open, onClose, children, label }: Props) {
     if (entered) panelRef.current?.focus()
   }, [entered])
 
+  /* The panel is its own scroll container, and the page instance is told to
+     leave it alone (`data-lenis-prevent`). Without this it would be the one
+     surface on the site that scrolls natively, which is jarring immediately
+     after an eased page scroll. */
+  useEffect(() => {
+    if (!open) return
+    const wrapper = panelRef.current
+    const content = contentRef.current
+    if (!wrapper || !content) return
+    return initNestedScroll(wrapper, content)
+  }, [open])
+
   useEffect(() => {
     if (!open) return
 
@@ -125,11 +155,22 @@ export function Modal({ open, onClose, children, label }: Props) {
   // Release the lock even if the tree unmounts mid-transition.
   useEffect(() => () => setScrollLocked(false), [])
 
-  if (!open) return null
+  // No portal target outside a browser. A modal is never open on first paint,
+  // so returning null costs nothing and keeps the tree safe to render on the
+  // server — which prerendering would otherwise crash on.
+  if (!open || typeof document === 'undefined') return null
 
   return createPortal(
     <ModalCloseContext.Provider value={requestClose}>
-    <div className="fixed inset-0 z-100" role="dialog" aria-modal="true" aria-label={label}>
+    <div
+      className={cn(
+        'fixed inset-0 z-100',
+        isDialog && 'flex items-center justify-center p-4 sm:p-6',
+      )}
+      role="dialog"
+      aria-modal="true"
+      aria-label={label}
+    >
       <button
         type="button"
         tabIndex={-1}
@@ -150,28 +191,50 @@ export function Modal({ open, onClose, children, label }: Props) {
         tabIndex={-1}
         data-lenis-prevent
         className={cn(
-          'absolute inset-x-0 top-4 bottom-0 overflow-y-auto outline-none',
-          'rounded-t-[1.75rem] border-t border-line bg-ink sm:top-8 md:top-12',
+          'overflow-y-auto bg-ink outline-none',
           'transition-[transform,opacity] duration-[420ms] ease-[var(--ease-out-quint)]',
-          entered ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0',
+          isDialog
+            ? [
+                // Capped height rather than fixed, so a short form sits at its
+                // natural size and a long one scrolls inside the card.
+                'relative max-h-[calc(100dvh-2rem)] w-full max-w-2xl',
+                'rounded-[var(--radius-panel)] border border-line shadow-[var(--p-lift-shadow)]',
+                entered ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
+              ]
+            : [
+                'absolute inset-x-0 top-4 bottom-0',
+                'rounded-t-[1.75rem] border-t border-line sm:top-8 md:top-12',
+                entered ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0',
+              ],
         )}
       >
-        <div className="sticky top-0 z-10 flex justify-end border-b border-line bg-ink/85 px-5 py-4 backdrop-blur-xl md:px-10">
-          <button
-            type="button"
-            onClick={() => requestClose()}
+        {/* Everything that scrolls lives in one child of the panel, which is
+            what Lenis needs to measure a nested container. The header stays
+            sticky inside it: sticky resolves against the scrollport (the
+            panel), not against its immediate parent. */}
+        <div ref={contentRef}>
+          <div
             className={cn(
-              'flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2',
-              'text-sm text-subtle transition-colors duration-300',
-              'hover:border-line-strong hover:bg-fill-2 hover:text-accent',
+              'sticky top-0 z-10 flex justify-end border-b border-line bg-ink/85 backdrop-blur-xl',
+              isDialog ? 'px-4 py-3' : 'px-5 py-4 md:px-10',
             )}
           >
-            Close
-            <Close className="size-4" />
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={() => requestClose()}
+              className={cn(
+                'flex cursor-pointer items-center gap-2 rounded-full border border-line px-4 py-2',
+                'text-sm text-subtle transition-colors duration-300',
+                'hover:border-line-strong hover:bg-fill-2 hover:text-accent',
+              )}
+            >
+              Close
+              <Close className="size-4" />
+            </button>
+          </div>
 
-        {children}
+          {children}
+        </div>
       </div>
     </div>
     </ModalCloseContext.Provider>,
