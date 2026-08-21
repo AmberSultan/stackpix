@@ -48,7 +48,14 @@
      the hover/highlight tone plus the centre of the gradient. Dark mode uses
      #0d8a98 directly, where it measures 4.96:1. */
   --p-brand: #0b7a87;
-  --p-brand-bright: #0d8a98;
+  /* "Bright" means "further from the background", which on a light ground is
+     DARKER, not lighter. This is the hover tone, and it used to be #0d8a98:
+     lighter than --p-brand, so contrast fell exactly when a visitor was
+     interacting. White on it measured 4.11:1 and the FAQ link measured
+     3.83:1, both under AA. #0a6f7b gives 5.88:1 with white and 5.48:1 on the
+     page background, and reads as a clear press. Dark mode does the opposite
+     for the same reason: see the [data-theme='dark'] block. */
+  --p-brand-bright: #0a6f7b;
   --p-brand-deep: #075c66;
   --p-on-brand: #ffffff; /* 5.06:1 on --p-brand */
 

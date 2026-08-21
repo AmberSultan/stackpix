@@ -30,9 +30,9 @@ export function Faq() {
                     sales" assumed an existing store, which quietly excluded
                     the visitor who has not built one yet. */}
                 <p className="leading-relaxed">
-                  Send us your site, or just tell us what you sell. We will reply
-                  with three specific things we would do first. Free, no call
-                  required, no pitch attached.
+                  Ask us anything that is not answered here. Or point us at what
+                  you have now and we will tell you where it is losing people.
+                  No call required, no pitch attached.
                 </p>
                 <Button
                   href={`mailto:${site.email}`}

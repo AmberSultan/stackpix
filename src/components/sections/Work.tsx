@@ -59,9 +59,9 @@ export function Work() {
 
         <Reveal className="mt-20 flex flex-col items-center gap-4" variant="fade">
           <p className="max-w-md text-center text-sm text-muted">
-            Want to see how we would approach yours? Send us your site, or just
-            tell us what you sell. We will come back with what we would do
-            first. No charge.
+            Every build gets written up like this one. Tell us what you sell
+            and we will come back with the three things we would change first,
+            at no cost.
           </p>
           {/* Opens the form, which offers the free proposal as its first
               option, so the button and what it opens promise the same thing. */}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { Field, Honeypot } from '@/components/ui/Field'
 import { ArrowRight, Check } from '@/components/ui/Icons'
 import { enquiry, enquiryTypes, site } from '@/config/site'
@@ -89,6 +89,20 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
     initialNeed ? { ...EMPTY, need: initialNeed } : EMPTY,
   )
   const [errors, setErrors] = useState<Errors>({})
+  /**
+   * This form renders twice on the page: once in the contact section and again
+   * inside the dialog. Element ids have to be unique across the whole
+   * document, so each instance namespaces its own.
+   *
+   * Without this the two copies shared ids. `getElementById` and every
+   * `<label for>` in the dialog resolved to the section's form instead, so an
+   * invalid dialog submit moved focus to a field hidden behind the overlay.
+   */
+  const uid = useId()
+  const fieldId = (key: keyof Values | 'honeypot') => `${uid}-${key}`
+  // Scopes the focus lookup to this form. Queried by name rather than id
+  // because useId() produces characters that need escaping in a selector.
+  const formRef = useRef<HTMLFormElement>(null)
   const [status, setStatus] = useState<Status>('idle')
   const [honeypot, setHoneypot] = useState('')
 
@@ -119,7 +133,7 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
       // then ease over: focus() on its own snaps, and the form is often inside
       // the contact dialog, where a snap is the only hard movement on the site.
       const first = Object.keys(found)[0]
-      const field = document.getElementById(first)
+      const field = formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)
       if (field) {
         field.focus({ preventScroll: true })
         scrollElementIntoView(field)
@@ -182,6 +196,7 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
       noValidate
       className={cn('text-left', bare ? '' : 'card-surface p-6 md:p-9')}
@@ -193,11 +208,12 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
         {status === 'error' ? 'Your message could not be sent' : ''}
       </p>
 
-      <Honeypot value={honeypot} onChange={setHoneypot} />
+      <Honeypot id={fieldId('honeypot')} value={honeypot} onChange={setHoneypot} />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
-          id="name"
+          id={fieldId('name')}
+          name="name"
           label="Name"
           value={values.name}
           onChange={set('name')}
@@ -208,7 +224,8 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
           placeholder="Your name or brand"
         />
         <Field
-          id="email"
+          id={fieldId('email')}
+          name="email"
           type="email"
           label="Email"
           value={values.email}
@@ -223,7 +240,8 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
 
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
         <Field
-          id="link"
+          id={fieldId('link')}
+          name="link"
           label="Website or social profile"
           value={values.link}
           onChange={set('link')}
@@ -231,7 +249,8 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
           placeholder="Your social profile"
         />
         <Field
-          id="need"
+          id={fieldId('need')}
+          name="need"
           as="select"
           label="What do you need?"
           value={values.need}
@@ -244,7 +263,8 @@ export function ContactForm({ bare = false, initialNeed, onSuccess }: FormProps 
       </div>
 
       <Field
-        id="message"
+        id={fieldId('message')}
+        name="message"
         as="textarea"
         label="Tell us about it"
         value={values.message}

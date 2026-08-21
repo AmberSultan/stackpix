@@ -3,6 +3,13 @@ import { cn } from '@/lib/cn'
 
 type BaseProps = {
   id: string
+  /**
+   * Defaults to `id`. Split from it because `id` has to be unique across the
+   * whole document while `name` only has to be unique within one form, so a
+   * second copy of a form can namespace its ids and still be queried by a
+   * stable name.
+   */
+  name?: string
   label: string
   value: string
   onChange: (value: string) => void
@@ -35,6 +42,7 @@ type Props =
 export function Field(props: Props) {
   const {
     id,
+    name,
     label,
     value,
     onChange,
@@ -55,7 +63,7 @@ export function Field(props: Props) {
 
   const shared = {
     id,
-    name: id,
+    name: name ?? id,
     value,
     required,
     placeholder,
@@ -133,17 +141,20 @@ export function Field(props: Props) {
 
 /** Off-screen input that only a bot fills in. Real users never see it. */
 export function Honeypot({
+  id = 'company-website',
   value,
   onChange,
 }: {
+  /** Namespaced by the form, so two forms do not both claim this id. */
+  id?: string
   value: string
   onChange: (v: string) => void
 }): ReactNode {
   return (
     <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-      <label htmlFor="company-website">Company website</label>
+      <label htmlFor={id}>Company website</label>
       <input
-        id="company-website"
+        id={id}
         name="company-website"
         type="text"
         tabIndex={-1}
